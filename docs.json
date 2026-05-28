@@ -35,17 +35,57 @@
               "en/development"
             ]
           }
+        ],
+        "default": true
+      },
+      {
+        "language": "ja",
+        "groups": [
+          {
+            "group": "はじめに",
+            "pages": [
+              "ja/overview.mdx",
+              "ja/quickstart.mdx",
+              "ja/development.mdx"
+            ]
+          }
         ]
       },
       {
-        "language": "es",
+        "language": "ko",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "시작하기",
             "pages": [
-              "es/overview",
-              "es/quickstart",
-              "es/development"
+              "ko/overview.mdx",
+              "ko/quickstart.mdx",
+              "ko/development.mdx"
+            ]
+          }
+        ]
+      },
+      {
+        "language": "zh-Hant",
+        "groups": [
+          {
+            "group": "開始使用",
+            "pages": [
+              "zh-Hant/overview.mdx",
+              "zh-Hant/quickstart.mdx",
+              "zh-Hant/development.mdx"
+            ]
+          }
+        ]
+      },
+      {
+        "language": "zh-Hans",
+        "groups": [
+          {
+            "group": "开始使用",
+            "pages": [
+              "zh-Hans/overview.mdx",
+              "zh-Hans/quickstart.mdx",
+              "zh-Hans/development.mdx"
             ]
           }
         ]
