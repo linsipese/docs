@@ -9,7 +9,6 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "pages": ["index", "quickstart"],
     "global": {
       "anchors": [
         {
@@ -23,7 +22,35 @@
           "icon": "newspaper"
         }
       ]
-    }
+    },
+    "languages": [
+      {
+        "language": "en",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": [
+              "en/overview",
+              "en/quickstart",
+              "en/development"
+            ]
+          }
+        ]
+      },
+      {
+        "language": "es",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": [
+              "es/overview",
+              "es/quickstart",
+              "es/development"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
@@ -60,5 +87,8 @@
       "github": "https://github.com/mintlify",
       "linkedin": "https://linkedin.com/company/mintlify"
     }
+  },
+  "interaction": {
+    "drilldown": false
   }
 }
