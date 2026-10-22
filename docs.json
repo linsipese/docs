@@ -44,9 +44,9 @@
           {
             "group": "はじめに",
             "pages": [
-              "ja/overview",
-              "ja/quickstart",
-              "ja/development"
+              "ja/overview.mdx",
+              "ja/quickstart.mdx",
+              "ja/development.mdx"
             ]
           }
         ]
@@ -57,35 +57,35 @@
           {
             "group": "시작하기",
             "pages": [
-              "ko/overview",
-              "ko/quickstart",
-              "ko/development"
+              "ko/overview.mdx",
+              "ko/quickstart.mdx",
+              "ko/development.mdx"
             ]
           }
         ]
       },
       {
         "language": "zh-Hant",
-        "groups": [
+        "pages": [
+          "zh-Hant/development.mdx",
+          "zh-Hant/quickstart.mdx",
           {
             "group": "開始使用",
             "pages": [
-              "zh-Hant/overview",
-              "zh-Hant/quickstart",
-              "zh-Hant/development"
+              "zh-Hant/overview.mdx"
             ]
           }
         ]
       },
       {
         "language": "zh-Hans",
-        "groups": [
+        "pages": [
+          "zh-Hans/overview.mdx",
           {
             "group": "开始使用",
             "pages": [
-              "zh-Hans/overview",
-              "zh-Hans/quickstart",
-              "zh-Hans/development"
+              "zh-Hans/quickstart.mdx",
+              "zh-Hans/development.mdx"
             ]
           }
         ]
