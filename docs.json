@@ -66,24 +66,24 @@
       },
       {
         "language": "zh-Hant",
-        "groups": [
+        "pages": [
+          "zh-Hant/development.mdx",
+          "zh-Hant/quickstart.mdx",
           {
             "group": "開始使用",
             "pages": [
-              "zh-Hant/overview.mdx",
-              "zh-Hant/quickstart.mdx",
-              "zh-Hant/development.mdx"
+              "zh-Hant/overview.mdx"
             ]
           }
         ]
       },
       {
         "language": "zh-Hans",
-        "groups": [
+        "pages": [
+          "zh-Hans/overview.mdx",
           {
             "group": "开始使用",
             "pages": [
-              "zh-Hans/overview.mdx",
               "zh-Hans/quickstart.mdx",
               "zh-Hans/development.mdx"
             ]
@@ -93,8 +93,8 @@
     ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/dark.svg",
+    "dark": "/logo/light.svg"
   },
   "navbar": {
     "links": [
