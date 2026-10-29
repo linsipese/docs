@@ -1,0 +1,133 @@
+---
+title: "Creating and Configuring an Agent"
+---
+
+## Create and Configure an Agent
+
+Use Agent Builder to create agents and configure their languages, voice, conversation strategy, telephone lines, and fields.
+
+### Create an Agent
+
+1. Select `Create Agent`。
+2. Enter an agent name and select an agent type. A name is required and can contain up to 30 characters. Available types include `Inbound`、`Outbound`、`Chatbot` and `Webvoice`。
+3. Go to `Basic Configuration`。
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/creating-and-configuring-an-agent/img-1.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/creating-and-configuring-an-agent/img-2.png)
+</column>
+</grid>
+
+### Basic Configuration
+
+#### Basic Agent Information
+
+| **Setting** | **Description** |
+|-|-|
+| `Agent Name` | Required; up to 30 characters. |
+| `Agent Title` | Optional; up to 30 characters. |
+| `Agent Description` | Optional; up to 200 characters. |
+| `Agent Avatar` | Optional. Upload an image or select a system avatar. Uploaded images must be 180 × 180 pixels, in a supported format such as JPG or PNG, and smaller than 2 MB. |
+
+![](/images/en/agent-builder/creating-and-configuring-an-agent/img-3.png)
+
+#### Language Settings
+
+`Primary Language` is a single-select option. The primary language cannot be changed after the agent is created and saved.
+
+`Secondary Language` supports multiple languages. A saved language cannot be removed; you can only add more languages.
+
+Each selected language has its own ASR and TTS configuration card. The primary-language card has the `Primary` label.
+
+
+
+#### Access Information and Keys (Webvoice/Chatbot)
+
+For `Webvoice` agents, `Access Info` displays the system-generated access URL.
+
+![](/images/en/agent-builder/creating-and-configuring-an-agent/img-4.png)
+
+For `Chatbot` agents, Access Info includes `EID` and the system-generated access URL.
+
+![](/images/en/agent-builder/creating-and-configuring-an-agent/img-5.png)
+
+### Voice Configuration
+
+#### ASR Configuration
+
+ASR configuration applies to `Inbound`、`Outbound` telephony agent types and `Webvoice`. Configure an ASR service, `VAD Delay (ms)`, and `ASR Hotwords`. The default VAD delay is `500` (a positive integer).
+
+Enter hotwords individually or import them in batches, one per line. You can append a batch to the existing list or replace the list. Duplicate hotwords are removed.
+
+![](/images/en/agent-builder/creating-and-configuring-an-agent/img-6.png)
+
+#### TTS Configuration
+
+TTS configuration applies to `Inbound`、`Outbound` and `Webvoice`. For each language, you can select a voice and preview a standard recording. Voices are labeled `Female` or `Male`.
+
+| Setting | Description |
+|-|-|
+| `Speed (x)` | The slider ranges from `0.5x-2x`, in increments of `0.1`, with a default value of `1.0`。 |
+| `Volume` | The slider ranges from `1-100`, with a default value of `50`。 |
+| `Pronunciation Library` | Select a pronunciation library. The default is `Default`。 |
+
+![](/images/en/agent-builder/creating-and-configuring-an-agent/img-7.png)
+
+### Conversation Strategy Configuration
+
+For `Inbound`、`Outbound` and `Webvoice`, you can configure background audio, the maximum call duration, and `Turn detection`。
+
+You can preview the background audio.
+
+`Max Call Duration (m)`: the maximum duration of the current conversation. The default is 30 minutes. The conversation is forcibly ended when this limit is reached.
+
+`Turn detection`: checks whether each turn is complete. Disabled by default.
+
+![](/images/en/agent-builder/creating-and-configuring-an-agent/img-8.png)
+
+Chatbot agents can be configured with a `Maximum duration of the conversation`, ranging from 1 second to 24 hours, with a default of 5 minutes. The conversation closes if the user does not reply within the configured time.
+
+![](/images/en/agent-builder/creating-and-configuring-an-agent/img-9.png)
+
+### Telephone Line Configuration
+
+Telephone line configuration applies to `Inbound` and `Outbound`。`Webvoice` does not display `Main Calling Phone Number`，`Chatbot` does not use telephone line configuration.
+
+#### Caller ID Numbers
+
+You can add multiple caller ID numbers.
+
+`Outbound` agents can configure transfer concurrency for a caller ID number. The number can be used for outbound calls and transfers through the `Transfer Call Tool` tool. These two uses share the total concurrency limit.
+
+#### Dedicated Transfer Numbers
+
+You can designate an unused `Outbound` line as a dedicated transfer number. A dedicated number is used only for transfers, and its concurrency is separate from the transfer concurrency for caller ID numbers. After a number is deleted, the line cannot be selected again.
+
+![](/images/en/agent-builder/creating-and-configuring-an-agent/img-10.png)
+
+### Agent Fields
+
+`Agent Field` includes system and custom fields. System fields are displayed according to the agent type and cannot be edited in the workspace.
+
+#### Custom Fields
+
+When creating an `extra_field`, you can set the field name, key, type, and default value. After creation, the field name can be edited, but the key and field type cannot be changed. Keys can contain letters and underscores. Field types include number, array, enum, Boolean, text, and time.
+
+| Option | Description |
+|-|-|
+| `Import via "Upload Task"` | For `Outbound`, disabled by default. When enabled, this field can be uploaded through an outbound task. |
+| `Editable in manual` | Disabled by default. When enabled, you can edit field values directly in `Agent Detail - Record List`. |
+| `Sortable` | Disabled by default. When enabled, you can sort by this field in `Agent Detail - Record List`. |
+
+The system field `Start Time` is sortable by default, and this setting cannot be changed.
+
+![](/images/en/agent-builder/creating-and-configuring-an-agent/img-11.png)
+
+### How Agent Basic Configuration Takes Effect (Important)
+
+Agent Basic Configuration and Agent Script Versions are currently edited independently. After you edit and save Agent Basic Configuration, the changes are not applied to any existing Script version. Only Script Versions saved afterward use the latest Agent Basic Configuration parameters.
+
+Therefore, after changing and saving Basic Configuration for an agent, **save a new Script Version in Script Edit (you do not need to change the contents of the Script Version).** The new Script Version will use the latest Basic Configuration parameters. To publish or release this version, use the version list in Test Center.

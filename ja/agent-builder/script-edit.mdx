@@ -1,0 +1,227 @@
+---
+title: "Script バージョンの作成と編集（Script Edit）"
+---
+
+## Agent Script エディター
+
+Agent Script エディターでは、Agent Builder で Agent Script を作成、管理、編集できます。Script のバージョンを作成し、Agent のモデルや会話パラメーターを設定して Main Prompt を作成できます。また、ツール、一時変数、ナレッジベースを関連付け、通話終了後のデータ処理（ACW Work）を設定できます。Outbound タイプの Agent では複数の Script を作成できますが、それ以外のタイプの Agent で作成できる Script は 1 つのみです。
+
+### Script の作成とバージョン管理
+
+<grid>
+<column width-ratio="0.500000">
+#### Script の作成
+1. Agent Builder で Script を作成します。
+2. Script 名を入力し、［確定］をクリックすると、最初のバージョンの編集画面に移動します。
+3. 選択したバージョンの編集が完了したら、**Save**をクリックします。保存が完了すると、最初のバージョンが作成され、バージョン一覧に表示されます。
+</column>
+<column width-ratio="0.500000">
+![](/images/ja/agent-builder/script-edit/img-1.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+#### バージョン一覧の表示
+バージョン一覧には、現在の Script の全バージョンが表示されます。バージョンを選択すると編集画面に移動します。一覧には次の項目が含まれます。
+| フィールド | 説明 |
+|-|-|
+| Script バージョンのアーカイブ名、ID、ステータス | Script バージョンとそのステータスを識別する情報です。 |
+| 作成者 | このバージョンを作成したユーザー |
+| 作成日時 | バージョンの作成日時 |
+| Action | 編集画面を開く |
+バージョン一覧のデータとステータスは、Test Center の Script バージョン一覧と同期されます。
+</column>
+<column width-ratio="0.500000">
+![](/images/ja/agent-builder/script-edit/img-2.png)
+</column>
+</grid>
+
+
+
+モデル設定（Model Configuration）
+
+#### モデル設定（Model Settings）
+
+| 設定 | 設定方法とデフォルト値 |
+|-|-|
+| LLM Model | ドロップダウンリストから使用可能なモデルを選択します。 |
+| Temperature | 範囲は 0～1、刻み幅は 0.1、デフォルト値は 0.5 です。Thinking Mode を有効にすると、この設定が適用されない場合があります。 |
+| Thinking Mode | ドロップダウンリストから思考レベルを選択します。`None`がデフォルトです。 |
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/ja/agent-builder/script-edit/img-3.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/ja/agent-builder/script-edit/img-4.png)
+</column>
+</grid>
+
+#### 会話モード設定（Conversation Mode Settings）
+
+| 設定 | 値とデフォルト値 | 画面の説明 |
+|-|-|-|
+| Silence Wait Time (s) | 最小値は 1 秒、デフォルト値は 10 秒、最大値は 120 秒です。 | ユーザーが無音状態の場合に、Agent が話し始めるまでの待ち時間です。 |
+| Time to First Response (ms) | 500～60,000 ミリ秒、デフォルト値は 1,000 ミリ秒です。 | 通話開始後、Agent が最初に応答するまでの待ち時間です。 |
+| Consecutive Silence Turns Before Hangup | デフォルトで有効です。1～20 ターンに設定でき、デフォルトは 3 ターンです。 | 無音が連続した場合に通話を終了するまでのターン数です。 |
+
+### 初回メッセージ（First Message）
+
+First Message では、Agent の各会話の最初に送るメッセージを設定します。
+
+- 無効にすると、Agent は固定の First Message を使用しません。
+- 入力できるテキストは最大 240 文字です。
+- 音声シナリオでは、テキストが TTS によって冒頭の音声に変換されます。
+- Chatbot シナリオでは、テキストがそのまま表示され、TTS サービスは使用されません。
+
+![](/images/ja/agent-builder/script-edit/img-5.png)
+
+### メインプロンプト（Main Prompt）
+
+Main Prompt は、Agent のメインプロンプトを編集する領域です。エディターでは次の操作ができます。
+
+- 全画面の編集モードを使用できます。
+- フィールド、変数、ツールを認識し、それぞれに対応するタグ形式で表示します。
+- Prompt の総文字数をカウントします。
+- 参照ボタンをクリックするか、`{{`を入力し、カテゴリごとに**Agent フィールド**と**一時変数（システム変数を含む）**を選択します。
+- **Tools**をクリックするか、編集領域で`@`を入力して、参照するツールを選択します。ツールへの参照は、ハイライトされたタグとして表示されます。
+
+![](/images/ja/agent-builder/script-edit/img-6.png)
+
+### ツール（Tools）
+
+Tools & Functions モジュールでは、Agent が呼び出すツールを追加、管理します。
+
+各ツールタイプのフィールドと設定方法については、<cite doc-id="JhFUwRrN6iMyK4k0LBgjt4mppDd" file-type="wiki" title="Agent 工具调用（Tools）" type="doc"></cite>をご覧ください。
+
+
+
+### 一時変数（Temporary Variables）
+
+Temporary Variables は会話中の一時的な値を保存し、さまざまな Prompt や Function から参照できるようにします。
+
+**Temporary Variables の抽出用プロンプト**
+
+Temp Variable Value Extraction Framework Prompt はテキスト入力欄で設定します。テキストには次のプレースホルダーを含める必要があります：{history_variables}、{current_time}、{history}
+
+#### 変数一覧
+
+| フィールド | 説明 |
+|-|-|
+| Name | 一時変数名です。参照中の変数には**In Use**ラベルが表示されます。 |
+| Key | 一時変数の key |
+| LLM Extraction | LLM による抽出を使用するかどうか |
+| Mapped to Agent Field | Agent フィールドに関連付けるかどうか |
+| Sensitive | 機密変数かどうか |
+| Action | 編集または削除 |
+
+#### 変数の追加と編集
+
+一時変数を追加する際は、名前、key、Description、および該当する設定項目を設定します。
+
+- **Sensitive**はデフォルトで無効です。有効にすると、変数値は暗号化されて表示できなくなり、Agent フィールドにも関連付けられません。
+- Agent フィールドへの関連付け：会話終了後、一時変数の値を作成済みの Agent フィールドに直接関連付けることができます。
+- 大規模言語モデルによる一時変数値の抽出：有効にすると、一時変数にはツール呼び出しで値を設定できません（両機能は併用できません）。
+- 参照中の変数は削除できません。削除ボタンは無効になり、key も変更できません。
+
+![](/images/ja/agent-builder/script-edit/img-7.png)
+
+
+
+![](/images/ja/agent-builder/script-edit/img-8.png)
+
+
+
+### ナレッジベース（Knowledge Base）
+
+既存のナレッジを追加します。設定時に、既存のナレッジベースフォルダーを選択します。
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/ja/agent-builder/script-edit/img-9.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/ja/agent-builder/script-edit/img-10.png)
+</column>
+</grid>
+
+
+
+### 通話後処理（After Call Work）
+
+After Call Work（ACW）では、通話終了後のタグ抽出、概要の生成、カスタムツールの呼び出し、データのプッシュを設定します。
+
+![](/images/ja/agent-builder/script-edit/img-11.png)
+
+#### 会話タグ
+
+個別の LLM を設定し、会話終了後に通話内容からカスタムタグを生成します。タグの属性と生成ロジックは自由に定義できます。生成されたタグは、Agent Lab の Agent 通話履歴詳細ページに表示されます。
+
+- **会話タグ**機能はデフォルトで有効ですが、無効にすることもできます。
+- 使用する LLM を個別に設定できます。
+- 各タグには、タグ名、データ型、`Key_name`、抽出用 Prompt、および Agent フィールドに関連付けるかどうかを設定します。
+- データ型は、数値、テキスト、ブール値、列挙型、日時に対応しています。
+- 説明：LLM が該当する値を抽出するための Prompt
+- Agent フィールドへの関連付け：関連付けを有効にしたら、既存の Agent フィールドを選択します。関連付け後は、name、データ型、key を別途定義する必要はありません。会話終了後、関連付けた Agent フィールドに会話タグの値が設定されます。
+
+<grid>
+<column width-ratio="0.519498">
+![](/images/ja/agent-builder/script-edit/img-12.png)
+</column>
+<column width-ratio="0.480502">
+![](/images/ja/agent-builder/script-edit/img-13.png)
+</column>
+</grid>
+
+#### 通話概要（Summary）
+
+個別の LLM を設定し、会話終了後に通話の概要を生成します。Agent Builder にはデフォルトの生成用 Prompt が用意されています。必要に応じて変更できますが、元の Prompt の構成は維持してください。生成された Summary は、Agent Lab の Agent 通話履歴詳細ページに表示されます。
+
+- 通話 Summary はデフォルトで有効ですが、無効にすることもできます。
+- 使用する LLM を個別に設定できます。
+- Summary 生成用の Prompt はデフォルトで用意され、編集もできます。元の Prompt の構成は維持してください。
+
+![](/images/ja/agent-builder/script-edit/img-14.png)
+
+#### ACW カスタム Function の追加
+
+Daisybell Agent は通話終了後も対応するカスタムツールを呼び出してタスクを実行できます。該当する入力欄に Function Key を入力すると、ツールを呼び出せます。
+
+![](/images/ja/agent-builder/script-edit/img-15.png)
+
+#### データのプッシュ
+
+通話終了後、Daisybell Agent Lab では Agent フィールドの値を外部オブジェクトにプッシュできます。作成済みの外部オブジェクトを選択し、必要な設定を行います。
+
+- **連携先（プッシュ先）**：Integrations & API に追加済みのオブジェクトカードから選択します。複数のプッシュ先を追加できます。
+- **オブジェクト Key（Object）**：対応する Key を入力します。
+- **フィールドマッピング**：Agent フィールドを連携先オブジェクトのフィールドにマッピングします。（複数追加できます）
+
+![](/images/ja/agent-builder/script-edit/img-16.png)
+
+![](/images/ja/agent-builder/script-edit/img-17.png)
+
+### その他の設定（Other Settings）
+
+- **Amazon Connect - DTMF による発信者番号の取得**：スイッチはデフォルトでオフです。Inbound タイプの Agent のみ設定できます。
+- **事前処理機能の設定**：スイッチはデフォルトでオフです。有効にしたら、カスタム Function の識別 ID を入力します。Inbound タイプの Agent のみ設定できます。
+- **Bypass 電話転送の設定**：スイッチはデフォルトでオフです。有効にしたら、発信回線、転送先の電話番号、転送処理モードを設定します。転送処理モードは Call Transfer の**Transfer Handling Mode**と同じです。Inbound タイプの Agent のみ設定できます。
+- **固定エラーメッセージ**：Agent でエラーが発生したときに返す定型テキストを設定します。多言語 Agent では、言語ごとに入力欄が用意されています。
+
+![](/images/ja/agent-builder/script-edit/img-18.png)
+
+### インポートとエクスポート
+
+すべての Script 設定は JSON 形式のファイルとして保存されます。Agent Builder では、設定を含む JSON ファイルをインポートおよびエクスポートできます。
+
+### 自動保存
+
+既存のバージョンを編集中は、エディターが 5 分ごとに自動保存し、その旨を表示します。ウィンドウを開いてから 2 時間を超え、その間に変更がない場合、自動保存は停止します。
+
+編集画面に入る前に、次のいずれかを選択できます。
+
+- **Restore Autosaved Content**：自動保存された内容で現在のバージョンの内容を置き換えます。
+- **Keep Current Version Content**：現在のバージョンの内容を保持します。
+
+複数のユーザーが同じバージョンを同時に編集している場合、自動保存された内容のうち最新のものだけが保持されます。**Edit**をクリックしたときに自動保存された内容がある場合も、上記の確認メッセージが表示されます。

@@ -1,0 +1,217 @@
+---
+title: "电话号码管理（Phone Numbers）"
+---
+
+## 电话号码与 SIP 线路配置
+
+> 本文档指导您在 Daisybell Agent Lab 中管理与配置用于 AI Voice Agent 的电话号码（Phone Numbers）。通过配置 SIP Trunk 呼入与呼出线路，您可以无缝打通自有电信运营商线路与语音智能体，实现高可靠、低延迟的双向实时语音交互。
+
+---
+
+### 概览 (Overview)
+
+Phone Numbers 模块提供企业级 SIP 线路接入与统一生命周期管理。无论您是需要为Outbound Agent配置专用的呼出路由，还是为Inbound Agent绑定公开线路，均可在此模块完成自动化配置与并发配额控制。
+
+<callout emoji="ℹ️">
+**支持对等SIP Trunk（非注册模式），DTMF支持RFC4733（RFC2833），音频编码支持G.711，G.722**
+</callout>
+
+![](/images/zh-Hans/general-tools/phone-numbers/img-1.png)
+
+#### 主要设置
+
+- **双向线路支持：** 独立管理呼入（Inbound Numbers）与呼出（Outbound Numbers）线路。
+- **线路并发控制：** 支持按线路细分外呼专用并发（Outbound Concurrency）与转接专用并发（Transfer Concurrency）。
+- **安全传输与鉴权：** 原生支持 SIP 认证（Digest Auth）、信令加密（TLS）与媒体流加密（SRTP / DTLS-SRTP）。
+- **安全防护机制：** 呼入端支持基于 CIDR/IPv4 的来源 IP 白名单校验；运行中线路具备防误删、防停用熔断保护。
+
+---
+
+#### 线路并发与物理并发边界
+
+- **平台并发限制 (Platform Concurrency Limit)：** 在 Agent Lab 界面配置的 `Call Concurrency`（包括外呼专用并发与转接专用并发）属于**平台侧的安全流控与业务配额约束**。该数值决定了 Daisybell 平台允许该号码同时建立的最大通话 Session 数。
+- **供应商线路并发 (Carrier Physical Capacity)：** 线路的底层实际并发能力由签约的电信/SIP Trunk 运营商（Provider）侧的网关带宽及通道容量决定。若平台并发设置超过运营商通道容量，超出的呼叫请求可能在运营商网关侧被拒绝（如返回 `SIP 503 Service Unavailable`）。
+
+### 号码状态
+
+系统中的每条号码线路具有明确的状态标识
+
+| 线路状态 (`Status`) | 定义说明 | 限制与行为 |
+|-|-|-|
+| `Unused` (未使用) | 号码已注册且配置就绪，但尚未绑定至任何 AI Agent。 | 可随时编辑、停用或删除。 |
+| `In Use` (使用中) | 号码已关联至特定的主外呼任务、呼入接待或人工转接策略。 | 不能删除与停用 |
+| `Disabled` (已禁用) | 线路被人为停用，不处理任何呼叫路由。 | 在所有 Agent 的可选线路列表中隐藏，不可被选为呼叫号码。 |
+
+---
+
+### 配置呼出号码 (Outbound Numbers)
+
+<grid>
+<column width-ratio="0.500000">
+呼出号码专用于 AI Agent 主动发起的电话外呼任务以及外呼过程中的人工坐席转接。
+#### 操作步骤
+1. **进入管理页面：** 导航至 `Tools` > `Phone Numbers`，选中 `Outbound Numbers` 页签。
+2. **唤起配置表单：** 点击页面右上角的 `+ Add New` 按钮。
+3. **填写号码：** 输入目标电话号码（纯数字或者E.164格式）。
+4. **指定终止网关 (Termination URI)：** 配置提供商的 SIP Server 域名或 IP 及端口。
+5. **配置传输协议与媒体加密 (Transport & Encryption)：**
+
+   - **传输方式 (`Transport`)：** 依据运营商网关规范，选择信令接收协议（`UDP` / `TCP` / `TLS`）。
+   - **加密方式 (`Encryption`)：** 依据线路安全等级，选择媒体解密协议（`None` / `SRTP` / `DTLS-SRTP`）。
+6. **并发策略：** 设定并发配额分配。包含专用外呼并发和专用转接并发
+7. **确认并保存：** 确认无误后点击 `Add Number` 完成线路部署。
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hans/general-tools/phone-numbers/img-2.png)
+</column>
+</grid>
+
+
+
+#### 参数规格指南
+
+| 参数字段 | 必填 | 格式规范 | 描述 |
+|-|-|-|-|
+| `Phone Number` | 是 | 字符串 (纯数字或者E.164格式) | 真实呼出主叫号码（E.164格式，禁止空格及特殊字符）。 |
+| `Termination URI / Address` | 是 | `域名:端口` 或 `IP:端口` | 运营商提供的 SIP 呼出网关地址（例如：`sip.example.com:5060`）。 |
+| `Encryption` | 是 | 单选：`None` / `SRTP` / `DTLS-SRTP` | 媒体流传输加密协议，默认值为 `None`。 |
+| `Transport` | 是 | 单选：`UDP` / `TCP` / `TLS` | SIP 信令传输层协议，默认值为 `UDP`。 |
+| `SIP Authentication` | 否 | 组合对象 (`Username`, `Password`) | 运营商要求的 SIP 注册/呼叫认证信息，保存后无法显示密码明文。 |
+| `Dedicated Outbound Concurrency` | 是 | 整数 (`0 - 1000`) | 专用于该号码发起常规外呼的最大通话并发数，默认值为 `10`。 |
+| `Dedicated Transfer Concurrency` | 是 | 整数 (`0 - 1000`) | 专用于该号码在触发呼叫转接时的最大并发数，默认值为 `0`。 |
+| `Show Main Caller ID For Transferred Calls` | 否 | 布尔值 (开关，默认关闭) | 开启后，转接给第三方或坐席时仍透传初始主叫号码。 |
+
+> **⚠️ 注意:** 开启 `Show Main Caller ID For Transferred Calls` 前，请务必确认您的电信运营商线路支持透传外部主叫号（CLI Pass-through），否则可能导致转接呼叫被网关拒绝。
+
+
+
+---
+
+### 配置呼入号码 (Inbound Numbers)
+
+<grid>
+<column width-ratio="0.500000">
+呼入号码用于接收来自外部电信网络的呼叫请求，并自动路由至绑定的 Daisybell Voice Agent。
+#### 操作步骤
+1. **切换呼入列表：** 导航至 `Tools` > `Phone Numbers`，点击 `Inbound Numbers` 页签。
+2. **新增呼入配置：** 点击右上角 `+ Add New` 按钮，进入表单配置。
+3. **填写号码：** 输入目标电话号码（纯数字或者E.164格式）。
+4. **配置安全白名单 (White List)：** 添加允许向平台发送呼入 SIP 流量的电信网关 IP 或 CIDR 网段。
+5. **配置传输协议与媒体加密 (Transport & Encryption)：**
+
+   - **传输方式 (`Transport`)：** 依据运营商网关规范，选择信令接收协议（`UDP` / `TCP` / `TLS`）。
+   - **加密方式 (`Encryption`)：** 依据线路安全等级，选择媒体解密协议（`None` / `SRTP` / `DTLS-SRTP`）。
+6. **并发配额：** 指定该号码允许的最大呼入并发容量。
+7. **完成校验：** 确保白名单格式校验通过后，点击 `Add Number`。
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hans/general-tools/phone-numbers/img-3.png)
+</column>
+</grid>
+
+#### 参数规格指南
+
+| 参数字段 | 必填 | 格式规范 | 描述 |
+|-|-|-|-|
+| `Phone Number` | 是 | 字符串 (纯数字或者E.164格式) | 呼入号码（E.164格式，禁止空格及特殊字符）。 |
+| `White List Address` | 是 | IPv4 地址或 CIDR 块 | 允许推送 SIP INVITE 的运营商网关白名单，支持配置多条记录。 |
+| `Encryption` | 是 | 单选：`None` / `SRTP` / `DTLS-SRTP` | 媒体加密策略。 |
+| `Transport` | 是 | 单选：`UDP` / `TCP` / `TLS` | 接收呼入信令的协议规范。 |
+| `Total Call Concurrency` | 是 | 整数 (`1 - 1000`) | 该呼入号码支持的最大同时通话连接数，默认值为 `10`。 |
+
+#### IP 白名单校验规则
+
+系统针对 `White List Address` 执行实时格式和安全校验：
+
+- **校验通过 (`Validated`)：** 输入符合标准的 IPv4 或 CIDR 规范（例如 `123.24.56.78` 或 `123.24.56.78/20`），显示绿色校验成功状态。
+- **格式错误 (`Invalid IP Format`)：** 包含非法字符、越界 IP（如 `0.0.0.0` 用于生产白名单）将阻断提交并高亮红色报错。
+- **重复限制 (`Duplicate IP`)：** 同一号码配置内不允许录入重复的 IP 或网段。
+
+---
+
+### 线路管理与操作 (Line Actions)
+
+在号码列表右侧的 `Actions` 操作菜单中，您可以执行以下维护操作：
+
+#### 1. 查看详情 (Details)
+
+点击唤起详情模态弹窗，展示该号码的所有只读系统元数据与网络参数，包括 `SIP Line ID`（系统唯一标识符）、创建时间（`Date Added`）、当前生效配置及关联 Agent 名称。
+
+
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/zh-Hans/general-tools/phone-numbers/img-4.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hans/general-tools/phone-numbers/img-5.png)
+</column>
+</grid>
+
+#### 2. 编辑线路 (Edit)
+
+- **不可变字段：** 系统分配的 `SIP Line ID` 具备全局唯一性，创建后不可更改。
+- **线路使用锁定：** 若线路状态为 `In Use`，修改网络参数并点击保存时，系统将弹出二次确认提示
+
+
+
+#### 3. 启用与禁用 (Enable / Disable)
+
+- **禁用限制：** 处于 `In Use` 状态的线路**无法直接禁用**。必须先在绑定的 Agent 中解绑或替换号码。
+- **禁用影响：** 线路禁用后无法使用，且该号码将在全局 Agent 配置下拉列表中被隐藏。
+- **启用流程：** 处于 `Disabled` 的线路在操作菜单中选择 `Enable` 即可恢复可用，重新进入空闲池。
+
+#### 4. 删除 (Delete)
+
+- **阻断规则：** 处于 `In Use` 状态的线路前端置灰 `Delete` 动作，且后端 API 执行强校验拦截。
+- **不可逆提示：** 仅 `Unused` 或 `Disabled` 状态的线路允许删除，确认弹窗将提示
+
+---
+
+### 账号权限(Role-Based Access Control)：
+
+| 平台角色 (`Role`) | 查看页面 (`View`) | 创建 / 编辑 / 启停 / 删除 (`Manage`) |
+|-|-|-|
+| **Admin** (企业管理员) | 可访问 | 可使用 |
+| **Sub-user** (子账号 / 团队成员) | 无权限 (不可见) | 无权限 |
+
+---
+
+### 常见问题 (Troubleshooting)
+
+
+
+**Q1: 为什么在 Agent 编排页面无法选择刚刚添加的电话号码？**
+
+> 请检查该号码在 `Phone Numbers` 列表中的状态。如果状态为 `Disabled`，该号码会自动从 Agent 线路下拉列表中隐藏；若为呼入号码，请确认其类型是否与 Agent 的呼叫模式（Inbound）匹配。
+
+
+
+**Q2: 呼入通话被运营商拒绝或出现 403 Forbidden 错误？**
+
+> 检查 `White List Address` 配置。请确认发送呼叫邀请（SIP INVITE）的运营商 SBC/网关 IP 是否完全包含在您配置的白名单或 CIDR 网段中。
+
+
+
+**Q3: 为什么无法删除某个闲置的测试号码？**
+
+> 请确认该号码是否被配置为某个智能体的备用转接号码（Transfer Line）。只要在平台任何活跃规则中存在依赖，系统判定其为 `In Use` 状态并自动阻断删除请求。
+
+
+
+**Q4: 为什么在 Agent 配置页面的“选择线路”下拉列表中找不到新添加的号码？**
+
+> - 请确认该号码的状态是否为 `Disabled`。处于禁用状态的线路会被系统自动过滤屏蔽。
+> - 请确认号码类型是否匹配（例如呼入 Agent 只能绑定 `Inbound Numbers`）。
+
+
+
+**Q5: 为什么点击删除号码时按钮置灰无法点击？**
+
+> - 该号码目前处于 `In Use` 状态。请检查该号码是否已被设为某个外呼任务的主叫线路、呼入热线，或被设为通话转接的目标节点。解除全部绑定后方可删除。
+
+
+
+**Q6: 呼叫到达并发上限后系统会如何处理？**
+
+> - 当呼叫量达到您在平台配置的 `Call Concurrency` 时，平台将自动实施限流保护。如果需要提升并发，请同步评估电信运营商网关实际承载能力并在本页面调大并发配置。

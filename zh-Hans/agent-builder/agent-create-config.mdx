@@ -1,0 +1,133 @@
+---
+title: "Agent创建与基础配置（Agent Create & Config）"
+---
+
+## 创建和配置 Agent
+
+Agent Builder 用于创建 Agent，并配置其语言、语音、对话策略、电话线路和Agent字段。
+
+### 创建 Agent
+
+1. 选择 `Create Agent`。
+2. 输入 Agent 名称，选择 Agent 类型。名称必填，最多 30 个字符。可选类型包括 `Inbound`、`Outbound`、`Chatbot` 和 `Webvoice`。
+3. 进入 `Basic Configuration`。
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/zh-Hans/agent-builder/agent-create-config/img-1.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hans/agent-builder/agent-create-config/img-2.png)
+</column>
+</grid>
+
+### 基本配置
+
+#### 基础Agent 信息
+
+| **设置** | **说明** |
+|-|-|
+| `Agent Name` | 必填，最多 30 个字符。 |
+| `Agent Title` | 选填，最多 30 个字符。 |
+| `Agent Description` | 选填，最多 200 个字符。 |
+| `Agent Avatar` | 选填，上传图片或选择系统头像；上传图片为 180 × 180 像素，支持 JPG、PNG 等格式，文件小于 2 MB。 |
+
+![](/images/zh-Hans/agent-builder/agent-create-config/img-3.png)
+
+#### 语言设置
+
+`Primary Language` 为单选项。Agent 创建并保存后，主语言不能更改。
+
+`Secondary Language` 支持添加多种语言；已保存的语言不能移除，只能继续添加。
+
+每种已选语言都有独立的 ASR 和 TTS 配置卡片。主语言卡片带有 `Primary` 标签。
+
+
+
+#### 访问信息和密钥（Webvoice/Chatbot）
+
+对于 `Webvoice`类型的Agent，`Access Info` 显示系统生成访问 URL
+
+![](/images/zh-Hans/agent-builder/agent-create-config/img-4.png)
+
+对于 `Chatbot` 类型的Agent，Access Info 包含 `EID` 和系统生成访问 URL
+
+![](/images/zh-Hans/agent-builder/agent-create-config/img-5.png)
+
+### 语音配置
+
+#### ASR配置
+
+ASR 配置适用于`Inbound`、`Outbound`电话类型及 `Webvoice`。每种语言分别设置ASR服务、`VAD Delay (ms)` 和 `ASR Hotwords`。VAD 延迟默认值为 `500`，正整数。
+
+可逐个输入热词，也可按行批量导入。批量导入支持追加到现有列表或替换列表；重复热词会去重。
+
+![](/images/zh-Hans/agent-builder/agent-create-config/img-6.png)
+
+#### TTS配置
+
+TTS 配置适用于 `Inbound`、`Outbound` 和 `Webvoice`。每种语言可分别选择音色并试听标准录音，音色带有 `Female` 或 `Male` 标签。
+
+| 设置 | 说明 |
+|-|-|
+| `Speed (x)` | 滑块范围为 `0.5x-2x`，步长 `0.1`，默认值 `1.0`。 |
+| `Volume` | 滑块范围为 `1-100`，默认值 `50`。 |
+| `Pronunciation Library` | 选择发音库，默认值为 `Default`。 |
+
+![](/images/zh-Hans/agent-builder/agent-create-config/img-7.png)
+
+### 对话策略配置
+
+电话类型 `Inbound`、`Outbound` 和 `Webvoice` 可配置背景音、最大通话时长和 `Turn detection`。
+
+背景音可试听；
+
+`Max Call Duration (m)` :当前对话允许持续的最大时长，默认值为 30 分钟。达到时长后将强制结束
+
+`Turn detection` ：每一轮对话进行完整性判断，默认关闭。
+
+![](/images/zh-Hans/agent-builder/agent-create-config/img-8.png)
+
+Chatbot 可设置 `Maximum duration of the conversation`，范围为 1 秒至 24 小时，默认值为 5 分钟。用户在设定时长内没有回复时，对话将关闭。
+
+![](/images/zh-Hans/agent-builder/agent-create-config/img-9.png)
+
+### 电话线路配置
+
+电话线路配置适用于 `Inbound` 和 `Outbound`。`Webvoice` 不显示 `Main Calling Phone Number`，`Chatbot` 不进行电话线路配置。
+
+#### 主叫号码
+
+可添加多个主叫号码。
+
+`Outbound` Agent 可为主叫号码配置转接并发数。该号码可用于主叫和 `Transfer Call Tool` 转接；两种用途共享总并发数。
+
+#### 专用转接号码
+
+可将尚未使用的 `Outbound` 线路设为专用转接号码。专用号码仅用于转接，其并发数独立于主叫号码的转接并发数。删除号码后，该线路不能再次选择。
+
+![](/images/zh-Hans/agent-builder/agent-create-config/img-10.png)
+
+### Agent 字段
+
+`Agent Field` 包含系统字段和自定义字段。系统字段随 Agent 类型显示，不能在工作台中编辑。
+
+#### 自定义字段
+
+创建 `extra_field` 时，可设置字段名称、键名、类型和默认值。创建后字段名称可编辑；键名和字段类型不可更改。键名支持字母和下划线；字段类型包括数字、数组、枚举、布尔、文本和时间。
+
+| 选项 | 说明 |
+|-|-|
+| `Import via "Upload Task"` | 仅用于 `Outbound`，默认关闭。开启后，可通过外呼任务上传该字段。 |
+| `Editable in manual` | 默认关闭。开启后，可在 `Agent Detail - Record List` 中直接编辑字段值。 |
+| `Sortable` | 默认关闭。开启后，可在 `Agent Detail - Record List` 中按该字段排序。 |
+
+系统字段 `Start Time` 默认可排序，且该设置不可更改。
+
+![](/images/zh-Hans/agent-builder/agent-create-config/img-11.png)
+
+### Agent Basic Configuration如何生效（重要）
+
+由于目前Agent Basic Configuration与Agent Script Versions的编辑是独立进行的，当完成Agent Basic Configuration修改编辑并保存后，已修改的配置并没有运用到任何已有的Script版本中，只有在后续保存的Script Version才会使用最新修改过的Basic Configuration参数
+
+因此，当你的Agent调整Basic Configuration并保存后，请**在Script Edit中保存一个最新的Script Version（Script Version中的内容可以不做任何调整）**，这个最新的Script Version就能运用最新的Basic Configuration参数了。如果需要将此版本Publish（或进行Release），在Test Center版本列表中进行操作即可

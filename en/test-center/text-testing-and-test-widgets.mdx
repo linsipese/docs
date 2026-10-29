@@ -1,0 +1,168 @@
+---
+title: "Text Testing and Test Widgets"
+---
+
+**Quickly validate conversation logic with text input. Chat with the Agent using text; the logic follows the same flow as a voice conversation. Use the chat panel to review each response and the test widgets to investigate and debug specific parts of the interaction.**
+
+![](/images/en/test-center/text-testing-and-test-widgets/img-1.png)
+
+![](/images/en/test-center/text-testing-and-test-widgets/img-2.png)
+
+
+
+<grid>
+<column width-ratio="0.500000">
+#### Configuration Set
+- Before starting a text test, review the configuration snapshot of the Agent used for the test.
+- Before testing, set the required Agent fields (including the “Is system” and “Custom” fields) and temporary variables.
+- You can also configure the API used by Customized Tools (sandbox or production). This feature is not yet available.
+</column>
+<column width-ratio="0.500000">
+![](/images/en/test-center/text-testing-and-test-widgets/img-3.png)
+![](/images/en/test-center/text-testing-and-test-widgets/img-4.png)
+![](/images/en/test-center/text-testing-and-test-widgets/img-5.png)
+</column>
+</grid>
+
+
+
+#### Text Test Widgets
+
+> During a text test, use the available widgets to test and debug different aspects of the interaction.
+
+<grid>
+<column width-ratio="0.500000">
+##### Import Context
+- This feature is available only before you click the button to start the test.
+- Select an existing context test set entry and click Import to add it to the current test.
+- Before importing, click the button under Action to view the entry details.
+</column>
+<column width-ratio="0.500000">
+![](/images/en/test-center/text-testing-and-test-widgets/img-6.png)
+![](/images/en/test-center/text-testing-and-test-widgets/img-7.png)
+![](/images/en/test-center/text-testing-and-test-widgets/img-8.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+##### Copy Conversation
+- Copies all conversation text generated so far to the clipboard.
+</column>
+<column width-ratio="0.500000">
+![](/images/en/test-center/text-testing-and-test-widgets/img-9.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### Reset Test
+- Restart the current test with the existing settings, returning to the pre-test state.
+</column>
+<column width-ratio="0.500000">
+![](/images/en/test-center/text-testing-and-test-widgets/img-10.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### Batch Reply
+- Generate multiple Agent replies to the same text input.
+- Batch results appear below the corresponding conversation bubble. Click a result to view its details.
+</column>
+<column width-ratio="0.500000">
+![](/images/en/test-center/text-testing-and-test-widgets/img-11.png)
+![](/images/en/test-center/text-testing-and-test-widgets/img-12.png)
+![](/images/en/test-center/text-testing-and-test-widgets/img-13.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### Upload Test Set
+- Use this feature to import a large set of prepared test cases into the runner in a batch, instead of entering them one by one, for more efficient testing.
+- You can add multiple user inputs and their corresponding expected Agent replies in a batch. Separate each input and expected reply with “|”, and enter one test case per line.
+- Import from Excel or CSV is supported.
+- Up to 50 test cases are supported per turn.
+- After all results are generated, select one as the actual reply for the current test and continue testing.
+- Test records are retained.
+</column>
+<column width-ratio="0.500000">
+![](/images/en/test-center/text-testing-and-test-widgets/img-14.png)
+![](/images/en/test-center/text-testing-and-test-widgets/img-15.png)
+![](/images/en/test-center/text-testing-and-test-widgets/img-16.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### Clean This Turn
+- Delete the conversation between the AI and tester for the current turn.
+</column>
+<column width-ratio="0.500000">
+![](/images/en/test-center/text-testing-and-test-widgets/img-17.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### Save Context
+- Save the conversation history up to the current turn as a context test set entry. You can then select it under Context.
+- Preview the entry details when adding it, and assign the entry a name.
+- Added entries appear in the Context Test Set.
+</column>
+<column width-ratio="0.500000">
+![](/images/en/test-center/text-testing-and-test-widgets/img-18.png)
+![](/images/en/test-center/text-testing-and-test-widgets/img-19.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+##### Debug
+> Provides atomic analysis of an individual test case. Inspect LLM inputs in real time to quickly locate execution errors.
+- If you are dissatisfied with an AI Agent's reply in a turn, click Debug to adjust the LLM input for that turn without changing the preceding context, then generate a new Agent reply.
+- The Tool Trigger Prompt configured in the Script is displayed separately and can be edited in its own dialog.
+- After editing the text, click Generate to produce batch replies.
+- Click Upload Test Set to run a test set.
+- Results generated by Debug cannot be saved.
+</column>
+<column width-ratio="0.500000">
+![](/images/en/test-center/text-testing-and-test-widgets/img-20.png)
+![](/images/en/test-center/text-testing-and-test-widgets/img-21.png)
+![](/images/en/test-center/text-testing-and-test-widgets/img-22.png)
+![](/images/en/test-center/text-testing-and-test-widgets/img-23.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### Regenerate
+Regenerate the current AI Agent's reply.
+</column>
+<column width-ratio="0.500000">
+![](/images/en/test-center/text-testing-and-test-widgets/img-24.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+#### Evaluate and Save Test
+After reviewing the test content, save and evaluate the test. Saved tests can be viewed in the list on the Script Version Detail page.
+</column>
+<column width-ratio="0.500000">
+![](/images/en/test-center/text-testing-and-test-widgets/img-25.png)
+</column>
+</grid>

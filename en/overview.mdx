@@ -1,3 +1,79 @@
 ---
-title: "概述"
+title: "Daisybell Agent Lab Overview"
 ---
+
+### Overview
+
+Organizations building and deploying voice and conversational agents often face fragmented engineering workflows, difficulty tuning runtime parameters, complex integrations with external business systems, and limited visibility into quality after deployment. Voice interactions place stringent demands on real-time performance, stability, and service boundaries. Under traditional approaches, fragmented prompt management, hard-coded telephony integrations, and testing processes without quantitative measures can lead to high response latency, inconsistent dialogue, and gaps in business workflows.
+
+**Daisybell Agent Lab** is the core platform of the enterprise-grade AgentOS (Agent Operating System). It is designed to manage the full lifecycle of voice and conversational agents, from development through production operations. The platform brings configuration management, tool integration, knowledge governance, and prompt engineering together in a unified production environment, helping organizations deploy agent-based services with lower cost and higher reliability.
+
+### End-to-End Operating Lifecycle
+
+Deploying and operating voice agents requires disciplined engineering governance and data validation. Daisybell Agent Lab establishes a complete lifecycle management model centered on quality gates and feedback from operational data:
+
+`Build → Evaluate → Deploy → Evaluate → Optimize → Evaluate → Deploy`
+
+1. **Build:** Bring together knowledge assets, external tools, prompts, and runtime parameters to design the agent's initial structure and orchestrate its business logic.
+2. **Pre-release evaluation:** Use Agent QA for automated regression tests and simulated-scenario validation. Verify dialogue compliance and tool-call accuracy, and establish a rigorous release gate.
+3. **Initial deployment:** Release the version that has passed testing to the production environment and connect it to a voice line or communications channel to handle live business traffic.
+4. **In-production evaluation:** Use real production traffic and the Evals module to extract task-completion rates, human-handoff rates, and business-conversion metrics. Combine these results with Agent Observer to identify the causes of dialogue anomalies and conduct qualitative and quantitative evaluations.
+5. **Optimization:** Address knowledge gaps, points of misunderstanding, or interaction latency identified during evaluation by refining prompts, adding knowledge, or adjusting parameters in Cerebra and Configuration.
+6. **Regression evaluation:** Run the optimized version against the QA test set and compare the results. Confirm that the new strategy resolves known issues without regressing existing business logic.
+7. **Redeployment:** Smoothly replace the previous production version with the validated version to complete a service-upgrade cycle and evolve agent capabilities with the business.
+
+This lifecycle shifts agent performance optimization from experience-driven decisions to data-driven decisions, making each iteration traceable and stable.
+
+### Daisybell Agent Lab Functional Architecture
+
+Daisybell Agent Lab includes nine core functional modules covering the end-to-end flow for building, connecting, governing, testing, evaluating, observing, and coordinating agents with people:
+
+#### 1. Agent Builder
+
+- Create and edit agent settings and capabilities, and maintain the knowledge assets, skill configuration, and runtime parameters required for operation. Centrally manage runtime parameters and fixed phrases, including variable definitions, model temperature, agreement-wording strategy, background audio, and interruption strategy.
+
+#### 2. Knowledge
+
+- Manage the knowledge assets available to agents in one place. Maintain structured knowledge bases and use the Kadapter tool to break down, clean, and structure external unstructured knowledge for ingestion. This turns raw documents into governable enterprise knowledge assets and supports accuracy and maintainability during retrieval and use.
+
+#### 3. Agent QA (Quality Gates and Automated Testing; Alpha in operation)
+
+- Provide qualitative and quantitative debugging tools for multimodal interactions, including text and voice, with support for release-gate testing and automated regression testing. Establish reliable quality criteria for agent releases and provide measurable comparisons of test results between versions to reduce production incidents.
+
+#### 4. Evals (Evaluation and Metrics Management Center; not officially launched)
+
+- Define, configure, and extract key business indicators (KPIs) and quality-evaluation criteria for agents in one place. The module supports a two-layer evaluation mechanism:
+
+  - **Real-time metrics:** Capture interaction events, function-call status, and node arrival rates in real time.
+  - **Post-call AI extraction:** Automatically extract text and identify intent from full call transcripts. Define quantitative criteria such as task-completion rates, reasons for human handoff, and compliance-risk points.
+
+#### 5. Agent Operator (End-to-End Observability and Task Management; Beta in operation)
+
+- Monitor and diagnose agent business outcomes and execution processes across four components:
+
+  - **Dashboard:** Provide layered, visual dashboards:
+  
+    - *Standard Dashboard:* Monitor call volume, average handling time (AHT), tool usage, and service quality.
+    - *Custom Dashboard:* Assemble business KPIs extracted by Evals into charts to track conversion rates and ROI for specific business scenarios.
+  - **Record Detail:** Keep detailed call records. View each dialogue turn, replay call audio, and review the full interaction between an agent and end users.
+  - **Analysis Trace (tuning and diagnostics view; Alpha internal testing, not available):** Inspect turn-by-turn text, voice-recording waveforms, ASR correction comparisons, model time to first token (TTFT), tool-call request and response payloads, and knowledge-reference paths for an individual interaction.
+  - **Task Manager:** Configure outbound-agent batches, control concurrency limits, set retry strategies for failed calls, and route calls in compliance with number-range requirements.
+
+Reduce the risk of black-box operation and provide end-to-end visibility and control, from high-level business KPIs and security and compliance to the log for an individual call.
+
+#### 7. Human Agent Console (Agent-Assisted Human Service Workspace; not officially launched)
+
+- A unified workspace for agents and supervisors designed for close human–AI collaboration. It rethinks where people participate in a traditional contact center and provides a complete collaboration flow for real-time monitoring, on-demand intervention, performance evaluation, and seamless case handoff:
+
+  - **Real-time multi-session monitoring:** Agents or supervisors can monitor concurrent calls handled by multiple AI agents in the console. They can view turn-by-turn transcripts, emotion markers, slot-collection progress, and potential-risk alerts in real time.
+  - **Intervention and human takeover:** Move beyond waiting for the AI to trigger a transfer. An agent can intervene with one click or take over the call at any time based on the live conversation and the customer's emotional state. The system switches smoothly from AI to human handling, helping avoid customer complaints when the AI cannot understand an edge case.
+  - **AI performance evaluation and feedback:** While monitoring or taking over a call, agents can mark and evaluate the accuracy and appropriateness of the AI's current turn and its tool-call results in real time. Scores and annotations flow back to QA and Evals in real time, supporting a feedback loop in which human corrections help improve the AI.
+  - **Seamless ACW handoff:** When a call is transferred or taken over, the AI-generated summary, collected variable entities, and after-call work (ACW) case draft flow to the human agent's interface. The agent can review or add key details and file the case without asking the customer to repeat background information, substantially reducing average handling time (AHT).
+
+Support contact centers as they transition to digital and AI-enabled operations. A hybrid service model in which AI handles frequent, routine traffic while people monitor, intervene, and correct quality can increase team concurrency while maintaining service quality in high-risk and complex scenarios, enabling a gradual, lower-risk architecture upgrade.
+
+
+
+### Summary
+
+Through standardized modules and the full lifecycle of build, evaluation, deployment, evaluation, optimization, evaluation, and redeployment, Daisybell Agent Lab turns complex voice and conversational agent development into an engineering delivery process that can be managed, observed, and measured. The platform addresses fragmented configuration, gaps in testing and evaluation, and high integration costs, giving organizations a consistent operating model for agents and supporting efficient deployment and continuous evolution across business scenarios.

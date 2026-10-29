@@ -1,0 +1,153 @@
+---
+title: "知识库 Beta（Knowledge base）"
+---
+
+Knowledge Base（知识库）是 Agent Lab 的知识输入与管理功能。你可以按项目组织本地文档，上传文件后由系统异步解析并提取知识，再查看、校对、编辑提取结果，或手动添加知识条目。
+
+
+
+提取结果为**Q&A（问答对）**类型
+
+<grid>
+<column width-ratio="0.500000">
+### 认识知识库页面
+进入 **Knowledge Base** 后，页面左侧显示项目列表，右侧显示当前所选项目中的文件。
+- **项目列表**：显示项目名称及该项目中的文件数量，按创建时间从新到旧排列。
+- **项目列表**：显示项目名、状态、上传日期、知识文件包含的知识条目数量和操作入口。
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hans/general-tools/knowledge-base/img-1.png)
+</column>
+</grid>
+
+
+
+### 创建和管理项目
+
+项目用于组织文件。上传文件前，先创建或选择一个项目。
+
+#### 创建项目
+
+1. 点击 **New Project（新建项目）**，打开创建弹窗。如果尚未创建任何项目，进入知识库页面时会自动打开该弹窗。
+2. 在 **Project Name（项目名称）** 中输入名称。名称最多 50 个字符，不能与已有项目重名；系统会去除名称前后的空格。
+3. 在**Language**中选择知识提取输出语言
+4. 选择 **Match Strategy（命中策略）**。默认使用 **Prioritized Match（优先命中）**。
+5. 点击 **Create Project**，完成项目创建。
+
+![](/images/zh-Hans/general-tools/knowledge-base/img-2.png)
+
+#### 选择命中策略
+
+命中策略决定系统检索时，如何处理项目中标记为“必命中知识”的条目。
+
+| 策略 | 必命中知识的处理方式 | 普通知识的处理方式 |
+|-|-|-|
+| **Prioritized Match（优先命中）**，默认策略 | 只有一条必命中知识时，直接返回该条；有多条时，通过 BM25算法 和向量相似度匹配，返回最相关的一条。 | 按正常检索流程处理。 |
+| **Match All（全部命中）** | 直接返回项目中的所有必命中知识，不再通过 BM25算法、向量检索或大模型筛选。 | 按正常检索流程处理。 |
+
+#### 删除项目
+
+1. 将鼠标悬停在项目名称上，显示删除图标。
+2. 点击删除图标。
+3. 在确认弹窗中确认删除。
+
+
+
+### 查看知识文件状态
+
+选择项目后，文件列表按上传时间从新到旧排列，默认每页显示 20 个文件。Beta 版本暂不支持文件列表搜索。
+
+文件状态决定可执行的操作。
+
+![](/images/zh-Hans/general-tools/knowledge-base/img-3.png)
+
+| 状态 | 含义 | 可执行的操作 |
+|-|-|-|
+| **Processing（处理中）** | 文件已上传成功，正在解析。 | 暂无可用操作。“…”按钮不可点击，也不能进入详情页。 |
+| **Extract Failed（处理失败）** | 解析异常或错误导致知识提取中断。 | 重新处理、删除。 |
+| **Extracted（完成处理）** | 文件已完成解析。 | 查看详情、删除。 |
+
+对于 **Extract Failed** 状态的文件，点击“重新处理”会重新启动异步解析，文件状态变为 **Processing**。
+
+对于 **Extracted** 状态的文件，点击文件行或 **View Details（查看详情）**，可进入知识解析详情页。
+
+### 上传文件并提取知识
+
+![](/images/zh-Hans/general-tools/knowledge-base/img-4.png)
+
+#### 文件要求
+
+| 项目 | 要求 |
+|-|-|
+| 支持格式 | .pdf, .docx, .txt, .xlsx, .md |
+| 单个文件大小上限 | 10.00 MB |
+| File Description（Prompt） | 最多 400 个字符，默认留空 |
+
+文件描述（File Description）用于引导模型的知识提取方向。你可以填写文件主题、内容概要，或具体的提取要求。
+
+#### 上传步骤
+
+1. 选择文件所属的项目。
+2. 点击 **Add Knowledge**，打开 **Add Knowledge file** 弹窗。
+3. 根据需要填写 **File Description（文件描述）**。
+4. 在 **Upload file（上传文件）** 区域选择本地文件，也可以将文件拖入上传区域。
+5. 核对显示的文件名和文件大小。
+6. 点击 **Upload & Process**，上传文件并启动解析。
+
+
+
+上传成功后，文件进入 **Processing** 状态。等待状态变为 **Extracted**，即可查看并校对提取结果。上传失败时，页面会显示错误提示。
+
+如果需要更换已选择的文件，点击文件旁的删除图标，在确认弹窗中确认后重新上传。
+
+### 查看和维护知识条目
+
+文件完成处理后，打开 **View Details（查看详情）**，查看提取出的结构化知识。知识条目以卡片形式展示，支持分页。
+
+![](/images/zh-Hans/general-tools/knowledge-base/img-5.png)
+
+<grid>
+<column width-ratio="0.500000">
+#### 添加条目
+1. 点击“添加条目”。列表顶部会出现一张空白、可编辑的卡片。
+2. 输入内容并保存。
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hans/general-tools/knowledge-base/img-6.png)
+</column>
+</grid>
+
+#### 编辑条目
+
+1. 点击卡片上的“编辑”。
+2. 修改对应的文本内容。
+3. 在当前卡片中保存修改。
+
+#### 删除条目
+
+1. 点击卡片上的“删除”。
+2. 在确认气泡中确认删除。
+
+### 调用知识
+
+知识支持以下调用方式：
+
+<grid>
+<column width-ratio="0.500000">
+- 在 Agent Builder **→ Script Edit** 中通过**Rag Query Tool** 使用。
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hans/general-tools/knowledge-base/img-7.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+- 在 Agent Builder **→ Script Edit** 配置Knowledge后，通过通用算法系统调用进行使用
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hans/general-tools/knowledge-base/img-8.png)
+</column>
+</grid>

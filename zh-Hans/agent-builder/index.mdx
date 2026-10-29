@@ -1,0 +1,25 @@
+---
+title: "Agent生成器（Agent Builder）"
+---
+
+## 概览说明
+
+Daisybell Agent Lab 的 Agent Builder 是面向电话与对话业务的结构化 Agent 搭建入口，服务于企业 Agent 搭建者、BPO 厂商和客户交付团队。
+
+在实际业务中，一个可用的 Agent 往往同时涉及身份、语言、语音、对话流程、业务知识、数据字段、变量和工具调用。Agent Builder 将这些内容纳入同一条配置链路：先定义 Agent 的基本信息和业务入口，再配置语言、语音、电话资源及并发等运行条件，随后通过 Script 组织对话行为，并结合 Skills、Tools、Knowledge、Fields 和 Variables 完成业务编排。这样，业务身份、对话策略、执行动作和数据记录各自有明确的位置，团队可以按模块维护 Agent，而不必把全部逻辑堆叠在一段难以管理的长 Prompt 中。
+
+Agent Builder 的重点是让搭建过程贴近电话业务的真实约束。搭建者可以根据业务需要确定主语言和辅助语言，为不同语言配置相应的语音能力，并在业务配置中纳入电话线路、外呼和转接等资源边界。对话中的业务规则可以通过 Script 和可复用的 Skills 组织；需要执行查询、转接、知识检索、语言切换、挂断或自定义业务动作时，则通过 Tools 与 Function 进行配置。工具的输入、输出和变量映射能够与 Agent 字段关联，使订单号、客户等级、处理结果、转接状态等信息以结构化方式沉淀下来。
+
+知识也不只是上传后交给模型使用。Agent Builder 配合知识库的文件管理、解析结果校对和 Script 关联，让团队能够将产品政策、售后条款或其他业务资料整理为可维护的知识资产，再明确哪些业务对话可以调用这些内容。对于需要身份核验、验证码输入或敏感信息处理的场景，工具和变量配置可以承载校验、重试、失败处理及数据保护等业务边界，使“先验证、再执行”这样的规则能够落到 Agent 的实际运行配置中。
+
+因此，Agent Builder 可以把 Agent 从演示性质的对话原型推进到符合企业业务条件的可交付配置。帮助团队在搭建阶段明确 Agent 做什么、依据什么回答、何时调用工具、如何记录结果，以及在线路、语言、知识和数据约束下如何完成一次业务对话。通过统一的结构化配置，企业可以围绕具体业务建立可维护的 Agent，并让 Agent 的规则、知识、动作和数据记录能够随着业务交付持续管理。
+
+
+
+文档手册分为三个部分：
+
+<cite doc-id="Jj2nw66fJirJ6tk2XPSjCeFkp6f" file-type="wiki" title="Agent创建与基础配置（Agent Create &amp; Config）" type="doc"></cite>
+
+<cite doc-id="FWDawJp2Nidh8mkK2VmjdZHyp2b" file-type="wiki" title="Script版本创建及编辑（Script Edit）" type="doc"></cite>
+
+<cite doc-id="JhFUwRrN6iMyK4k0LBgjt4mppDd" file-type="wiki" title="Agent 工具调用（Tools）" type="doc"></cite>

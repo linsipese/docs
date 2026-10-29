@@ -1,0 +1,168 @@
+---
+title: "문서 테스트 및 문서 테스트 위젯 (Text Test & Text Test Widget)"
+---
+
+**텍스트를 입력해 대화 로직을 빠르게 검증합니다. Agent와 텍스트로 대화할 때 실제 음성 대화와 동일한 로직이 적용됩니다. 채팅 패널에서 응답을 하나씩 확인하고 테스트 도구 위젯으로 세부 기능을 집중 테스트하거나 디버깅할 수 있습니다.**
+
+![](/images/ko/test-center/text-test-text-test-widget/img-1.png)
+
+
+
+![](/images/ko/test-center/text-test-text-test-widget/img-2.png)
+
+
+
+<grid>
+<column width-ratio="0.500000">
+#### 구성 스냅샷
+- 문서 테스트를 시작하기 전에 테스트에 사용하는 Agent의 구성 스냅샷을 확인할 수 있습니다.
+- 테스트를 시작하기 전에 Agent 필드(“Is system” 및 “Custom” 필드 포함)와 임시 변수에 사용할 값을 설정합니다.
+- “Customized Tools”에서 사용할 API(테스트 샌드박스 또는 프로덕션 API)도 설정할 수 있습니다. 현재 정식 출시 전입니다.
+</column>
+<column width-ratio="0.500000">
+![](/images/ko/test-center/text-test-text-test-widget/img-3.png)
+![](/images/ko/test-center/text-test-text-test-widget/img-4.png)
+</column>
+</grid>
+
+
+
+#### 문서 테스트 도구 위젯
+
+> 문서 테스트 중 여러 테스트 도구 위젯으로 다양한 측면의 기능을 테스트하고 디버깅할 수 있습니다.
+
+<grid>
+<column width-ratio="0.500000">
+##### 대화 가져오기
+- 테스트 시작 버튼을 클릭하기 전에만 사용할 수 있습니다.
+- 기존 문서 테스트 세트 항목을 선택하고 “Import”를 클릭해 현재 테스트에 삽입합니다.
+- 가져오기 전에 “Action”의 버튼을 클릭해 항목 상세 정보를 확인할 수 있습니다.
+</column>
+<column width-ratio="0.500000">
+![](/images/ko/test-center/text-test-text-test-widget/img-5.png)
+![](/images/ko/test-center/text-test-text-test-widget/img-6.png)
+![](/images/ko/test-center/text-test-text-test-widget/img-7.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+##### 대화 내용 복사
+- 생성된 모든 대화 텍스트를 클립보드에 복사합니다.
+</column>
+<column width-ratio="0.500000">
+![](/images/ko/test-center/text-test-text-test-widget/img-8.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### 테스트 초기화
+- 설정을 유지한 채 현재 테스트를 처음부터 다시 시작합니다.
+</column>
+<column width-ratio="0.500000">
+![](/images/ko/test-center/text-test-text-test-widget/img-9.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### 일괄 응답
+- 동일한 텍스트 입력에 대해 Agent 응답을 여러 개 생성합니다.
+- 일괄 테스트 결과는 해당 대화창 아래에 표시됩니다. 클릭하면 상세 정보를 확인할 수 있습니다.
+</column>
+<column width-ratio="0.500000">
+![](/images/ko/test-center/text-test-text-test-widget/img-10.png)
+![](/images/ko/test-center/text-test-text-test-widget/img-11.png)
+![](/images/ko/test-center/text-test-text-test-widget/img-12.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### 테스트 세트 업로드
+- 미리 준비한 다량의 테스트 사례(Test Cases)를 테스트 실행기(Runner)에 일괄 가져와 수동 입력을 줄이고 테스트를 효율적으로 진행합니다.
+- 응답 항목과 Agent의 예상 응답을 “|”로 구분해 여러 건 추가할 수 있습니다. 입력란에서 각 행은 하나의 데이터 항목입니다.
+- Excel 및 CSV 가져오기를 지원합니다.
+- 한 턴에 최대 50개 데이터 항목을 지원합니다.
+- 모든 테스트 결과가 생성된 뒤 하나를 현재 테스트의 실제 응답으로 선택해 테스트를 계속할 수 있습니다.
+- 테스트 기록이 유지됩니다.
+</column>
+<column width-ratio="0.500000">
+![](/images/ko/test-center/text-test-text-test-widget/img-13.png)
+![](/images/ko/test-center/text-test-text-test-widget/img-14.png)
+![](/images/ko/test-center/text-test-text-test-widget/img-15.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### 현재 턴 지우기
+- 현재 턴에서 AI와 테스트 사용자 간의 대화를 삭제합니다.
+</column>
+<column width-ratio="0.500000">
+![](/images/ko/test-center/text-test-text-test-widget/img-16.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### 컨텍스트 저장
+- 현재 턴 이전까지의 모든 대화를 컨문서 테스트 세트 항목으로 저장합니다. 항목은 Context에서 확인할 수 있습니다.
+- 추가할 때 항목 상세 정보를 미리 볼 수 있으며 항목 이름을 지정해야 합니다. 
+- 추가한 항목은 Context Test Set에서 확인할 수 있습니다.
+</column>
+<column width-ratio="0.500000">
+![](/images/ko/test-center/text-test-text-test-widget/img-17.png)
+![](/images/ko/test-center/text-test-text-test-widget/img-18.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+##### 디버그
+> 테스트 사례 하나를 세밀하게 분석하고 LLM 입력을 실시간으로 확인해 실행 오류를 빠르게 찾습니다.
+- 특정 턴의 AI Agent 응답이 만족스럽지 않으면 Debug를 클릭합니다. 이전 대화 맥락은 유지한 채 현재 턴의 LLM INPUT을 수정하고 새 Agent 응답을 생성할 수 있습니다.
+- 스크립트에 설정된 Tool Trigger Prompt를 별도로 표시하므로 독립된 대화 상자에서 바로 수정할 수 있습니다.
+- 텍스트를 수정한 뒤 '생성하기'를 클릭하면 “일괄 응답” 결과를 생성할 수 있습니다.
+- '테스트 세트 업로드'를 클릭하면 테스트 세트 테스트를 진행할 수 있습니다.
+- Debug에서 생성한 결과는 저장할 수 없습니다.
+</column>
+<column width-ratio="0.500000">
+![](/images/ko/test-center/text-test-text-test-widget/img-19.png)
+![](/images/ko/test-center/text-test-text-test-widget/img-20.png)
+![](/images/ko/test-center/text-test-text-test-widget/img-21.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### 다시 생성
+현재 AI Agent의 응답을 다시 생성합니다.
+</column>
+<column width-ratio="0.500000">
+![](/images/ko/test-center/text-test-text-test-widget/img-22.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+#### 테스트 평가 및 저장
+테스트 내용을 미리 본 다음 현재 테스트를 저장하고 평가해야 합니다. 저장한 테스트는 스크립트 버전 상세 페이지에 테스트 목록에서 확인할 수 있습니다.
+</column>
+<column width-ratio="0.500000">
+![](/images/ko/test-center/text-test-text-test-widget/img-23.png)
+</column>
+</grid>

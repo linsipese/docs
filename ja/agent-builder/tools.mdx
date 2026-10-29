@@ -1,0 +1,206 @@
+---
+title: "Agent ツール呼び出し（Tools）"
+---
+
+Tools モジュールでは、Agent が呼び出すツールを管理します。Function とも呼ばれるさまざまな種類のツールを追加し、トリガー条件、固定応答、種類ごとの専用フィールドを設定できます。また、プロンプトでの参照方法も設定できます。
+
+### ツール一覧
+
+ツールはカード形式で表示され、1 行に 1 つずつ並びます。各カードには次の情報が含まれます。
+
+- **Title**：ツールの種類を示すラベルと `tool_name`。
+- **Tool Settings**：ツールの種類に応じたフィールドが表示されます。
+- **Action**：編集と削除ができます。
+- **有効状態**：Function を無効にできます。
+
+既存の Function は編集時に Type を再選択できません。新しいツールを追加するには、**Add Tool**をクリックし、ツールの種類を選択します。Function がカード形式で Tool List に追加されます。
+
+
+
+### Main Prompt でのツール参照
+
+Main Prompt の編集領域で **Tools** をクリックするか、`@` を入力してツール一覧を開きます。ツールを選択すると、エディターにハイライト表示のツールタグが表示されます。
+
+<callout emoji="💡">
+注意：追加済みのツールは、Main Prompt で参照されていなくても呼び出されます。Main Prompt で参照すると、呼び出し条件や範囲をより明確に指定できます。
+</callout>
+
+### Function の種類
+
+#### 電話転送（Call Transfer）
+
+Call Transfer では、通話の転送を設定します。設定できるフィールドは次のとおりです。
+
+| **項目** | **説明** |
+|-|-|
+| Function Name | Function 名 |
+| Function Trigger Description | Function のトリガー条件を設定します。 |
+| Transfer to | 転送先を選択します。現在、次の転送先に対応しています。  <br/>1. 電話転送  <br/>2. Daisybell の有人オペレーターへの転送（ベータ機能） |
+| Transfer Phone Number | 転送先の電話番号です。Assigned Human Agent を選択した場合、このフィールドは表示されません。 |
+| Phone Number | 転送先に発信するための電話番号です。Assigned Human Agent を選択した場合、このフィールドは使用されません。 |
+| Assigned Human Agent | 指定する有人オペレーターを選択します。 |
+| Max Answer Wait Time | 応答を待つ最大時間を設定します。時間を超えると転送を中止します。 |
+| Recipient Email | 通話全体の記録を受信するメールアドレスです（複数設定できます）。 |
+| Transfer Handling Mode | 転送処理モードを選択します。  <br/>1. 転送先との通話を録音し、転送先が通話を終了した時点で通話を終了します。  <br/>2. 転送先との通話を録音せず、転送先が通話を終了した時点で通話を終了します。 |
+| Transfer Success Fixed Reply | 転送に成功したときの固定応答を設定します（多言語に対応）。 |
+| Transfer Failed / No Answer Fixed Reply | 転送に失敗したとき、または応答がないときの固定応答を設定します（多言語に対応）。 |
+
+
+
+<grid>
+<column width-ratio="0.767965">
+![](/images/ja/agent-builder/tools/img-1.png)
+</column>
+<column width-ratio="0.232035">
+![](/images/ja/agent-builder/tools/img-2.png)
+</column>
+</grid>
+
+
+
+#### ナレッジ検索（RAG query）
+
+RAG query では、ナレッジベースを使った検索 Function を設定します。次の項目を設定します。
+
+- **Function name**
+- **Function のトリガー説明**：Function のトリガー条件（Prompt）を設定します。
+- **ナレッジベースフォルダー**：既存のナレッジベースフォルダーを選択します。
+- **Function の実行時に返す固定応答**：多言語に対応しています。
+
+<grid>
+<column width-ratio="0.729466">
+![](/images/ja/agent-builder/tools/img-3.png)
+</column>
+<column width-ratio="0.270534">
+![](/images/ja/agent-builder/tools/img-4.png)
+</column>
+</grid>
+
+
+
+#### 言語切り替え（Language switch）
+
+Language switch は、会話中に Agent が使用する言語を切り替える Function です。2 言語以上を設定した場合にのみ使用できます。1 言語のみ設定されている場合、この Function は使用できません。
+
+次の項目を設定します。
+
+- **Function name**
+- **Function Description**：Function のトリガー条件（Prompt）を設定します。
+- **言語 B に切り替えるときの固定応答**：言語 B で入力します。
+- **言語 A に切り替えるときの固定応答**：言語 A で入力します。
+
+<grid>
+<column width-ratio="0.728348">
+![](/images/ja/agent-builder/tools/img-5.png)
+</column>
+<column width-ratio="0.271652">
+![](/images/ja/agent-builder/tools/img-6.png)
+</column>
+</grid>
+
+#### 通話終了（Hang up）
+
+Hang up では、通話を終了する Function を設定します。次の項目を設定します。
+
+- **Function name**
+- **Function Description**：Function のトリガー条件（Prompt）を設定します。
+- **Function の実行時に返す固定応答**
+
+<grid>
+<column width-ratio="0.755123">
+![](/images/ja/agent-builder/tools/img-7.png)
+</column>
+<column width-ratio="0.244877">
+![](/images/ja/agent-builder/tools/img-8.png)
+</column>
+</grid>
+
+
+
+#### DTMF Function の設定
+
+DTMF Function では、プッシュボタン入力の収集、検証、タイムアウト、再試行などの処理を設定します。画面には次の設定項目があります。
+
+| **項目** | **説明** |
+|-|-|
+| Function 名 | 任意の名前を設定します。 |
+| Function のトリガー説明 | Function のトリガー条件を設定します。 |
+| 入力結果を格納する一時変数 | ボタン入力の結果を一時変数に格納します。 |
+| Function の実行成功時に返す固定応答 | 多言語で設定できます。 |
+| 入力を終了するボタン | 終了を示すボタン記号を選択します。デフォルトは「#」です。 |
+| 入力をクリアするボタン | 入力をクリアするボタン記号を選択します。デフォルトは「\*」です。この機能は有効／無効を切り替えられます（デフォルトは無効）。 |
+| ボタン入力の形式検証 | 正規表現を指定し、入力内容の形式が正しいかどうかをシステムが判定できるようにします。 |
+| 値の検証に使用するカスタム Function | 既存のカスタム Function の key と、作成済みの対応する一時変数を追加します。 |
+| ボタン入力のタイムアウト | 設定時間内に入力がない場合、Function を終了します。デフォルトは 60 秒、最大は 300 秒です。 |
+| 入力タイムアウト時の固定応答 | 多言語で設定できます。 |
+| 入力形式が正しくない場合の再試行回数 | 入力内容の形式検証に失敗した場合の最大再試行回数です。上限に達すると Function を終了します（デフォルトは 5 回、設定範囲は 1～20 回）。 |
+| 入力形式の検証エラー時に返す固定応答 | 入力形式の検証に失敗するたびに返す固定応答です。 |
+| 最終的な入力形式の検証に失敗した場合に電話を転送するかどうか | はい：転送先の電話番号など、必要な設定を入力します。  <br/>いいえ：入力形式の検証に失敗したときの固定応答を設定します。 |
+| 入力形式の最終検証に成功したときの固定応答 | 多言語で設定できます。 |
+
+注意：入力内容が最終的に正しいかどうかは、カスタム Function を使って連携先システムに入力内容を渡し、検証する必要があります。
+
+
+
+![](/images/ja/agent-builder/tools/img-9.png)
+
+
+
+#### カスタム Function（旧版）
+
+旧版のカスタム Function では、Function の基本情報、フロー ID、変数を設定します。
+
+##### 基本情報
+
+- **Function name**：テキスト（必須）
+- **Function Description**：テキスト（必須）
+- **一意のフロー ID（DAG ID）**：一意のフロー ID を入力します。
+- **Function の実行時に返す固定応答**：テキストです。多言語 Agent では、言語ごとに応答を入力します。
+
+##### 変数一覧
+
+変数一覧には次の項目が表示されます。
+
+- 変数名
+- key
+- データ型
+- 変数の種類：Function 変数またはグローバル一時変数
+- 説明
+- 操作：編集または削除
+
+グローバル一時変数は編集できず、削除のみ可能です。
+
+<grid>
+<column width-ratio="0.665102">
+![](/images/ja/agent-builder/tools/img-10.png)
+</column>
+<column width-ratio="0.334898">
+![](/images/ja/agent-builder/tools/img-11.png)
+</column>
+</grid>
+
+##### 変数の追加
+
+Function 変数を追加するか、既存のグローバル一時変数を選択できます。
+
+<grid>
+<column width-ratio="0.500000">
+**Function 変数を追加する場合の設定項目：**
+- **変数名**：テキスト（必須）
+- **変数の種類**：数値、テキスト、列挙型、ブール値、日時から選択します。列挙型では、列挙値を追加できます。
+- **Key**：テキスト（必須）
+- **変数の説明**：テキスト（必須）。LLM Prompt で使用します。
+</column>
+<column width-ratio="0.500000">
+![](/images/ja/agent-builder/tools/img-12.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+**グローバル一時変数を追加する場合は、ドロップダウンリストから既存の変数を選択します。選択した変数の `key_name` と説明（Prompt）が表示されます。**
+</column>
+<column width-ratio="0.500000">
+![](/images/ja/agent-builder/tools/img-13.png)
+</column>
+</grid>

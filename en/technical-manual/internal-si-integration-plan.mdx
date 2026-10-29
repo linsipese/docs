@@ -1,0 +1,112 @@
+---
+title: "[Internal] SI Integration Plan"
+---
+
+## Option 1: CC manages telephony using existing capabilities
+
+<whiteboard token="HeorwrtR2hElc0bRLCSj8Xh0pmc"></whiteboard>
+
+- Reuse the existing voice integration capabilities; only a Webhook receiver is required.
+- All calls are routed through **CC for external connectivity**; CC controls both outbound and inbound calls
+- Configure the AI for **inbound calls**; Daisybell does not initiate calls.
+- **Inbound**：CC calls the AI over direct SIP; after the AI hangs up, the call record is sent back through a Webhook
+- **Outbound calls**：CC uses a dual-call bridge: it calls the customer while calling the Daisybell Agent over direct SIP (no additional telephony charge), then bridges the two calls
+- **Transfer**：handled inside CC using a dual-call bridge to transfer the call to a human agent (a CC seat)
+
+## Option 2: Daisybell manages telephony through a complete open API
+
+<whiteboard token="HMzmwU1SBhInZjbw2ybjHMrApkg"></whiteboard>
+
+- Requires development of a **complete open API**; this adds more development work and a longer delivery cycle
+- Telephony is managed by **Daisybell**; CC only forwards media, while all calls still use CC for external connectivity
+- The AI can be configured for **Inbound calls** and **Outbound calls** two modes:  
+
+  - **Inbound calls**：same as Option 1; CC calls the AI over direct SIP
+  - **Outbound calls**：an outbound task is created through the API; the AI initiates the call and CC forwards it to the customer
+- **Call-record callback**：after hang-up, the call record is sent back through a Webhook (same as Option 1)
+- **Call-record query**：the open API also provides a call-record query endpoint for on-demand retrieval
+- **Transfer**：same as Option 1; CC uses a dual-call bridge to transfer the call to a human agent (a CC seat)
+
+## Option 3: Daisybell connects directly to the PSTN and synchronizes data with CC
+
+<whiteboard token="HMXcwASu3hR8BZbeLxxjhK7zpwh"></whiteboard>
+
+- **Voice path**：Daisybell **connects directly to the PSTN**; the customer and AI are connected end to end, and inbound/outbound calls do not pass through CC (number resources are the same as Options 1 and 2)
+- The AI can be configured for **Inbound calls** and **Outbound calls**two modes (same as Option 2): an outbound task is created through the API and the AI calls the customer directly
+- **Call-record synchronization**：voice does not pass through CC, so CC has no call record; use a Webhook/API to synchronize the **complete call record to CC and create a record**; Options 1 and 2 already have a CC call record because voice passes through CC, so only the record content needs to be synchronized
+- **Transfer**：the AI calls into CC over direct SIP, and CC bridges the call**transfer to a human agent** (a CC seat); no additional telephony charge
+- **Telephony management**：fully managed by Daisybell; except for human-agent transfers, CC is not in the voice path
+- **Cost and prerequisites**：number resources are the same as Options 1 and 2, and the API development effort is comparable to Option 2
+
+## Comparison of the three options
+
+The options are compared below across voice path, cost, call latency, and development cycle:
+
+| Dimension | Option 1 · CC-managed | Option 2 · Open API + CC forwarding | Option 3 · Daisybell direct to PSTN |
+|-|-|-|-|
+| External voice egress | CC handles all external connectivity (direct SIP to the AI) | CC handles all external connectivity; Daisybell forwards through CC | Daisybell connects directly to the PSTN; only human-agent transfers use CC |
+| Telephony management | CC controls outbound and inbound calls | Daisybell manages telephony; CC forwards media | Daisybell fully manages telephony; CC handles data synchronization and human-agent transfers |
+| Call path and latency | Customer ↔ CC ↔ AI; voice makes one hop through CC (bridging/forwarding), same as Option 2 | Customer ↔ CC ↔ AI; voice makes one hop through CC (bridging/forwarding), same as Option 1 | Customer ↔ AI end-to-end; lowest latency (human-agent transfers use CC) |
+| Development cost · CC side | Reuse existing voice capabilities (outbound/inbound control and dual-call bridging); develop a Webhook receiver | Add open API integration to Option 1 (outbound task submission and call-record queries) | Add a call-record ingestion endpoint to Option 2 (receive complete records and create CC records) |
+| Development cost · Daisybell side | Reuse existing AI inbound-call and Webhook callback capabilities; almost no additional development | Develop a complete open API (outbound tasks, AI configuration, and call-record API); longer cycle | Open API development is the same as Option 2; SIP integration with CC is an existing capability and requires no additional cycle |
+| Network and call costs | Telephony charges are calculated as a whole, regardless of whether the call terminates at CC or Daisybell; the direct CC ↔ AI SIP leg incurs no additional charge | Telephony charges are calculated as a whole, same as Option 1; the direct SIP leg incurs no additional charge | Telephony charges are calculated as a whole, with the same number resources as Options 1 and 2; the direct SIP leg incurs no additional charge |
+| CC–Daisybell coupling | Tight coupling; voice and control both pass through CC | Medium coupling; control uses the API and voice passes through CC | Loose coupling; only call-record synchronization and human-agent transfers use CC |
+| Call-record retrieval | Webhook callback with call-record content (CC already has a record; no creation required) | Webhook callback + query API to synchronize record content (no creation required) | Webhook + API synchronize the complete record, which CC creates |
+| Extensibility and evolution | Depends on CC capabilities | Telephony can be scheduled independently, but still depends on CC lines | Most independent and can evolve separately; human-agent transfers reuse CC seats |
+
+## End-to-end call flows
+
+### Option 1 · CC-managed
+
+**Flow A: outbound call + transfer → save call record**
+
+1. The business system starts an outbound task in CC
+2. CC creates a dual-call bridge: one leg calls the customer over the PSTN and the other calls the Daisybell Agent over direct SIP
+3. The customer answers; CC bridges the two legs, and the AI talks to the customer
+4. When a human transfer is needed, CC uses a dual-call bridge to call and connect a human agent (a CC seat)
+5. The call ends and both parties hang up
+6. CC generates and saves the call record; after the AI hangs up, the record content is sent to CC through a Webhook (CC already has a record; no creation required)
+
+**Flow B: inbound call + transfer → save call record**
+
+1. The customer calls in and CC answers over the PSTN
+2. CC calls the Daisybell Agent over direct SIP and bridges the customer and AI
+3. The AI talks to the customer
+4. When a human transfer is needed, CC uses a dual-call bridge to call and connect a human agent (a CC seat)
+5. After the call ends, CC generates and saves the record; Daisybell supplements the record content through a Webhook (no creation required)
+
+### Option 2 · Open API + CC forwarding
+
+**Flow A: outbound call + transfer → save call record**
+
+1. CC/the business system creates an outbound task through the Open API (HTTP)
+2. Daisybell AI initiates the outbound call; voice is sent to CC over direct SIP, and CC calls the customer externally
+3. The customer answers and talks to the AI (media is forwarded by CC)
+4. When a human transfer is needed, CC uses a dual-call bridge to call and connect a human agent (a CC seat)
+5. The call ends and both parties hang up
+6. CC generates and saves the record; after the AI hangs up, the record content is sent through a Webhook (the query API can also supplement it; no creation required)
+
+**Flow B: inbound call + transfer → save call record**
+
+1. The customer calls in; CC answers over the PSTN and transfers the call to Daisybell AI over direct SIP
+2. The AI talks to the customer (media is forwarded by CC)
+3. When a human transfer is needed, CC uses a dual-call bridge to call and connect a human agent (a CC seat)
+4. After the call ends, CC generates and saves the record; Daisybell sends the record content through a Webhook (no creation required)
+
+### Option 3 · Daisybell direct to PSTN
+
+**Flow A: outbound call + transfer → save call record**
+
+1. CC/the business system creates an outbound task through the Open API (HTTP)
+2. The AI calls the customer directly over the PSTN (without CC)
+3. The customer answers and talks directly with the AI end to end
+4. When a human transfer is needed, the AI calls into CC over direct SIP (no additional telephony charge), and CC bridges the call to a human agent (a CC seat)
+5. The call ends and both parties hang up
+6. CC has no call record: Daisybell synchronizes the complete record to CC through a Webhook/API, and CC creates the record
+
+**Flow B: inbound call + transfer → save call record**
+
+1. The customer calls Daisybell directly over the PSTN, and the AI answers (without CC)
+2. The AI and customer talk directly end to end
+3. When a human transfer is needed, the AI calls into CC over direct SIP, and CC bridges a human agent (a CC seat)
+4. After the call ends, Daisybell synchronizes the complete record to CC, which creates the record

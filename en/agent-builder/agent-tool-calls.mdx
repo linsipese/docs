@@ -1,0 +1,206 @@
+---
+title: "Agent Tool Calls"
+---
+
+The Tools module manages the tools an Agent can call. You can add tools of different types (also called Functions), configure their trigger conditions, fixed responses, and type-specific fields, and reference them in the Main Prompt.
+
+### Tool List
+
+Tools are displayed as cards, one per row. Each card includes:
+
+- **Title**: Displays the tool type label and `tool_name`.
+- **Tool Settings**: Displays the fields for the tool type.
+- **Action**: Supports editing and deletion.
+- **Enabled Status**: Functions can be disabled.
+
+When editing an existing Function, you cannot select its Type again. To add a tool, click **Add Tool** and select a tool type. The Function is added as a card to the Tool List.
+
+
+
+### Referencing Tools in the Main Prompt
+
+In the Main Prompt editor, click **Tools**, or type `@` to open the tool list. After you select a tool, the editor displays it as a highlighted tag.
+
+<callout emoji="💡">
+Note: Added tools can be triggered even when they are not referenced in the Main Prompt. Referencing them in the Main Prompt can clarify and refine the conditions and boundaries for invoking them.
+</callout>
+
+### Function Types
+
+#### Call Transfer
+
+Use Call Transfer to configure call transfers. Configure the following fields:
+
+| **Field** | **Description** |
+|-|-|
+| Function Name | Function name |
+| Function Trigger Description | Description of when the Function should be triggered |
+| Transfer to | Supported transfer destinations:  <br/>1. Transfer to a phone number  <br/>2. Transfer to a Daisybell human agent (internal beta) |
+| Transfer Phone Number | Destination phone number. This field is hidden when Assigned Human Agent is selected. |
+| Phone Number | Outbound phone number used to place the transfer call. Not used when Assigned Human Agent is selected. |
+| Assigned Human Agent | Select a specific human agent. |
+| Max Answer Wait Time | Set the maximum time to wait for an answer. The transfer is canceled when this time is exceeded. |
+| Recipient Email | Email address(es) to receive the full original call record. You can configure multiple addresses. |
+| Transfer Handling Mode | Select a transfer handling mode:  <br/>1. Record the transferred call, and end the call when the transferred call is disconnected.  <br/>2. Do not record the transferred call, and end the call when the transferred call is disconnected. |
+| Transfer Success Fixed Reply | Set the fixed response for a successful transfer. Multiple languages are supported. |
+| Transfer Failed / No Answer Fixed Reply | Set the fixed response when a transfer fails or no one answers. Multiple languages are supported. |
+
+
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/agent-tool-calls/img-1.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/agent-tool-calls/img-2.png)
+</column>
+</grid>
+
+
+
+#### Knowledge Query (RAG Query)
+
+Use RAG Query to configure a knowledge base query Function. Configure the following:
+
+- **Function name**
+- **Function Trigger Description**: Description of when the Function should be triggered (prompt).
+- **Knowledge Base Folder**: Select an existing knowledge base project folder.
+- **Fixed Response When the Function Is Triggered**: Multiple languages are supported.
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/agent-tool-calls/img-3.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/agent-tool-calls/img-4.png)
+</column>
+</grid>
+
+
+
+#### Language Switch
+
+Use Language Switch to change the language used by the Agent during a conversation. This Function is available only when at least two languages are configured; it is unavailable when only one language is configured.
+
+Configure:
+
+- **Function name**
+- **Function Description**: Description of when the Function should be triggered (prompt).
+- **Fixed response when switching to language B**: Enter the response in language B.
+- **Fixed response when switching to language A**: Enter the response in language A.
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/agent-tool-calls/img-5.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/agent-tool-calls/img-6.png)
+</column>
+</grid>
+
+#### Hang Up
+
+Use Hang Up to configure the Hang Up Function. Configure:
+
+- **Function name**
+- **Function Description**: Description of when the Function should be triggered (prompt).
+- **Fixed response when the Function is triggered**
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/agent-tool-calls/img-7.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/agent-tool-calls/img-8.png)
+</column>
+</grid>
+
+
+
+#### DTMF Function
+
+Use the DTMF Function to configure keypress collection, validation, timeout, and retry flows. The interface includes the following settings:
+
+| **Field** | **Description** |
+|-|-|
+| Function name | Custom name |
+| Function trigger description | Description of when the Function should be triggered |
+| Temporary variable for keypress result | Stores the keypress result in a temporary variable |
+| Fixed response on successful Function execution | Supports multiple languages |
+| Key to end keypress input | Select a key to end input. The default is “#”. |
+| Key to clear keypress input | Select a key to clear input. The default is “\*”. This feature can be enabled or disabled and is disabled by default. |
+| Keypress input format validation | Used by the system to determine whether the input is in the correct format. Enter a regular expression. |
+| Custom Function for value validation | Add an existing custom Function key and the corresponding temporary variable that you have created. |
+| Keypress input timeout | If no input is entered before the timeout, the Function ends. The default is 60 seconds; the maximum is 300 seconds. |
+| Fixed response for input timeout | Supports multiple languages. |
+| Maximum retries for invalid keypress input format | Maximum number of format validation failures for user input. When the limit is reached, the Function ends. Default: 5; range: 1–20. |
+| Fixed response for invalid keypress input format | For each validation attempt |
+| Whether to transfer the call if the final keypress input format validation fails | Yes: Enter the corresponding call transfer settings.  <br/>No: Configure a fixed response for failed format validation. |
+| Fixed response when final keypress input format validation succeeds | Supports multiple languages. |
+
+Note: To determine whether the input is ultimately correct, send it to the connected system for validation using a custom Function.
+
+
+
+![](/images/en/agent-builder/agent-tool-calls/img-9.png)
+
+
+
+#### Custom Function (Legacy)
+
+Legacy custom Functions require basic Function information, a flow identifier, and variables.
+
+##### Basic Information
+
+- **Function name**: Text; required.
+- **Function Description**: Text; required.
+- **Unique Flow Identifier (DAG ID)**: Enter the unique flow identifier.
+- **Fixed Response When the Function Is Triggered**: Text. For multilingual Agents, enter a response for each language.
+
+##### Variable List
+
+The variable list includes the following fields:
+
+- Variable name
+- key
+- Data type
+- Variable tag: Function variable or global temporary variable
+- Description
+- Action: Edit or delete
+
+Global temporary variables cannot be edited; they can only be deleted.
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/agent-tool-calls/img-10.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/agent-tool-calls/img-11.png)
+</column>
+</grid>
+
+##### Add a Variable
+
+You can add a Function variable or select an existing global temporary variable.
+
+<grid>
+<column width-ratio="0.500000">
+**Configure the following when adding a Function variable:**
+- **Variable name**: Text; required.
+- **Variable type**: Number, text, enum, Boolean, or time. You can add enum values for an enum type.
+- **Key**: Text; required.
+- **Variable description**: Text; required. Used in the LLM prompt.
+</column>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/agent-tool-calls/img-12.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+**When adding a global temporary variable, select an existing variable from the drop-down list. The variable's `key_name` and description (prompt) are displayed.**
+</column>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/agent-tool-calls/img-13.png)
+</column>
+</grid>

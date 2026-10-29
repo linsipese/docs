@@ -1,0 +1,225 @@
+---
+title: "Script版本建立及編輯（Script Edit）"
+---
+
+## Agent Script 編輯器
+
+Agent Script 編輯器用於在 Agent Builder 中建立、管理和編輯 Agent Script。你可以建立 Script 版本，設定 Agent 的模型和對話參數，編寫 Main Prompt，關聯工具、臨時變量與知識庫，並設定通話結束後的數據處理（ACW Work）。 Outbound 類型的 Agent 可以建立多個 Script；其他類型的 Agent 只能建立一個 Script。
+
+### 建立 Script 與管理版本
+
+<grid>
+<column width-ratio="0.500000">
+#### 建立 Script
+1. 在 Agent Builder 中建立 Script。
+2. 輸入 Script 名稱，點擊確定後進入第一個版本的編輯頁面
+3. 選中的版本編輯完成後點擊 **Save**。只有保存成功，首個版本纔會建立並出現在版本列表中。
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/script-edit/img-1.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+#### 查看版本列表
+版本列表展示當前 Script 的全部版本。選擇一個版本即可進入編輯頁。列表包含以下欄位：
+| 欄位 | 說明 |
+|-|-|
+| Script 版本存檔名、ID、狀態 | 標識 Script 版本即版本狀態 |
+| 建立者 | 建立該版本的用戶 |
+| 建立時間 | 版本建立時間 |
+| Action | 進入編輯頁 |
+版本列表中的數據和狀態與 Test Center 中的 Script 版本列表保持同步。
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/script-edit/img-2.png)
+</column>
+</grid>
+
+
+
+模型設定（Model Configuration）
+
+#### Model Settings
+
+| 設定 | 設定方式與預設值 |
+|-|-|
+| LLM Model | 從下拉列表選擇可用的模型。 |
+| Temperature | 取值範圍 0–1，步長 0.1，預設值 0.5。啓用 Thinking Mode 後，該設定可能不生效。 |
+| Thinking Mode | 下拉選擇多種思考強度， `None` 爲預設值。 |
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/script-edit/img-3.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/script-edit/img-4.png)
+</column>
+</grid>
+
+#### Conversation Mode Settings
+
+| 設定 | 取值與預設值 | 界面說明 |
+|-|-|-|
+| Silence Wait Time (s) | 最小 1 秒，預設 10 秒，最大 120 秒 | 用戶保持沉默時，Agent在開始講話前等待的時長。 |
+| Time to First Response (ms) | 500–60,000 毫秒，預設 1,000 毫秒 | 呼叫開始後Agent首次響應的等待時間 |
+| Consecutive Silence Turns Before Hangup | 預設開啓，可設定 1–20 輪，預設 3 輪 | 連續多輪靜默後掛斷通話 |
+
+### First Message
+
+First Message 用於設定每次 Agent 對話的開場白。
+
+- 關閉後Agent不使用固定的 First Message。
+- 文字輸入上限爲 240 個字符。
+- 在語音場景中，文字會通過 TTS 轉換爲開場語音。
+- 在 Chatbot 場景中直接顯示文字，不使用 TTS服務。
+
+![](/images/zh-Hant/agent-builder/script-edit/img-5.png)
+
+### Main Prompt
+
+Main Prompt 是 Agent 的主要提示詞編輯區。編輯器提供以下能力：
+
+- 支持使用全屏編輯模式。
+- 識別欄位、變量和工具，並以對應標籤樣式顯示。
+- 統計 Prompt 的字符總數。
+- 點擊引用按鈕或輸入 `{{`，按分類選擇 **Agent 欄位**和**臨時變量（包含系統變量）**。
+- 點擊 **Tools**，或在編輯區輸入 `@`，選擇要引用的工具。工具引用會顯示爲高亮標籤。
+
+![](/images/zh-Hant/agent-builder/script-edit/img-6.png)
+
+### Tools
+
+Tools & Functions 模塊用於添加和管理 Agent 可呼叫的工具。
+
+各工具類型的欄位和設定方式請參閱<cite doc-id="BMYYw1MxgiVJZjkRMFZjThx8puf" file-type="wiki" title="Agent 工具調用（Tools）" type="doc"></cite>
+
+
+
+### Temporary Variables
+
+Temporary Variables 用於保存會話中的臨時值，並支持在各種Prompt 和 Function 中引用。
+
+**Temporary Variables提取提示詞**
+
+Temp Variable Value Extraction Framework Prompt 使用文字輸入框設定。文字必須包含以下佔位符：{history_variables}、{current_time}、{history}
+
+#### 變量列表
+
+| 表土欄位 | 說明 |
+|-|-|
+| Name | 臨時變量名稱；引用中的變量會顯示 **In Use** 標籤 |
+| Key | 臨時變量 key |
+| LLM Extraction | 是否使用 LLM 提取 |
+| Mapped to Agent Field | 是否關聯 Agent 欄位 |
+| Sensitive | 是否爲敏感變量 |
+| Action | 編輯或刪除 |
+
+#### 添加和編輯變量
+
+添加臨時變量時設定名稱、key、Description 以及對應設定項
+
+- **Sensitive** 預設關閉。開啓後，變量值會加密且無法查看，無法關聯Agent欄位
+- 關聯至Agent欄位：對話結束後，臨時變量值能夠直接關聯到已建立的Agent欄位中
+- 使用大模型提取臨時變量值：當打開時，臨時變量將不能通過工具呼叫進行賦值（兩者有衝突）
+- 引用中的變量不能刪除，刪除按鈕置灰，不能修改 key。
+
+![](/images/zh-Hant/agent-builder/script-edit/img-7.png)
+
+![](/images/zh-Hant/agent-builder/script-edit/img-8.png)
+
+
+
+### Knowledge Base
+
+用於添加已存在的知識。設定時選擇已有的知識庫文件夾。
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/script-edit/img-9.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/script-edit/img-10.png)
+</column>
+</grid>
+
+
+
+### After Call Work
+
+After Call Work（ACW）用於設定通話結束後的標籤提取、摘要生成、自定義工具呼叫和數據推送。
+
+![](/images/zh-Hant/agent-builder/script-edit/img-11.png)
+
+#### 對話標籤
+
+設定獨立的LLM，用於對話結束後生成該通對話內容中的自定義內容標籤，標籤屬性與生成邏輯可自行定義。最終生成的標籤將在Agent Lab - Agent通話記錄詳情頁中展示。
+
+- **對話標籤**功能預設開啓，也可以關閉。
+- 可單獨設定使用的LLM
+- 每個標籤包含標籤名、數據類型、`Key_name`、提取 Prompt，以及是否關聯 Agent 欄位。
+- 數據類型支持數字、文字、布爾、枚舉和時間。
+- 描述：用於LLM提取對應值的Prompt
+- 關聯Agent欄位：打開關聯後，需選擇已有的Agent欄位關聯，關聯後無需再定義name、數據類型與key。對話結束後，關聯的Agent欄位將接收對話標籤的值
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/script-edit/img-12.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/script-edit/img-13.png)
+</column>
+</grid>
+
+#### 通話 Summary
+
+設定獨立的LLM，用於對話結束後生成該通對話的概要，Agent Builder中提供了預設的生成提示詞，如有個性化需要可以進行修改，但是需要保留原有的提示詞框架。最終生成的Summary將在Agent Lab - Agent通話記錄詳情頁中展示。
+
+- 通話 Summary 預設使用開啓，也可以關閉。
+- 可單獨設定使用的LLM
+- 生成Summary的 Prompt 預設提供且可編輯，需要保留原有的提示詞框架。
+
+![](/images/zh-Hant/agent-builder/script-edit/img-14.png)
+
+#### 添加ACW自定義Function
+
+Daisybell Agent支持在Agent通話結束後繼續呼叫對應的自定義工具完成相應的任務，在對應的輸入框中填寫Function Key即可實現工具的呼叫
+
+![](/images/zh-Hant/agent-builder/script-edit/img-15.png)
+
+#### 數據推送
+
+在通話結束後，Daisybell Agent Lab支持將Agent欄位值推送給外部對象，在選中已建立的外部對象後進行對應設定。
+
+- **對接主體（推送對象）**：從 Integrations & API 中已添加的對象卡片中選擇。支持添加多個推送對象
+- **對象Key（Object）**：填寫對應的Key
+- **欄位映射**：將 Agent 欄位映射到對接對象欄位。（可添加多個）
+
+![](/images/zh-Hant/agent-builder/script-edit/img-16.png)
+
+![](/images/zh-Hant/agent-builder/script-edit/img-17.png)
+
+### Other Settings
+
+- **Amazon Connect - 通過 DTMF 獲取來電號碼**：開關預設關閉。僅Inbound類型Agent可設定
+- **前處理功能設定**：開關預設關閉。開啓後填寫自定義 Function 標識 ID。僅Inbound類型Agent可設定
+- **Bypass 轉接電話設定**：開關預設關閉。開啓後設定外撥線路、接收轉接電話號碼和轉接處理模式。轉接處理模式與 Call Transfer 中的 **Transfer Handling Mode** 保持一致。僅Inbound類型Agent可設定
+- **錯誤固定回覆**：設定 Agent 發生錯誤時返回的固定文字。多語言 Agent 爲每種語言提供對應輸入框。
+
+![](/images/zh-Hant/agent-builder/script-edit/img-18.png)
+
+### 導入和匯出
+
+所有的Script設定項將以JSON格式的文件進行保存，Agent Builder支持設定JSON文件的 導入和匯出功能。
+
+### 自動保存
+
+編輯已有版本時，編輯器每 5 分鐘自動保存一次，並顯示自動保存提示。窗口打開超過 2 小時且沒有任何修改後，自動保存停止。
+
+在進入編輯前你可以選擇：
+
+- **Restore Autosaved Content**：使用自動保存內容替換當前版本內容。
+- **Keep Current Version Content**：保留當前版本內容。
+
+當多個用戶同時編輯同一版本時，僅保留最新的一份自動保存內容。點擊 **Edit** 時，如果存在自動保存內容，也會打開上述提示。

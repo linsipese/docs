@@ -1,0 +1,77 @@
+---
+title: "臨時除錯（Temporary Debug）"
+---
+
+在進行對話測試時，若發現 AI 表現不符合預期，您無需發佈或生成新的 `Script` Script版本，即可在獨立的沙盒調試面板中實時調整 `Prompt`、修改 `Tools` 觸發描述Prompt，並一鍵完成單輪驗證
+
+---
+
+### 1. 功能概述
+
+在進行復雜的對話交互測試中，針對 AI Agent 的微調通常需要頻繁地修改 Prompt 或 Tool觸發描述。傳統流程需要“修改Script - 保存版本 - 重新測試”，步驟較長。
+
+**臨時 Debug** 提供了一個輕量級的即時調試空間。它允許您在對話流的任意一輪中“就地調試”，在不破壞當前上下文的前提下，臨時修改底層的系統 Prompt、工具（Tools）觸發描述等，並支持同時並行生成多組結果。
+
+---
+
+### 2. 開啓臨時 Debug
+
+要對某一輪次的對話進行單輪調試，請按照以下步驟操作：
+
+
+
+1. **定位目標對話**：進入對話詳情，在當前的文字測試交互中，找到需要調整或分析的用戶回覆氣泡。
+2. **啓動 Debug 面板**：將鼠標懸停於該氣泡上，點擊其左側出現的 `Debug` 按鈕。
+
+![](/images/zh-Hant/test-center/temporary-debug/img-1.png)
+
+
+
+---
+
+
+
+### 3. 調試面板核心設定
+
+
+
+進入 Debug 抽屜頁面後，工作區將爲您還原該對話輪次的完整底層運行設定。
+
+![](/images/zh-Hant/test-center/temporary-debug/img-2.png)
+
+**功能模塊**
+
+| 模塊 | 功能描述 | 可編輯性 | 說明 |
+|-|-|-|-|
+| **當前輪次用戶輸入** | 顯示本輪對話中，用戶發送給 AI Agent 的原始文字。 | 只讀 | 場景還原 |
+| **Prompt 文字框** | 承載本輪對話輸入完整的提示詞（Input Prompt）。 | 是 | Main Prompt |
+| **Tools 設定區域** | 動態加載並展示當前環境下關聯的所有 `Tools` 設定框（數量根據實際綁定動態渲染）。 | 是 | 右上角區分 `tool type` 標籤（如 `Instruction Mode` 等） |
+
+#### Prompt Diff 差異比對
+
+當您對 `Prompt` 或工具描述進行了文字修改後，可通過 `Diff` 功能快速審查改動內容：
+
+![](/images/zh-Hant/test-center/temporary-debug/img-3.png)
+
+---
+
+
+
+### 4. 調試結果生成
+
+調整完 `Prompt` 或 `Tools` 觸發描述後，您可以在右側實時運行並分析 Agent 的輸出質量。
+
+![](/images/zh-Hant/test-center/temporary-debug/img-4.png)
+
+#### 4.1 批量結果生成
+
+1. **設定生成數量**：在 `Results` 框中，輸入您希望並行生成的結果條數（支持設定 `1 - 20` 條）。
+2. **執行生成**：點擊右下角的 Generate按鈕，產出相應數量的 Reply 選項。
+
+### 5. 支持上傳文字測試集進行測試
+
+![](/images/zh-Hant/test-center/temporary-debug/img-5.png)
+
+###### **調試內容不保存**
+
+- 由於是純粹的調試沙盒，測試集運行產生的所有臨時回覆與觸發鏈路**均不進行任何物理保存**

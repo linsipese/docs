@@ -1,0 +1,168 @@
+---
+title: "文字測試&文字測試組件（Text Test & Text Tset Widget）"
+---
+
+**通過文字輸入快速驗證對話邏輯。與Agent使用文字進行正常對話，所有邏輯均與實際使用語音對話保持一致，聊天面板可幫助你逐條檢查回覆，並且可以使用測試工具小組件進行局部深入測試與調試**
+
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-1.png)
+
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-2.png)
+
+
+
+<grid>
+<column width-ratio="0.500000">
+#### Configuration Set
+- 在開始“文字測試”前，可查看當前測試使用的Agent的設定快照
+- 開始測試前，設定當前測試所需的Agnet欄位(含“Is system”欄位和“Custom”欄位）和臨時變量的值
+- 還可以設定“Customized Tools”使用的API（測試沙河或者正式API） -  未正式上線
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-3.png)
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-4.png)
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-5.png)
+</column>
+</grid>
+
+
+
+#### Text Test Tool Widgets
+
+> 文字測試過程中，通過不同的測試工具小組件可以完成文字測試中不同維度的功能測試與調試
+
+<grid>
+<column width-ratio="0.500000">
+##### Import Context
+- 只有在點擊按鈕開始測試前可以使用該功能
+- 選擇已有的上下文測試集條目點擊“Import”插入當前測試中
+- Import前可以點擊“Action”中的按鈕查看條目詳情
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-6.png)
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-7.png)
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-8.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+##### Copy Conversation
+- 將所有已經產生的對話文字複製到的剪切板
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-9.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### Reset Test
+- 所有設定以不變的情況下重新開始當前測試，回到測試前
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-10.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### Batch Reply
+- 同樣的文字內容得到多個Agent回覆
+- 批量測試結果將出現在對應的對話氣泡下方，點擊後可查看詳情
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-11.png)
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-12.png)
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-13.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### Upload Test Set
+- 通過此功能，用戶可以將預先整理好的大量測試用例（Test Cases）批量導入到測試運行器（Runner）中，替代手動逐一輸入，實現高效的
+- 可批量添加回復條目以及對應的Agent 預期回覆，用“|”隔開，輸入框中，每一行作爲一條數據
+- 支持Excel/Csv導入
+- 單輪最多支持50條數據
+- 所有測試結果都生成後，可選擇其中一條作爲當前測試的實際回覆，可以繼續進行測試
+- 測試記錄將保留
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-14.png)
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-15.png)
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-16.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### Clean this Turn
+- 刪除當前輪次AI與測試者的對話
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-17.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### Save Context
+- 將從當前輪次對話只上的所有對話保存爲上文測試集條目，可以在Context
+- 添加時可以預覽條目詳情，需對條目進行命名 
+- 添加完成的條目可在Context test set中查看
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-18.png)
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-19.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+##### Debug
+> 提供單個測試用例的原子化分析。實時查看 LLM輸入，快速定位具體的執行錯誤
+- 當對某一輪會話中AIAgent的回覆不滿意，點擊Debug按鈕，在不改變上文的前提下可以對當前輪次的LLM INPUT進行調整，並在調整後輸出新的Agent回覆
+- 系統已經把Script中設定的Tool Trigger Prompt進行單獨展示，可以直接在獨立對話框中進行調整
+- 完成文字修改之後，點擊“Generate”，可以生成“批量回復”結果
+- 點擊“Upload test set”可進行“測試集測試”
+- Debug功能中生成的結果無法保存
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-20.png)
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-21.png)
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-22.png)
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-23.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### Regenerate
+重新生成當前AI Agent的回覆
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-24.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+#### Evaluate & Save Test
+完成測試內容的預覽之後需要對當前測試進行保存與評價，保存後的測試可以通過Script Version Detail中的列表進行查看
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/test-center/text-test-text-tset-widget/img-25.png)
+</column>
+</grid>

@@ -1,0 +1,135 @@
+---
+title: "Agentの作成と基本設定（Agent Create & Config）"
+---
+
+## Agentの作成と設定
+
+Agent Builderでは、Agentを作成し、言語、音声、会話戦略、電話回線、Agentフィールドを設定します。
+
+### Agentの作成
+
+1. 「`Create Agent`」を選択します。
+2. Agent名を入力し、Agentタイプを選択します。名前は必須で、最大30文字です。選択できるタイプは`Inbound`、`Outbound`、`Chatbot`、`Webvoice`です。
+3. `Basic Configuration`に移動します。
+
+
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/ja/agent-builder/agent-create-config/img-1.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/ja/agent-builder/agent-create-config/img-2.png)
+</column>
+</grid>
+
+### 基本設定
+
+#### Agentの基本情報
+
+| **設定** | **説明** |
+|-|-|
+| `Agent Name` | 必須、最大30文字。 |
+| `Agent Title` | 任意、最大30文字。 |
+| `Agent Description` | 任意、最大200文字。 |
+| `Agent Avatar` | 任意。画像をアップロードするか、システムアバターを選択できます。アップロードする画像は180 × 180ピクセルで、JPG、PNGなどの形式に対応し、ファイルサイズは2 MB未満です。 |
+
+![](/images/ja/agent-builder/agent-create-config/img-3.png)
+
+#### 言語設定
+
+`Primary Language` は単一選択です。Agentの作成・保存後は、主言語を変更できません。
+
+`Secondary Language` では複数の言語を追加できます。保存済みの言語は削除できず、追加のみ可能です。
+
+選択した各言語には、個別のASRおよびTTS設定カードがあります。主言語のカードには`Primary`タグが表示されます。
+
+
+
+#### アクセス情報とキー（Webvoice/Chatbot）
+
+`Webvoice`タイプのAgentでは、`Access Info`にシステムが生成したアクセスURLが表示されます。
+
+![](/images/ja/agent-builder/agent-create-config/img-4.png)
+
+`Chatbot`タイプのAgentでは、Access Infoに`EID`とシステムが生成したアクセスURLが含まれます。
+
+![](/images/ja/agent-builder/agent-create-config/img-5.png)
+
+### 音声設定
+
+#### ASR設定
+
+ASR設定は`Inbound`、`Outbound`の電話タイプおよび`Webvoice`に適用されます。言語ごとにASRサービス、`VAD Delay (ms)`、`ASR Hotwords`を設定します。VAD遅延のデフォルト値は`500`で、正の整数を指定します。
+
+ホットワードは1つずつ入力することも、行単位で一括インポートすることもできます。一括インポートでは、既存のリストへの追加またはリストの置換を選択できます。重複するホットワードは自動的に削除されます。
+
+![](/images/ja/agent-builder/agent-create-config/img-6.png)
+
+#### TTS設定
+
+TTS設定は`Inbound`、`Outbound`、`Webvoice`に適用されます。言語ごとに音声を選択して標準録音を試聴できます。音声には`Female`または`Male`タグが表示されます。
+
+| 設定 | 説明 |
+|-|-|
+| `Speed (x)` | スライダーの範囲は`0.5x-2x`、ステップは`0.1`、デフォルト値は`1.0`。 |
+| `Volume` | スライダーの範囲は`1-100`、デフォルト値は`50`。 |
+| `Pronunciation Library` | 発音ライブラリを選択します。デフォルト値は`Default`。 |
+
+![](/images/ja/agent-builder/agent-create-config/img-7.png)
+
+### 会話戦略の設定
+
+電話タイプ`Inbound`、`Outbound`、`Webvoice`では、背景音、最大通話時間、`Turn detection`を設定できます。
+
+背景音は試聴できます。
+
+`Max Call Duration (m)`：現在の会話を継続できる最大時間です。デフォルトは30分で、時間に達すると会話は強制終了します。
+
+`Turn detection`：各ターンの会話が完了しているかを判定します。デフォルトはオフです。
+
+![](/images/ja/agent-builder/agent-create-config/img-8.png)
+
+Chatbotでは、`Maximum duration of the conversation`を設定できます。範囲は1秒から24時間、デフォルトは5分です。設定した時間内にユーザーから返信がない場合、会話は終了します。
+
+![](/images/ja/agent-builder/agent-create-config/img-9.png)
+
+### 電話回線の設定
+
+電話回線の設定は`Inbound`および`Outbound`に適用されます。`Webvoice`では`Main Calling Phone Number`は表示されず、`Chatbot`では電話回線を設定しません。
+
+#### 発信者番号
+
+複数の発信者番号を追加できます。
+
+`Outbound` Agentでは、発信者番号ごとに転送同時実行数を設定できます。この番号は発信と`Transfer Call Tool`による転送に使用できます。両方の用途で合計同時実行数を共有します。
+
+#### 専用転送番号
+
+未使用の`Outbound`回線を専用転送番号に設定できます。専用番号は転送専用で、同時実行数は発信者番号の転送同時実行数とは別に管理されます。番号を削除すると、その回線は再度選択できません。
+
+![](/images/ja/agent-builder/agent-create-config/img-10.png)
+
+### Agentフィールド
+
+`Agent Field`にはシステムフィールドとカスタムフィールドが含まれます。システムフィールドはAgentタイプに応じて表示され、ワークベンチでは編集できません。
+
+#### カスタムフィールド
+
+`extra_field`の作成時に、フィールド名、キー名、タイプ、デフォルト値を設定できます。作成後もフィールド名は編集できますが、キー名とフィールドタイプは変更できません。キー名には英字とアンダースコアを使用できます。フィールドタイプには、数値、配列、列挙、ブール値、テキスト、日時があります。
+
+| オプション | 説明 |
+|-|-|
+| `Import via "Upload Task"` | `Outbound`のみ使用できます。デフォルトはオフです。有効にすると、発信タスクからこのフィールドをアップロードできます。 |
+| `Editable in manual` | デフォルトはオフです。有効にすると、`Agent Detail - Record List`でフィールド値を直接編集できます。 |
+| `Sortable` | デフォルトはオフです。有効にすると、`Agent Detail - Record List`でこのフィールドによる並べ替えができます。 |
+
+システムフィールドの`Start Time`はデフォルトで並べ替え可能で、この設定は変更できません。
+
+![](/images/ja/agent-builder/agent-create-config/img-11.png)
+
+### Agent Basic Configurationの反映方法（重要）
+
+現在、Agent Basic ConfigurationとAgent Script Versionsは独立して編集されます。そのため、Agent Basic Configurationを変更して保存しても、変更内容は既存のScriptバージョンには適用されません。以後に保存するScript Versionから、最新のBasic Configurationパラメータが使用されます。
+
+そのため、AgentのBasic Configurationを調整して保存した後は、**Script Editで最新のScript Versionを保存してください（Script Versionの内容は変更しなくても構いません）**。この最新のScript Versionには、最新のBasic Configurationパラメータが適用されます。このバージョンをPublish（またはRelease）する場合は、Test Centerのバージョン一覧から操作してください。

@@ -1,0 +1,105 @@
+---
+title: "Outbound Agent — Creating an Outbound Task"
+---
+
+To help businesses launch outbound operations efficiently, Daisybell has upgraded outbound task creation and data import. The system automatically supports and corrects common lead data formats, greatly reducing import interruptions caused by invalid formatting.
+
+---
+
+### 1. Create an Outbound Task
+
+To create an outbound task in the Daisybell workspace, an administrator needs to configure only the following three areas:
+
+#### 1.1 Basic Information
+
+- **Task Name**: A required text field for the task name, configured when the settings dialog opens.
+- **Script**: The AI conversation script assigned to the outbound task. If only one Script is available in the current workspace, it is selected by default and the latest created Script version is assigned first.
+- **Priority**: Determines the task's priority in the call queue. The default is **Normal** priority.
+
+![](/images/en/agent-operator/outbound-agent-creating-an-outbound-task/img-1.png)
+
+#### 1.2 Call Time Settings
+
+You can control the times of the week when outbound tasks are allowed to dial automatically:
+
+- **15-Minute Scheduling Increments**: The settings page provides a visual scheduling grid covering Sunday through Monday, from `08:00 - 20:00`. The minimum scheduling interval is 15 minutes. The grid includes a scrollbar and opens with the view positioned at `08:00`.
+- **Select a Preset**: Apply a predefined working schedule with one click. After you apply a preset, the default daily call window is `08:00` to `20:00`.
+
+![](/images/en/agent-operator/outbound-agent-creating-an-outbound-task/img-2.png)
+
+
+
+---
+
+### 2. Importing Outbound Leads and Template Requirements
+
+![](/images/en/agent-operator/outbound-agent-creating-an-outbound-task/img-3.png)
+
+A standardized data template lets you import large volumes of outbound leads.
+
+#### 2.1 Lead Field Requirements
+
+Fields supported in the import file must match the custom fields that you selected in Agent Field Management as available for external import:
+
+![](/images/en/agent-operator/outbound-agent-creating-an-outbound-task/img-4.png)
+
+- **Only Required Field**: Of all imported columns, **Phone number is the only required field**. Other custom fields, such as name, age, gender, and notes, can be left blank or contain null values.
+- **Maximum Number of Fields**: Each uploaded data table can contain up to **20** columns. If the file contains more than 20 columns, the system ignores the extra columns when it reads the file.
+- **Data Format Requirements**:
+
+  - **Text**: Each cell can contain up to 1,000 characters.
+  - **Number**: Up to 3 decimal places are supported.
+  - **Date and time**: Values must use the standard format, such as `YYYY-MM-DD HH:mm:ss`.
+  - **Boolean**: The system maps True or False to the corresponding business condition.
+  - **Enum**: The entered text must exactly match an available enum value predefined in the workspace.
+  - **Character Format**: For accurate parsing, enter lead data using half-width characters wherever possible.
+
+#### 2.2 Download the Excel Template
+
+- **Template Structure and Column Order**:**The downloaded template is generated from the Agent field configuration. Use it to fill in the corresponding data, and do not modify any column headers.**
+
+#### 2.3 Upload Limits
+
+The system supports importing standard Excel files with the **`.xlsx`** extension only. When a file is added to the upload area, the interface performs basic validation and blocks files that fail validation, displaying an upload failure message:
+
+- A single file must not exceed **50MB**.
+- The total number of data rows in a file must be **fewer than 10,000 rows**. If a spreadsheet exceeds 10,000 rows, the system displays a blocking message and stops the upload.
+
+---
+
+### 3. Data Normalization
+
+To address upload failures caused by differences in how customers enter data, the backend applies a data normalization strategy.
+
+#### 3.1 Phone Number Normalization
+
+The system automatically normalizes required phone number fields when it reads them.
+
+- **Automatic Conversion Between Full-Width and Half-Width Digits**: Chinese or Japanese full-width digits, such as `０１２３...`, are converted to standard half-width digits used in public phone numbers, such as `0123...`.
+- **Support for Two-Stage Dialing**: The stored format supports two-stage dialing instructions, including DTMF control characters and special key symbols in phone numbers, such as `+1234<dtmf>2367*#213`.
+- **Block Invalid Characters**: If a phone number cell contains English letters (`a-z, A-Z`) or special characters other than standard telephony symbols (such as `@`), the number is rejected.
+- **Uniqueness and Presence Validation**: After normalization, a phone number must not be empty or duplicate a number in another row of the current import file.
+
+#### 3.2 Recognizing Multiple Date and Time Formats
+
+When data is saved in the system, it is converted to the standard `YYYY-MM-DD HH:mm:ss` format.
+
+---
+
+### 4. Data Preview and Inline Editing
+
+After basic validation passes, the system lets you correct data online.
+
+![](/images/en/agent-operator/outbound-agent-creating-an-outbound-task/img-5.png)
+
+- **File Data**: Includes the total number of rows (Total), the number of valid rows (Correct), and the number of rows containing errors (Errors). Error row numbers are shown, for example: `* Row 1, 3 have errors`.
+- **Visual Data Status Indicators**:
+
+  - **Error Cells**: A cell that fails validation because it contains invalid characters, a duplicate number, or an empty phone number is automatically highlighted in **red**
+  - **Empty Cells**: A blank cell in an optional custom field is automatically highlighted in **yellow**
+- **Filter Data**:**Filter for rows with empty cells** and **Filter for error rows**
+- **Edit Data**
+
+  - **Adaptive Inline Editing**: Click the edit icon in the Actions column. The system opens an inline editor suited to the underlying field type, such as text, enum, Boolean, or number.
+  - **Add and Delete Rows**: Click **Add** to insert a blank row above the first row and enter data manually, or click Delete to permanently remove an invalid or corrupted row.
+- **Confirm Import**: You can submit the data only after all missing values in the file have been filled in and the number of error rows is zero (Errors: 0).

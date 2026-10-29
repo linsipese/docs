@@ -28,11 +28,71 @@
         "language": "en",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Agent Lab Product Manual",
             "pages": [
               "en/overview",
-              "en/quickstart",
-              "en/development"
+              {
+                "group": "Agent Builder",
+                "pages": [
+                  "en/agent-builder/index",
+                  "en/agent-builder/creating-and-configuring-an-agent",
+                  "en/agent-builder/creating-and-editing-script-versions",
+                  "en/agent-builder/agent-tool-calls"
+                ]
+              },
+              {
+                "group": "Agent Operator",
+                "pages": [
+                  "en/agent-operator/index",
+                  "en/agent-operator/agent-details-and-call-records",
+                  "en/agent-operator/outbound-agent-creating-an-outbound-task",
+                  "en/agent-operator/alpha",
+                  "en/agent-operator/not-currently-in-use-requires-iteration"
+                ]
+              },
+              {
+                "group": "Test Center",
+                "pages": [
+                  "en/test-center/index",
+                  "en/test-center/editing-and-releasing-script-versions",
+                  "en/test-center/script-version-details",
+                  "en/test-center/text-testing-and-test-widgets",
+                  "en/test-center/voice-testing",
+                  "en/test-center/context-test-set-and-backtesting",
+                  "en/test-center/test-record-details",
+                  "en/test-center/temporary-debugging"
+                ]
+              },
+              {
+                "group": "General Tools",
+                "pages": [
+                  "en/general-tools/index",
+                  "en/general-tools/phone-number-management",
+                  "en/general-tools/beta",
+                  "en/general-tools/export-center",
+                  "en/general-tools/message-push",
+                  "en/general-tools/sub-account-management",
+                  "en/general-tools/incomplete"
+                ]
+              },
+              {
+                "group": "Account Settings",
+                "pages": [
+                  "en/account-settings/index",
+                  "en/account-settings/login-ip-security-settings-and-login-logs",
+                  "en/account-settings/incomplete"
+                ]
+              },
+              {
+                "group": "Technical Manual",
+                "pages": [
+                  "en/technical-manual/index",
+                  "en/technical-manual/japan-and-korea",
+                  "en/technical-manual/internal-documentation-end-to-end-latency-calculation",
+                  "en/technical-manual/internal-si-integration-plan",
+                  "en/technical-manual/internal-document-interoperability-judgment-criteria"
+                ]
+              }
             ]
           }
         ],
@@ -42,11 +102,69 @@
         "language": "ja",
         "groups": [
           {
-            "group": "はじめに",
+            "group": "Agent Lab產品使用手冊",
             "pages": [
               "ja/overview",
-              "ja/quickstart",
-              "ja/development"
+              {
+                "group": "Agent ビルダー（Agent Builder）",
+                "pages": [
+                  "ja/agent-builder/index",
+                  "ja/agent-builder/agent-create-config",
+                  "ja/agent-builder/script-edit",
+                  "ja/agent-builder/tools"
+                ]
+              },
+              {
+                "group": "Agent運用（Agent Operation）",
+                "pages": [
+                  "ja/agent-operation/index",
+                  "ja/agent-operation/profile-record",
+                  "ja/agent-operation/create-outbound-task",
+                  "ja/agent-operation/analysis-trace"
+                ]
+              },
+              {
+                "group": "テストセンター（Test Center）",
+                "pages": [
+                  "ja/test-center/index",
+                  "ja/test-center/スクリプトバージョンの状態編集と公開",
+                  "ja/test-center/スクリプトバージョン詳細",
+                  "ja/test-center/テキストテストとテストウィジェット",
+                  "ja/test-center/音声テスト",
+                  "ja/test-center/コンテキストテストセットとバックテスト",
+                  "ja/test-center/テスト記録詳細",
+                  "ja/test-center/一時デバッグ"
+                ]
+              },
+              {
+                "group": "プラットフォームツール（General Tools） ",
+                "pages": [
+                  "ja/general-tools/index",
+                  "ja/general-tools/phone-numbers",
+                  "ja/general-tools/knowledge-base",
+                  "ja/general-tools/エクスポートセンター",
+                  "ja/general-tools/メッセージプッシュ",
+                  "ja/general-tools/サブアカウント管理"
+                ]
+              },
+              {
+                "group": "Account Settings ",
+                "pages": [
+                  "ja/account-settings/index",
+                  "ja/account-settings/ip"
+                ]
+              },
+              {
+                "group": "Techs-manual",
+                "pages": [
+                  "ja/techs-manual/index",
+                  "ja/techs-manual/日本・韓国における顧客側／通信事業者側の電話設定方法",
+                  "ja/techs-manual/[社内文書] 日本・韓国における顧客側／通信事業者側の電話設定方法",
+                  "ja/techs-manual/[社内文書] エンドツーエンド遅延の計算",
+                  "ja/techs-manual/si",
+                  "ja/techs-manual/[社内文書] 連携可否の判定基準"
+                ]
+              }
             ]
           }
         ]
@@ -55,11 +173,65 @@
         "language": "ko",
         "groups": [
           {
-            "group": "시작하기",
+            "group": "Agent Lab 사용 메뉴얼",
             "pages": [
               "ko/overview",
-              "ko/quickstart",
-              "ko/development"
+              {
+                "group": "Agent 운영 도구 (Agent Operator)",
+                "pages": [
+                  "ko/agent-operator/index",
+                  "ko/agent-operator/profile-record",
+                  "ko/agent-operator/create-outbound-task",
+                  "ko/agent-operator/alpha"
+                ]
+              },
+              {
+                "group": "테스트 센터 (Test Center)",
+                "pages": [
+                  "ko/test-center/index",
+                  "ko/test-center/temporary-debug",
+                  "ko/test-center/test-record-detail",
+                  "ko/test-center/version-status-edit-release",
+                  "ko/test-center/text-test-text-test-widget",
+                  "ko/test-center/voice-test",
+                  "ko/test-center/script-version-detail",
+                  "ko/test-center/context-test-set-backtest"
+                ]
+              },
+              {
+                "group": "Agent 생성기 (Agent Builder)",
+                "pages": [
+                  "ko/agent-builder/index",
+                  "ko/agent-builder/edit",
+                  "ko/agent-builder/tools",
+                  "ko/agent-builder/agent-create-config"
+                ]
+              },
+              {
+                "group": "플랫폼 도구 (General Tools)",
+                "pages": [
+                  "ko/general-tools/index",
+                  "ko/general-tools/phone-numbers",
+                  "ko/general-tools/message-push",
+                  "ko/general-tools/sub-user-management",
+                  "ko/general-tools/export-center",
+                  "ko/general-tools/knowledge-base"
+                ]
+              },
+              {
+                "group": "계정 설정 (Account Settings)",
+                "pages": [
+                  "ko/account-settings/index",
+                  "ko/account-settings/ip"
+                ]
+              },
+              {
+                "group": "기술 매뉴얼 (Tech Manual)",
+                "pages": [
+                  "ko/tech-manual/index",
+                  "ko/tech-manual/고객 측·통신사 측 전화 설정 방법 (일본·한국)"
+                ]
+              }
             ]
           }
         ]
@@ -68,12 +240,70 @@
         "language": "zh-Hant",
         "groups": [
           {
-            "group": "開始使用",
+            "group": "Agent Lab產品使用手冊",
             "pages": [
-              "zh-Hant/12345",
               "zh-Hant/overview",
-              "zh-Hant/quickstart",
-              "zh-Hant/development"
+              {
+                "group": "Agent生成器（Agent Builder）",
+                "pages": [
+                  "zh-Hant/agent-builder/index",
+                  "zh-Hant/agent-builder/agent-create-config",
+                  "zh-Hant/agent-builder/script-edit",
+                  "zh-Hant/agent-builder/tools"
+                ]
+              },
+              {
+                "group": "Agent營運工具（Agent Operator）",
+                "pages": [
+                  "zh-Hant/agent-operator/index",
+                  "zh-Hant/agent-operator/profile-record",
+                  "zh-Hant/agent-operator/create-outbound-task",
+                  "zh-Hant/agent-operator/alpha"
+                ]
+              },
+              {
+                "group": "測試中心（Test Center）",
+                "pages": [
+                  "zh-Hant/test-center/index",
+                  "zh-Hant/test-center/script-version-status-edit-release",
+                  "zh-Hant/test-center/script-version-detail",
+                  "zh-Hant/test-center/text-test-text-tset-widget",
+                  "zh-Hant/test-center/voice-test",
+                  "zh-Hant/test-center/context-test-set-backtest",
+                  "zh-Hant/test-center/test-record-detail",
+                  "zh-Hant/test-center/temporary-debug"
+                ]
+              },
+              {
+                "group": "平台工具（General Tools）",
+                "pages": [
+                  "zh-Hant/general-tools/index",
+                  "zh-Hant/general-tools/phone-numbers",
+                  "zh-Hant/general-tools/knowledge-base",
+                  "zh-Hant/general-tools/export-center",
+                  "zh-Hant/general-tools/message-push",
+                  "zh-Hant/general-tools/sub-user-management",
+                  "zh-Hant/general-tools/integrations-api"
+                ]
+              },
+              {
+                "group": "帳戶設定（Account Settings）",
+                "pages": [
+                  "zh-Hant/account-settings/index",
+                  "zh-Hant/account-settings/ip",
+                  "zh-Hant/account-settings/notification"
+                ]
+              },
+              {
+                "group": "技術手冊（Techs-manual）",
+                "pages": [
+                  "zh-Hant/techs-manual/index",
+                  "zh-Hant/techs-manual/常見電話客戶側和電訊商側設定方法（日本、韓國）",
+                  "zh-Hant/techs-manual/[內部文件]端到端延遲計算",
+                  "zh-Hant/techs-manual/si",
+                  "zh-Hant/techs-manual/[內部文件]可對接性判斷標準"
+                ]
+              }
             ]
           }
         ]
@@ -82,12 +312,70 @@
         "language": "zh-Hans",
         "groups": [
           {
-            "group": "开始使用",
+            "group": "Agent Lab产品使用手册",
             "pages": [
               "zh-Hans/overview",
-              "zh-Hans/quickstart",
-              "zh-Hans/development",
-              "zh-Hans/1234"
+              {
+                "group": "Agent生成器（Agent Builder）",
+                "pages": [
+                  "zh-Hans/agent-builder/index",
+                  "zh-Hans/agent-builder/agent-create-config",
+                  "zh-Hans/agent-builder/script-edit",
+                  "zh-Hans/agent-builder/tools"
+                ]
+              },
+              {
+                "group": "Agent运营工具（Agent Operator）",
+                "pages": [
+                  "zh-Hans/agent-operator/index",
+                  "zh-Hans/agent-operator/profile-record",
+                  "zh-Hans/agent-operator/create-outbound-task",
+                  "zh-Hans/agent-operator/alpha"
+                ]
+              },
+              {
+                "group": "测试中心（Test Center）",
+                "pages": [
+                  "zh-Hans/test-center/index",
+                  "zh-Hans/test-center/script-version-status-edit-release",
+                  "zh-Hans/test-center/script-version-detail",
+                  "zh-Hans/test-center/text-test-text-tset-widget",
+                  "zh-Hans/test-center/voice-test",
+                  "zh-Hans/test-center/context-test-set-backtest",
+                  "zh-Hans/test-center/test-record-detail",
+                  "zh-Hans/test-center/temporary-debug"
+                ]
+              },
+              {
+                "group": "平台工具（General Tools）",
+                "pages": [
+                  "zh-Hans/general-tools/index",
+                  "zh-Hans/general-tools/phone-numbers",
+                  "zh-Hans/general-tools/knowledge-base",
+                  "zh-Hans/general-tools/export-center",
+                  "zh-Hans/general-tools/message-push",
+                  "zh-Hans/general-tools/sub-user-management",
+                  "zh-Hans/general-tools/integrations-api"
+                ]
+              },
+              {
+                "group": "账户设置（Account Settings）",
+                "pages": [
+                  "zh-Hans/account-settings/index",
+                  "zh-Hans/account-settings/ip",
+                  "zh-Hans/account-settings/notification"
+                ]
+              },
+              {
+                "group": "[内部文档]技术手册（Techs-manual）",
+                "pages": [
+                  "zh-Hans/techs-manual/index",
+                  "zh-Hans/techs-manual/[内部文档]常见电话客户侧和运营商侧配置方法（日本、韩国）",
+                  "zh-Hans/techs-manual/[内部文档]端到端延迟计算",
+                  "zh-Hans/techs-manual/si",
+                  "zh-Hans/techs-manual/[内部文档]可对接性判断标准"
+                ]
+              }
             ]
           }
         ]
@@ -113,15 +401,15 @@
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
   "footer": {
     "socials": {

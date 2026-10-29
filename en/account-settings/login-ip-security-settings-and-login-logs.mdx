@@ -1,0 +1,77 @@
+---
+title: "Login IP Security Settings and Login Logs"
+---
+
+To protect enterprise workspace data, Daisybell Agent Lab supports an IP allowlist for workbench sign-ins. Strict controls over access sources help block unauthorized external access.
+
+This document explains how to configure trusted IP addresses and review security sign-in logs.
+
+---
+
+### 1. Overview and Scope
+
+- **Applies to**: The IP restriction policy applies globally to all administrators (Admin) and sub-accounts (Sub-users) in the current workspace.
+- **Data retention**: The IP allowlist master switch is off by default. If you temporarily turn off this feature, the configured IP address list is retained and takes effect again when you turn the feature back on.
+- **Page and feature access**: Sub-user accounts in the current workspace cannot configure the trusted IP allowlist or view security sign-in logs.
+
+---
+
+### 2. Configure a Trusted IP Allowlist
+
+![](/images/en/account-settings/login-ip-security-settings-and-login-logs/img-1.png)
+
+You can manage access control policies on the `Settings` -> `Login IP Security Settings` page.
+
+![](/images/en/account-settings/login-ip-security-settings-and-login-logs/img-2.png)
+
+#### 2.1 Add the Current Network in One Click (Quick Add)
+
+For convenience, the system automatically detects the public IP address of your current network and its location (country and city). When setting up the allowlist for the first time, we recommend selecting **Add To Whitelist** to add your current network directly to the allowlist and prevent accidentally blocking your own account.
+
+![](/images/en/account-settings/login-ip-security-settings-and-login-logs/img-3.png)
+
+#### 2.2 Add an IP Address or Network Range Manually
+
+You can enter an approved access source manually. The system supports individual IP addresses and CIDR ranges (for example, `198.51.100.0/24`). Each workspace supports up to 20 security rules.
+
+![](/images/en/account-settings/login-ip-security-settings-and-login-logs/img-4.png)
+
+To prevent configuration errors from making the service unavailable, the system validates entries:
+
+- **Automatic blocking (Error Blocked)**: If you enter a loopback address (such as `127.0.0.1`), a broadcast or multicast address (such as `255.255.255.255`), an invalid IPv4 address, or an address already in the list, the system displays Error Blocked and prevents you from saving.
+- **High-risk operation warning (Risk Warning)**：
+
+  - **Private LAN IP**: If you enter a private LAN address (such as `192.168.0.0/16`), the system warns that the platform cannot identify local network addresses. Saving the address may prevent you from signing in. Confirm that you have the correct public egress IP address.
+  - **Wildcard IP**: If you enter `0.0.0.0/0`, the system warns that this setting allows sign-in from any IP address and disables the allowlist restriction entirely.
+
+#### 2.3 Manage the Allowlist
+
+After an address is added, a dedicated tag identifies the network in the list:
+
+- **Current IP** (green): identifies the network address you are currently using.
+- **Private IP / Wildcard IP** (yellow): identifies a private or wildcard network that poses an access risk or has an overly broad configuration.
+
+You can edit or delete configured rules at any time. To protect your access, the system asks for confirmation if you try to delete the current IP address (Current IP) or the last remaining entry.
+
+---
+
+### 3. Sign-in Logs
+
+On the `Settings` -> `Login Log` page, you can audit administrative access to the workspace to help protect account security.
+
+![](/images/en/account-settings/login-ip-security-settings-and-login-logs/img-5.png)
+
+
+
+- **Logging**: The system records workbench sign-in activity whether or not the IP allowlist is enabled. \*(Note: Routine sign-in failures caused by an incorrect password or account are not recorded.)\*
+- **Log fields**: Logs are sorted by time in descending order. You can view the sign-in time (YYYY-MM-DD HH-MM-SS), IP/CIDR address, account, location (city/country), and access status.
+- **Anomaly tracking**: Sign-ins blocked by an IP allowlist violation are marked in red as Failed; successful sign-ins are marked in green as Success. The logs cover Admin and Sub-user accounts in the current workspace.
+
+
+
+---
+
+### 4. Access Denied
+
+- If you request a workbench page while signed in or attempt to sign in from the login page, access is blocked whenever your access source is not on the allowlist.
+- The system displays an alert window with a warning icon: **Access Denied** The Access Denied warning says: “Your network is not authorized to access this account. Please switch to a trusted network or contact your administrator.” Unauthorized access is blocked immediately.

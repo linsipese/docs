@@ -1,0 +1,206 @@
+---
+title: "Agent 工具調用（Tools）"
+---
+
+Tools模塊用於管理 Agent可以呼叫的工具。你可以添加不同類型的工具（也可以稱爲Functions），設定觸發邏輯、固定回覆和類型專屬欄位，並在進行引用說明。
+
+### 工具列表
+
+工具以卡片形式顯示，每行一個工具。卡片包含：
+
+- **Title**：顯示工具類型標籤和 `tool_name`。
+- **Tool Settings**：根據工具類型顯示對應欄位。
+- **Action**：支持編輯和刪除。
+- **啓用狀態**：可以禁用 Function。
+
+編輯已有 Function 時，不能再次選擇 Type。新增工具時點擊 **Add Tool**，選擇工具類型後，Function 會以卡片形式添加到 Tool List。
+
+
+
+### 在 Main Prompt 中引用工具
+
+在 Main Prompt 編輯區中點擊 **Tools**，或輸入 `@` 打開工具列表。選擇工具後，編輯器會顯示高亮的工具標籤。
+
+<callout emoji="💡">
+注意：已添加的工具即使不在Main Prompt中引用，也能正常觸發，在Main Prompt引用可以加強與細化引用的條件及邊界
+</callout>
+
+### Function 類型
+
+#### 電話轉接（Call Transfer）
+
+Call Transfer 用於設定通話轉接。可設定欄位如下：
+
+| **欄位** | **說明** |
+|-|-|
+| Function Name | Function命名 |
+| Function Trigger Description | 設定 Function 的觸發說明 |
+| Transfer to | 選擇轉接對象目前支持：  <br/>1.電話轉接  <br/>2.轉接至Daisybell人工坐席（內測功能） |
+| Transfer Phone Number | 轉接目標電話號碼，在選擇 Assigned Human Agent 時不顯示此欄位 |
+| Phone Number | 用於撥打轉接的外撥電話號碼。選擇 Assigned Human Agent 時不使用該欄位 |
+| Assigned Human Agent | 選擇指定的人工坐席 |
+| Max Answer Wait Time | 設定最大接聽等待時間（超過後將停止轉接） |
+| Recipient Email | 原始通話完整記錄接收E-mail地址（可設定多個） |
+| Transfer Handling Mode | 選擇轉接處理模式：  <br/>1.對轉接通話進行錄用，並在轉接電話掛斷中結束通話  <br/>2.不對轉接通話進行錄用，並在轉接電話掛斷中結束通話 |
+| Transfer Success Fixed Reply | 設定轉接成功時的固定回覆（支持多語言） |
+| Transfer Failed / No Answer Fixed Reply | 設定轉接失敗或無人接聽時的固定回覆（支持多語言） |
+
+
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/tools/img-1.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/tools/img-2.png)
+</column>
+</grid>
+
+
+
+#### 知識查詢（RAG query）
+
+ RAG query 用於設定基於知識庫的查詢 Function。需要設定：
+
+- **Function name**
+- **Function觸發描述**：設定 Function 的觸發說明（Prompt）
+- **知識庫文件夾**：選擇已有的知識庫項目文件夾。
+- **觸發 Function 時的固定回覆**：支持多語言
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/tools/img-3.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/tools/img-4.png)
+</column>
+</grid>
+
+
+
+#### 多語言切換（Language switch）
+
+Language switch 用於在對話中切換 Agent 使用的語言。只有設定了至少兩種語言時才能使用此 Function；如果只設定一種語言，Function 不可用。
+
+需要設定：
+
+- **Function name**
+- **Function Description**：設定 Function 的觸發說明（Prompt）
+- **切換到語言 B 時的固定回覆**：使用語言 B 填寫。
+- **切換到語言 A 時的固定回覆**：使用語言 A 填寫。
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/tools/img-5.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/tools/img-6.png)
+</column>
+</grid>
+
+#### 掛斷（Hang up）
+
+Hang up 用於設定掛斷 Function。需要設定：
+
+- **Function name**
+- **Function Description**：設定 Function 的觸發說明（Prompt）
+- **觸發 Function 時的固定回覆**
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/tools/img-7.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/tools/img-8.png)
+</column>
+</grid>
+
+
+
+#### DTMF Function
+
+DTMF Function 用於設定按鍵輸入收集、校驗、超時和重試等流程。界面包含以下設定區域：
+
+| **欄位** | **說明** |
+|-|-|
+| Function名稱 | 自定義命名 |
+| Function觸發描述 | 設定 Function 的觸發說明 |
+| 按鍵輸入結果關聯臨時變量 | 將按鍵結果值用臨時變量進行接收 |
+| Function觸發成功固定回覆 | 支持多語言設定 |
+| 按鍵輸入內容“結束”按鍵表示 | 選擇一個按鍵符號作爲結束標示。預設爲“#” |
+| 按鍵輸入內容“清空”按鍵標識 | 選擇一個按鍵符號作爲清空標示。預設爲“\*”，功能支持關閉與開啓（預設關閉） |
+| 按鍵輸入內容格式校驗 | 用於系統判定輸入的內容格式是否正確（使用正則表達填寫） |
+| 用於值校驗的自定義Function | 添加已有自定義Function key，並添加已建立好的對應的臨時變量 |
+| 鍵盤輸入超時時長設定 | 超多時長不進行內容輸入時將觸發Function的結束，預設60s，最大300s |
+| 輸入超時固定回覆句 | 支持多語言設定 |
+| 鍵盤輸出內容格式錯誤重試次數 | 用戶輸出的內容格式校驗失敗最多次數，到達次數限制後將觸發Function結束（預設5次，範圍1-20） |
+| 鍵盤輸入內容格式校驗錯誤固定回覆 | 每一次校驗 |
+| 鍵盤輸入最終校格式驗失敗後是否進行電話轉接 | 是：填寫對應的轉接電話設定資訊  <br/>否：設定校驗格式失敗固定回覆句 |
+| 鍵盤輸入格式最終校驗成功固定回覆 | 支持多語言設定 |
+
+ 注意：輸入的內容最終是否正確需要將輸入的內容傳給對象系統進行校對完成（使用自定義Function）
+
+
+
+![](/images/zh-Hant/agent-builder/tools/img-9.png)
+
+
+
+#### 自定義 Function（舊版）
+
+舊版自定義 Function需要設定 Function 基本資訊、流程標識和變量。
+
+##### 基本資訊
+
+- **Function name**：文字，必填。
+- **Function Description**：文字，必填。
+- **Flow 唯一標識（DAG ID）**：填寫流程唯一標識。
+- **觸發 Function 時的固定回覆**：文字。多語言 Agent 需要分別輸入不同語言的回覆。
+
+##### 變量列表
+
+變量列表展示以下欄位：
+
+- 變量名
+- key
+- 數據類型
+- 變量標籤：Function 變量或全局臨時變量
+- 描述
+- 操作：編輯或刪除
+
+全局臨時變量不能編輯，只能刪除。
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/tools/img-10.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/tools/img-11.png)
+</column>
+</grid>
+
+##### 添加變量
+
+可以添加 Function 變量，或選擇已有的全局臨時變量。
+
+<grid>
+<column width-ratio="0.500000">
+**添加 Function變量時設定：**
+- **變量名**：文字，必填。
+- **變量類型**：數字、文字、枚舉、布爾或時間。枚舉類型可以繼續添加枚舉值。
+- **Key**：文字，必填。
+- **變量表述**：文字，必填。用於LLM Prompt
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/tools/img-12.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+**添加全局臨時變量時，從下拉列表選擇已有變量，並顯示該變量的 `key_name` 和描述（Prompt）。**
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/tools/img-13.png)
+</column>
+</grid>

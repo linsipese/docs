@@ -1,0 +1,204 @@
+---
+title: "Agent 工具调用（Tools）"
+---
+
+Tools模块用于管理 Agent可以调用的工具。你可以添加不同类型的工具（也可以称为Functions），配置触发逻辑、固定回复和类型专属字段，并在进行引用说明。
+
+### 工具列表
+
+工具以卡片形式显示，每行一个工具。卡片包含：
+
+- **Title**：显示工具类型标签和 `tool_name`。
+- **Tool Settings**：根据工具类型显示对应字段。
+- **Action**：支持编辑和删除。
+- **启用状态**：可以禁用 Function。
+
+编辑已有 Function 时，不能再次选择 Type。新增工具时点击 **Add Tool**，选择工具类型后，Function 会以卡片形式添加到 Tool List。
+
+ 
+
+### 在 Main Prompt 中引用工具
+
+在 Main Prompt 编辑区中点击 **Tools**，或输入 `@` 打开工具列表。选择工具后，编辑器会显示高亮的工具标签。
+
+<callout emoji="ℹ️">
+注意：已添加的工具即使不在Main Prompt中引用，也能正常触发，在Main Prompt引用可以加强与细化引用的条件及边界
+</callout>
+
+### Function 类型
+
+#### 电话转接（Call Transfer）
+
+Call Transfer 用于配置通话转接。可配置字段如下：
+
+| **字段** | **说明** |
+|-|-|
+| Function Name | Function命名 |
+| Function Trigger Description | 配置 Function 的触发说明 |
+| Transfer to | 选择转接对象目前支持：  <br/>1.电话转接  <br/>2.转接至Daisybell人工坐席（内测功能） |
+| Transfer Phone Number | 转接目标电话号码，在选择 Assigned Human Agent 时不显示此字段 |
+| Phone Number | 用于拨打转接的外呼电话号码。选择 Assigned Human Agent 时不使用该字段 |
+| Assigned Human Agent | 选择指定的人工坐席 |
+| Max Answer Wait Time | 配置最大接听等待时间（超过后将停止转接） |
+| Recipient Email | 原始通话完整记录接收E-mail地址（可配置多个） |
+| Transfer Handling Mode | 选择转接处理模式：  <br/>1.对转接通话进行录用，并在转接电话挂断中结束通话  <br/>2.不对转接通话进行录用，并在转接电话挂断中结束通话 |
+| Transfer Success Fixed Reply | 配置转接成功时的固定回复（支持多语言） |
+| Transfer Failed / No Answer Fixed Reply | 配置转接失败或无人接听时的固定回复（支持多语言） |
+
+
+
+<grid>
+<column width-ratio="0.646607">
+![](/images/zh-Hans/agent-builder/tools/img-1.png)
+</column>
+<column width-ratio="0.353393">
+![](/images/zh-Hans/agent-builder/tools/img-2.png)
+</column>
+</grid>
+
+ 
+
+#### 知识查询（RAG query）
+
+ RAG query 用于配置基于知识库的查询 Function。需要配置：
+
+- **Function name**
+- **Function触发描述**：配置 Function 的触发说明（Prompt）
+- **知识库文件夹**：选择已有的知识库项目文件夹。
+- **触发 Function 时的固定回复**：支持多语言
+
+<grid>
+<column width-ratio="0.637750">
+![](/images/zh-Hans/agent-builder/tools/img-3.png)
+</column>
+<column width-ratio="0.362250">
+![](/images/zh-Hans/agent-builder/tools/img-4.png)
+</column>
+</grid>
+
+  
+
+#### 多语言切换（Language switch）
+
+Language switch 用于在对话中切换 Agent 使用的语言。只有配置了至少两种语言时才能使用此 Function；如果只配置一种语言，Function 不可用。
+
+需要配置：
+
+- **Function name**
+- **Function Description**：配置 Function 的触发说明（Prompt）
+- **切换到语言 B 时的固定回复**：使用语言 B 填写。
+- **切换到语言 A 时的固定回复**：使用语言 A 填写。
+
+<grid>
+<column width-ratio="0.715347">
+![](/images/zh-Hans/agent-builder/tools/img-5.png)
+</column>
+<column width-ratio="0.284653">
+![](/images/zh-Hans/agent-builder/tools/img-6.png)
+</column>
+</grid>
+
+#### 挂断（Hang up）
+
+Hang up 用于配置挂断 Function。需要配置：
+
+- **Function name**
+- **Function Description**：配置 Function 的触发说明（Prompt）
+- **触发 Function 时的固定回复**
+
+<grid>
+<column width-ratio="0.679718">
+![](/images/zh-Hans/agent-builder/tools/img-7.png)
+</column>
+<column width-ratio="0.320282">
+![](/images/zh-Hans/agent-builder/tools/img-8.png)
+</column>
+</grid>
+
+ 
+
+#### DTMF Function
+
+DTMF Function 用于配置按键输入收集、校验、超时和重试等流程。界面包含以下配置区域：
+
+| **字段** | **说明** |
+|-|-|
+| Function名称 | 自定义命名 |
+| Function触发描述 | 配置 Function 的触发说明 |
+| 按键输入结果关联临时变量 | 将按键结果值用临时变量进行接收 |
+| Function触发成功固定回复 | 支持多语言配置 |
+| 按键输入内容“结束”按键表示 | 选择一个按键符号作为结束标示。默认为“#” |
+| 按键输入内容“清空”按键标识 | 选择一个按键符号作为清空标示。默认为“\*”，功能支持关闭与开启（默认关闭） |
+| 按键输入内容格式校验 | 用于系统判定输入的内容格式是否正确（使用正则表达填写） |
+| 用于值校验的自定义Function | 添加已有自定义Function key，并添加已创建好的对应的临时变量 |
+| 键盘输入超时时长设置 | 超多时长不进行内容输入时将触发Function的结束，默认60s，最大300s |
+| 输入超时固定回复句 | 支持多语言配置 |
+| 键盘输出内容格式错误重试次数 | 用户输出的内容格式校验失败最多次数，到达次数限制后将触发Function结束（默认5次，范围1-20） |
+| 键盘输入内容格式校验错误固定回复 | 每一次校验 |
+| 键盘输入最终校格式验失败后是否进行电话转接 | 是：填写对应的转接电话配置信息  <br/>否：配置校验格式失败固定回复句 |
+| 键盘输入格式最终校验成功固定回复 | 支持多语言配置 |
+
+ 注意：输入的内容最终是否正确需要将输入的内容传给对象系统进行校对完成（使用自定义Function）
+
+![](/images/zh-Hans/agent-builder/tools/img-9.png)
+
+ 
+
+#### 自定义 Function（旧版）
+
+旧版自定义 Function需要配置 Function 基本信息、流程标识和变量。
+
+##### 基本信息
+
+- **Function name**：文本，必填。
+- **Function Description**：文本，必填。
+- **Flow 唯一标识（DAG ID）**：填写流程唯一标识。
+- **触发 Function 时的固定回复**：文本。多语言 Agent 需要分别输入不同语言的回复。
+
+##### 变量列表
+
+变量列表展示以下字段：
+
+- 变量名
+- key
+- 数据类型
+- 变量标签：Function 变量或全局临时变量
+- 描述
+- 操作：编辑或删除
+
+全局临时变量不能编辑，只能删除。
+
+<grid>
+<column width-ratio="0.664403">
+![](/images/zh-Hans/agent-builder/tools/img-10.png)
+</column>
+<column width-ratio="0.335597">
+![](/images/zh-Hans/agent-builder/tools/img-11.png)
+</column>
+</grid>
+
+##### 添加变量
+
+可以添加 Function 变量，或选择已有的全局临时变量。
+
+<grid>
+<column width-ratio="0.500000">
+**添加 Function变量时配置：**
+- **变量名**：文本，必填。
+- **变量类型**：数字、文本、枚举、布尔或时间。枚举类型可以继续添加枚举值。
+- **Key**：文本，必填。
+- **变量表述**：文本，必填。用于LLM Prompt
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hans/agent-builder/tools/img-12.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+**添加全局临时变量时，从下拉列表选择已有变量，并显示该变量的 `key_name` 和描述（Prompt）。**
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hans/agent-builder/tools/img-13.png)
+</column>
+</grid>

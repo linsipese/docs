@@ -1,0 +1,83 @@
+---
+title: "Agent Alerts (Not Currently in Use; Requires Iteration)"
+---
+
+## This feature and its documentation are unavailable pending product updates.
+
+
+
+## ~~Guide to Configuring AI Agent Runtime Alerts~~
+
+~~To help ensure business continuity and stability, Daisybell provides AI Agent runtime monitoring and alerting. If an Agent encounters an unexpected failure, the system sends an email notification to designated administrators or operations teams so they can investigate and respond promptly.~~
+
+~~This document explains how to configure runtime alert notifications and describes their trigger rules.~~
+
+---
+
+### ~~1. Monitoring Capabilities and Alert Rules~~
+
+~~The system monitors Agent runtime status frequently and in real time. It automatically classifies issues by impact and sends alerts.~~
+
+#### ~~1.1 Exception Severity~~
+
+~~Runtime exceptions are divided into three severity levels to help operations teams assess event priority:~~
+
+- **~~Critical~~**~~: A blocking failure that prevents the Agent from providing any service.~~
+- **~~High~~**~~: A failure that severely affects core functionality and causes some sessions or critical tasks to fail.~~
+- **~~Medium~~**~~: A localized or intermittent issue that generally does not affect the main business flow.~~
+
+#### ~~1.2 Alert Deduplication~~
+
+~~To prevent unnecessary email floods during network disruptions or ongoing failures, the system includes an automatic deduplication rule:~~
+
+- **~~Five-Minute Rate Limit~~**~~: If the same Agent experiences repeated exceptions of the~~ **~~same type~~**~~, the system groups them automatically and sends only~~ one alert email.
+
+---
+
+### 2. Configure Alert Recipients
+
+You can set a separate alert email address for each Agent in the workspace. This feature supports the multilingual interface.
+
+**Configuration Steps:**
+
+1. Sign in to the workspace and open the relevant Agent's **Agent Profile**.
+2. Click **Settings**.
+3. From the drop-down menu, select **Agent Exception Alert**.
+
+![](/images/en/agent-operator/not-currently-in-use-requires-iteration/img-1.png)
+
+1. In the dialog, enter an email address for alert notifications and click **Add**.
+
+![](/images/en/agent-operator/not-currently-in-use-requires-iteration/img-2.png)
+
+**Configuration Details and Limits:**
+
+- **Capacity Limit**: Each Agent can have up to **10** recipient email addresses. Once this limit is reached, the Add button is disabled.
+- **Manage the List**: View added email addresses in the list. Click the delete icon (🗑️) next to an address to remove a recipient who no longer needs notifications.
+- Only administrator and OP accounts can configure this setting. Sub-accounts cannot change it.
+
+---
+
+### 3. Alert Emails
+
+When an exception occurs, designated recipients receive a standardized system email with key information to help them identify the issue.
+
+- **Sender**: By default, email is sent from `noreply@daisybell.ai` (enterprise OEM sender customization is supported).
+- **Email Subject**:`[Exception] {Daisybell} AI Agent Runtime Status Alert`
+
+![](/images/en/agent-operator/not-currently-in-use-requires-iteration/img-3.png)
+
+**The email body contains the following key fields:**
+
+- **Workspace**: Name or ID of the workspace where the exception occurred.
+- **Agent**: Name of the Agent that encountered the exception.
+- **Exception Type**: Identifies the failure category, such as Timeout or Connection Error.
+- **Severity**: Severity level of the exception, such as High.
+- **Occurrence Time**: Exact time when the exception occurred. The system automatically uses the business time zone for the current region (for example, UTC+8 for Hong Kong and UTC+9 for Japan and South Korea) to support accurate auditing and time tracking.
+
+
+
+#### Notes
+
+- Exception details are not currently included. The feature is intended to provide event alerts; contact a Daisybell administrator to verify the specific details.
+- This feature is in a trial operation phase. If you encounter any issues, contact a Daisybell administrator.

@@ -1,0 +1,365 @@
+---
+title: "[内部文档]常见电话客户侧和运营商侧配置方法（日本、韩国） "
+---
+
+本文档是前场团队的标准参考手册：对「电话线路怎么接」「平台侧怎么配」「运营商怎么申请」这些问题作出了明确解答。
+
+本文档覆盖客户侧（Daisybell 平台、客户 PBX 与话机）、运营商侧（日本、韩国）以及 Amazon Connect、Genesys 等外部呼叫平台的对接流程。
+
+## 文档用途与使用方法
+
+### 使用方法
+
+1. 判断场景：客户自带线路对接、我方线路外呼、客户 PBX 对接，还是经 Amazon Connect / Genesys 等平台对接。
+2. 「遇到即记录」：每次新的对接方式（新线路类型、新 PBX 品牌、新平台、新参数组合）确定后，追加到对应章节并在第 9 章维护记录表登记，注明日期与对接方。具体运营商商务信息（报价、厂商对比、申请材料明细）不写入本文档，另行归档。
+3. 按第 7 章清单向客户与运营商收集参数，逐项核对后进入联调。
+
+### 维护原则
+
+- 「遇到即记录」：每次新的对接方式（新运营商、新 PBX 品牌、新平台、新参数组合）确定后，追加到对应章节的「已接触记录」小节，并注明日期与对接方。
+- 金额、政策、界面字段有时效性，以最新合同、运营商牌价和当期控制台为准。
+- 涉及客户号码、账号密码、密钥的信息不写入本文档，参数单单独传递。
+
+### 关联文档
+
+- [可对接性判断标准](https://aionlabglobal.jp.larksuite.com/wiki/T0AKwNyrricBx3kgawJjCGbFpgg)：对接可行性五步判定法、路径分级（A/B/C/D）与成本口径。
+- [电话号码管理（Phone Numbers）](https://aionlabglobal.jp.larksuite.com/wiki/Eg3Twfa61i5KRAkWqIHjfVvvpvg)：平台线路配置的产品级详细说明与截图。
+- [SI对接方案](https://aionlabglobal.jp.larksuite.com/docx/EvRldt9GOoqcFUxAKTujvVvopMh)：客户已有呼叫中心平台时的三种合作模式。
+- [端到端延迟计算](https://aionlabglobal.jp.larksuite.com/docx/YM1WdkwAOoOGD9xVfjFjDltvpBc)：各链路媒体时延口径。
+- [[20260708][Agent Lab] Phone Numbers](https://aionlabglobal.jp.larksuite.com/wiki/JYygwtXkHi8zUKkQn71j7PGvpSd)：产品需求文档，字段与校验规则的基准（白名单支持域名 / IP / CIDR，最多 20 条）。
+
+## 总体架构与平台能力基线
+
+### 语音链路总体架构
+
+我方系统通过自部署的 LiveKit（WebRTC 媒体转发）与 livekit-sip（SIP/RTP 网关）承载语音媒体，出系统后经 SIP Trunk 落地到电话网（PSTN）。
+
+```text
+Daisybell Voice Agent
+        ↓
+LiveKit（WebRTC 媒体转发） + livekit-sip（SIP/RTP 网关）   ← 我方平台侧
+        ↓
+SIP Trunk（对等 / 经中继）                              ← 对接边界
+        ↓
+运营商网络（日本 / 韩国）                                ← 运营商侧
+        ↓
+PSTN → 客户手机 / 固话 / 客户 PBX                        ← 客户侧
+```
+
+- **客户侧**：Daisybell 平台内的线路配置，以及客户 PBX、话机、软终端上的 SIP 配置。
+- **运营商侧**：电信线路与 SIP 中继的申请、开通与对接参数（服务器地址、鉴权、编解码、号码登记等）。
+- **外部平台侧**：客户已在使用 Amazon Connect、Genesys Cloud 等呼叫平台时，平台内的配置流程。
+
+### 两种对接模式：对等（Peer）与注册（Register）
+
+| 模式 | 原理 | 适用 | 我方支持情况 |
+|-|-|-|-|
+| 对等（Peer / IP-to-IP，Non-Register） | 双方使用静态公网 IP 互配 ACL 白名单，不做周期注册，信令直接在两个端点间传递 | 运营商直连、云平台对接、企业专线 / VPN 场景 | **仅支持此模式**（P0 条件） |
+| 注册（Register） | 终端用账号密码向运营商服务器周期注册，运营商按注册位置路由呼叫 | 部分 050 服务、无固定公网 IP 的环境、运营商对一般客户的默认方式 | 不直接支持；需经中继 / 合作服务商转换为对等（如经中继 / 合作服务商转换：我方段保持对等，运营商段注册），或选择支持对等的供应商 |
+
+<callout emoji="💡">
+选型硬条件：Daisybell SIP 端点仅支持对等方式（Non-Register · IP-to-IP）。向运营商或合作服务商询价时，把这一条作为 P0 问题第一个确认。
+</callout>
+
+### SIP Trunk 技术要求（P0）
+
+以下为 Daisybell 开发团队确认的技术基线，对接双方任一项不满足原则上不可采用：
+
+| 项目 | 要求 | 说明 |
+|-|-|-|
+| 对接模式 | Non-Register · IP-to-IP 对等 | 平台唯一支持方式 |
+| 编解码 | G.711u（PCMU） | 另支持 G.722；对接时建议限定 ulaw 避免协商歧义 |
+| DTMF | RFC 4733 | RFC 2833 为同一方式的旧版规范，已确认兼容；运营商以 RFC 2833 提供即可 |
+| 方向 | 呼入 + 呼出 | 按线路分别配置并发配额 |
+| 信令传输 | UDP / TCP / TLS | 按运营商网关规范选择 |
+| 媒体加密 | None / SRTP / DTLS-SRTP | 按线路安全等级选择 |
+| 号码格式 | E.164 或纯数字 | 禁止空格与特殊字符 |
+| 外呼主叫 | 非篡改：按通话指定运营商已登记号码 | 与日本 SIP 环境做法一致；支持登记多家客户号码并按通话选择 |
+
+\* Register桥接器已在计划中，预计2026年内可以上线
+
+## 客户侧配置
+
+### Daisybell 平台侧（Phone Numbers 模块）
+
+入口：Tools → Phone Numbers。权限：Admin 与 Daisybell Support 可查看和编辑，Sub-user 不可见。原运营后台【租户管理】→【业务管理】→【线路管理】模块已下线，由本模块完全接管。支持对等 SIP Trunk（非注册）、DTMF RFC 4733（RFC 2833）、G.711 / G.722，原生 Digest 摘要认证、TLS 信令加密与 SRTP / DTLS-SRTP 媒体加密，呼入侧支持来源白名单。
+
+#### 呼出号码（Outbound Numbers）配置
+
+1. 进入 Tools → Phone Numbers，选中 Outbound Numbers 页签，点击 + Add New。
+2. 填写号码：真实呼出主叫号码（纯数字或 E.164）。
+3. 指定终止网关（Termination URI）：运营商 SIP 网关的域名或 IP，端口可省略（默认 5060）。
+4. 选择传输方式（UDP / TCP / TLS）与媒体加密（None / SRTP / DTLS-SRTP）。
+5. 按需填写 SIP 认证（Username / Password）。
+6. 设置并发配额：专用外呼并发、专用转接并发，确认后点击 Add Number。
+
+| 参数 | 格式 | 说明 |
+|-|-|-|
+| Phone Number | 纯数字 / E.164 | 真实呼出主叫号码 |
+| Termination URI / Address | 域名:端口 或 IP:端口 | 运营商提供的 SIP 呼出网关地址（域名或 IP，端口可省略），如 `sip.example.com:5060` |
+| Encryption | None / SRTP / DTLS-SRTP | 媒体流加密，默认 None |
+| Transport | UDP / TCP / TLS | SIP 信令传输协议，默认 UDP |
+| SIP Authentication | Username + Password | 可选；运营商要求注册 / 呼叫认证时填写，保存后不可查看明文 |
+| Dedicated Outbound Concurrency | 整数 0–1000 | 该号码常规外呼最大并发，默认 10 |
+| Dedicated Transfer Concurrency | 整数 0–1000 | 该号码人工转接最大并发，默认 0（需要转人工的号码务必设置） |
+| Show Main Caller ID For Transferred Calls | 开关，默认关闭 | 开启后转接时仍透传初始主叫；开启前必须确认运营商支持 CLI 透传，否则转接可能被网关拒绝 |
+
+#### 呼入号码（Inbound Numbers）配置
+
+1. 进入 Inbound Numbers 页签，点击 + Add New。
+2. 填写呼入号码（纯数字或 E.164）。
+3. 配置安全白名单：允许向平台推送 SIP INVITE 的来源，格式为域名、IPv4 或 CIDR 网段，最多 20 条；无法确定对方实际 IP 时先填 0.0.0.0/0 通配放行（联调后收紧，见下方口径说明）。
+4. 选择传输方式与媒体加密。
+5. 设置该号码的最大呼入并发，校验通过后点击 Add Number。
+
+| 参数 | 格式 | 说明 |
+|-|-|-|
+| Phone Number | 纯数字 / E.164 | 呼入号码 |
+| White List Address | 域名 / IPv4 / CIDR | 允许推送 INVITE 的来源白名单，最多 20 条，重复条目阻断提交；无法确定对方实际 IP 时填 0.0.0.0/0 通配（见下方口径说明） |
+| Encryption | None / SRTP / DTLS-SRTP | 媒体加密策略 |
+| Transport | UDP / TCP / TLS | 接收呼入信令的协议 |
+| Total Call Concurrency | 整数 1–1000 | 最大同时通话连接数，默认 10 |
+
+<callout emoji="💡">
+**白名单口径：**优先填写运营商网关 IP / CIDR 或域名；**无法确定对方实际 IP 时，入站白名单设置为 0.0.0.0/0 通配**（放行全部来源，保障联调接通）。通配等于不校验来源，存在被扫描骚扰的风险，联调稳定后应尽快向运营商索取网关 IP 并收紧白名单。
+</callout>
+
+#### 线路状态与并发边界
+
+| 状态 | 定义 | 限制 |
+|-|-|-|
+| Unused（未使用） | 已配置但未绑定 Agent | 可随时编辑、停用、删除 |
+| In Use（使用中） | 已关联外呼任务、呼入接待或转接策略 | 不能删除与停用；修改网络参数需二次确认 |
+| Disabled（已禁用） | 人为停用，不处理呼叫 | 在所有 Agent 线路列表中隐藏 |
+
+<callout emoji="💡">
+并发有三个口径：呼出号码的通话总并发等于外呼专用并发加转接专用并发；平台界面配置的并发是平台侧流控配额；线路实际并发能力由运营商网关容量决定。平台配额配得再高，超出运营商通道容量时呼叫仍会在运营商侧被拒（典型为 SIP 503 Service Unavailable）。
+</callout>
+
+### 客户 PBX 对接（链路二）
+
+适用：客户有 PBX 且支持标准 SIP，可开通企业专线 / VPN 或公网白名单直连。此路径时延与成本通常最优，详见「可对接性判断标准」。
+
+#### 前置条件
+
+- 客户 PBX 支持 SIP Trunk 接入（提供中继 / peer 配置能力），并明确是否支持媒体旁路。
+- 网络可达：专线 / VPN，或公网双向放行白名单 IP 与端口。
+- 客户可提供 PBX 出口公网 IP（用于互配白名单）。
+- 确定 DID 路由规则：哪些号码进 AI、哪些进坐席、哪些出局。
+
+<callout emoji="💡">
+**DID 号码来源：**经运营商落地（链路一 / 链路三）的呼入，DID 由运营商分配决定，在线路开通时申请确认号码资源；PBX 直连（链路二）场景下，DID 号码段由双方协商确定即可，无需运营商参与。呼出外显号码在两种场景下均须使用运营商已登记号码。
+</callout>
+
+#### 通用 IPPBX 中继参数（FreePBX / Asterisk 等）
+
+各品牌字段名不同，参数含义一致。以下以 Asterisk 系常见写法为例，供与客户 IT / 渠道工程师沟通时对齐口径：
+
+| 参数 | 常见取值 | 说明 |
+|-|-|-|
+| 中继类型 | Peer（不注册），`type=peer` | 对等模式：host 填对方网关 IP；不需要 register 字符串 |
+| 服务器地址 / 端口 | `host=<对方IP>`，默认 5060/UDP | 我方与客户各配对方的地址；端口按对接参数单 |
+| 白名单 ACL | `permit`/`deny` 或防火墙规则 | 仅允许对端 IP 的 SIP / RTP 流量 |
+| 编解码 | `allow=ulaw`（G.711u）优先 | 与我方基线一致，避免不必要转码 |
+| DTMF | `dtmfmode=rfc2833` | 转分机、IVR 二次拨号依赖此项 |
+| NAT | external address / localnet | 两侧任一处于 NAT 后必须正确配置，否则典型症状为单向语音或无法振铃 |
+| 呼入路由 | 按 DID 匹配 context | DID 分流到 AI 线路、坐席或出局 |
+| 外显号码 | 已登记号码 | 不可任意设置主叫，见第 4、5 章运营商登记要求 |
+
+#### 双方互换信息
+
+| 方向 | 内容 |
+|-|-|
+| 我方 → 客户 | SIP 网关 IP 与端口、传输协议、编解码与 DTMF 要求、需放行的我方出口 IP、DID 清单与路由要求 |
+| 客户 → 我方 | PBX 出口公网 IP、厂商与型号、DID 路由规则、测试号码与测试窗口、坐席位置 |
+
+### 转接人工（桥接模式）
+
+AI 通话中转接人工统一采用桥接模式：保持与客户的通话不变，另向坐席发起一路新呼叫并在我方桥接，人工阶段音频全程经我方，可录音、转写与质检。
+
+| 坐席位置 | 配置要点 |
+|-|-|
+| PBX 内线坐席 | 链路二叠加：转接目标为坐席分机（经客户 PBX），需配置专用转接并发，并确认 PBX 对转接放行 |
+| 公网客服号码 | 转接目标为 PSTN 号码：在平台配置专用转接号码与转接并发；通话费按运营商牌价 |
+| PBX 公网号码转分机 | 转接目标为 PBX 公网 DID + DTMF 转分机：确认客户 IVR 的分机号与 DTMF 方式（RFC 2833） |
+
+<callout emoji="💡">
+转接并发默认为 0。凡是有转人工需求的号码，必须在呼出 / 呼入配置中设置 Dedicated Transfer Concurrency，否则转接无法发起。
+</callout>
+
+## 运营商侧（日本）
+
+### 号码与线路类型
+
+| 类型 | 号码格式 | 特点与适用 |
+|-|-|-|
+| 0AB-J 固定号码 | 03 / 06 / 0X-XXXX-XXXX | 市外局番固定电话，企业识别度高、外显可信度最高；开通需线路资质或经运营商 / 代理申请 |
+| 050 IP 电话 | 050-XXXX-XXXX | IP 电话号码，成本低、开通快，适合 AI 外呼与客服场景；部分受信场景对 050 的认可度低于 0AB-J |
+| 手机号码 | 090 / 080 / 070-XXXX-XXXX | 一般不作为业务外显；选用前与运营商确认可行性与合规 |
+
+### 常见接入方式
+
+#### SIP Trunk 对等接入（主流）
+
+- 双方静态公网 IP，互配 ACL 白名单。
+- 编解码限定 PCMU，DTMF 用 RFC 2833 / 4733。
+- 外呼主叫采用「指定已登记号码」方式：客户号码经证明后登记，外呼时在 SIP 报文中从已登记号码中选择。
+- 确认并发、CPS（每秒呼叫数）限制与 SLA。
+
+#### 050 IP 电话服务
+
+市面上 050 服务多为注册型（账号密码注册）。选型时先确认是否支持对等接入（P0）：仅提供注册模式的服务，需经网关 / 中继转换为对等，或改选支持对等的服务商。
+
+### 申请开通流程与材料
+
+1. 确认需求：号码类型（0AB-J / 050）、并发路数、呼入呼出比例、月话务量、外显要求。
+2. 提交申込：公司信息、代表者、事业者信息（番号）、申请号码与信道数；多数服务需要资质审查。
+3. 开通：周期按服务商数日至数周不等；中途确认审查结果与开通时间。
+4. 取得运营商开通资料（SIP 参数与号码信息），按第 4.2 节互配白名单与参数。
+5. 呼叫测试：呼入、呼出、DTMF、外显、并发逐项验证后上线。
+
+| 开通后向运营商索取 | 内容 |
+|-|-|
+| 网关信息 | SBC / SIP 服务器地址与端口、传输协议（UDP / TCP / TLS） |
+| 媒体参数 | 编解码、DTMF 方式、是否要求媒体加密 |
+| 鉴权方式 | IP 对等 + ACL，或账号密码 |
+| 号码信息 | 分配号码清单、主叫登记要求与格式（国内格式 / E.164）、可登记数量与所需材料 |
+| 容量与保障 | 并发上限、CPS 限制、SLA、营销电话政策 |
+| 测试支持 | 测试号码、测试窗口、联调联系人 |
+
+### 日本注意事项
+
+- 主叫号码登记制：受防伪冒监管约束，外呼主叫须为运营商已登记号码，不能任意设置。
+- 合规：个人信息处理遵循《个人信息保护法》（APPI）；录音需告知；通话数据与日志按约定范围留存与脱敏。
+- 紧急通报：0AB-J 类线路须登记安装地址（110 / 119 定位），迁移时更新。
+
+## 运营商侧（韩国）
+
+### 号码体系
+
+| 类型 | 说明 |
+|-|-|
+| 070 인터넷전화 | 网络电话号码，韩国 AI / 呼叫中心业务的主流选择 |
+| 지역번호（地域号码） | 02（首尔）、031 / 032 / 051 / 053 等；企业识别度高，可经携号转网（번호이동）保留原有号码 |
+| 대표번호（代表号码） | 15XX / 16XX / 18XX 企业代表号，绑定呼叫中心场景 |
+| 대안번호（替代号码） | 050 系企业号码，替代个人手机号外显 |
+
+### 接入路径
+
+韩国运营商对第三方 AI 厂商的直接 SIP 对接通常较为审慎、个案审批。实际可行路径有两类：
+
+- 直连运营商的对等线路产品（IP-to-IP Peer，Non-Register）。
+- 经运营商网络的中继 / 合作服务商接入：我方段保持对等（Non-Register），运营商段由合作服务商以注册方式对接，从平台端点看仍满足对等技术条件。
+
+### 韩国注意事项
+
+- 紧急通报（긴급통신）地址申报是法定义务：安装地址变更必须申报，影响 119 / 112 定位。
+- 主叫号码登记制：客户原有 02 / 070 号码可凭入网证明或合同证明后登记为外呼主叫；垃圾电话与篡改主叫会被停机或解约（韩国通用监管）。
+- 携号转网（번호이동）：可保留客户原有号码，可行性与费用、周期需向线路提供方个案确认。
+- 按通话指定已登记主叫：与日本做法一致，支持多家客户号码登记于同一环境、按通话在 SIP 报文中选用。
+
+## 外部呼叫平台对接（Amazon Connect / Genesys）
+
+客户已在使用云呼叫中心平台时，对接工作重点从运营商转向平台内（外部系统）的配置流程。两类典型方式：Amazon Connect 走 Flow + Lambda 动态 DTMF 转接；Genesys Cloud 走外部 SIP Trunk（BYOC）连接。
+
+### Amazon Connect（Lambda 动态 DTMF 转接）
+
+场景：来电进入 Amazon Connect 语音 Contact Flow 后，调用 Lambda 读取来电主叫号码并生成 DTMF 序列，再由 Transfer to phone number 块将呼叫转接到目标号码（如 AI 线路 / 下游 IVR），下游按 DTMF 识别客户号码。
+
+```text
+来电 → Amazon Connect Flow → Invoke Lambda（读取 CustomerEndpoint.Address
+     → 清洗号码 → 返回 DtmfSequence）
+   → Set contact attributes（External → User defined）
+   → Transfer to phone number（动态发送 DTMF）→ 目标号码
+```
+
+#### 平台侧配置步骤（AWS 控制台）
+
+1. Lambda 控制台创建函数（Connect 实例与函数同账号同区域，示例 ap-northeast-1 东京），部署号码清洗代码：读取 `Details.ContactData.CustomerEndpoint.Address`，去除非数字字符，返回 `DtmfSequence`（约定示例：首位逗号暂停、原号码带 + 时转为 `*`、末尾 `#`；`+ → *` 是下游 IVR 约定，联调时确认）。
+2. Connect 控制台 → 目标实例 → Flows → AWS Lambda functions，添加该函数；同账号同区域会自动生成 Lambda 资源策略（Principal 为 connect.amazonaws.com）。
+3. 搭建 Flow：Set logging behavior（测试期 Enable）→ AWS Lambda function 块（Invoke Lambda / Synchronous / JSON 校验，Timeout 先 3000 ms）→ Set contact attributes（External.DtmfSequence 复制到 User defined.DtmfSequence，键名大小写一致）→ Transfer to phone number（目标 DID 用 E.164、配置 Caller ID、Send DTMF 引用动态属性）。
+4. 分别连接 Success / Error / Timeout 分支，保存并 Publish，确认入站号码关联已发布流程。
+
+#### 关键限制与排障
+
+| 项 | 说明 |
+|-|-|
+| DTMF 长度 | Transfer to phone number 最多发送 50 个 DTMF 字符；每个逗号暂停 750 毫秒 |
+| 同步调用超时 | Lambda 同步调用最长 8 秒；Timeout 先设 3000 ms，按 CloudWatch 执行时长调整 |
+| 403 AccessDeniedException | 检查 Lambda 资源策略：是否允许 connect.amazonaws.com 的 lambda:InvokeFunction，SourceArn / SourceAccount 是否指向预期实例；函数是否已添加到正确实例与区域 |
+| Lambda 无执行记录 | 核对 Connect 区域与 Flow 中函数 ARN、CloudWatch 区域与时间范围 |
+| 属性为空 | 返回键是否为 DtmfSequence；External → User defined 映射是否正确 |
+| 转接成功但未收到 DTMF | 先用固定短序列（如 123#）验证通道，再查动态属性引用；Connect 日志无法证明下游实际收到按键，需在目标端确认 |
+
+验证顺序建议：静态转接（固定 DID，不调 Lambda）→ 固定 DTMF → 动态映射 → 号码端到端，一次只改一个变量。完整手册（含 Lambda 代码、权限策略细节、CloudWatch Flow Logs 用法与上线检查表）见附件：
+
+<source name="Amazon_Connect_Lambda_DTMF_配置流程.docx" mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document" size="46979" token="FhrRbCeuWoTN0ExDGHejpt8npSf"/>
+
+### Genesys Cloud（外部 SIP Trunk 连接）
+
+Genesys 侧使用外部 SIP Trunk 连接：客户自带运营商线路经 BYOC（Bring Your Own Carrier）云中继接入 Genesys 云，Genesys 与运营商 / 我方之间按标准 SIP 对接。
+
+#### 前置条件
+
+- Genesys Cloud 许可与 BYOC 授权（BYOC 需向 Genesys 申请开通）。
+- 对接双方静态公网 IP，互配白名单，放行 SIP / RTP 端口。
+- 线路媒体参数与平台基线一致：G.711、RFC 2833 / 4733、UDP / TCP / TLS。
+
+#### 配置流程
+
+1. 在 Genesys Cloud 管理中心创建 External Trunk（BYOC），录入运营商 / 对接侧的 SBC 地址、端口与协议。
+2. 配置信令与媒体参数（编解码、DTMF、传输与加密），与第 2.3 节平台基线对齐。
+3. 双向配置白名单 / ACL，确认网络可达。
+4. 配置号码路由：DNIS 匹配到对应的 Architect 流程或转接目标。
+5. 联调验证：呼入、呼出、DTMF、外显、并发逐项确认后上线。
+
+#### 费用参考
+
+| 项目 | 口径 |
+|-|-|
+| BYOC 云中继（外部 SIP Trunk） | 客户自带运营商线路接入 Genesys 云：每坐席每月含 5,000 分钟，超额约 0.0012 美元 / 分钟（2026-09 资料，以最新牌价为准） |
+
+<callout emoji="💡">
+Genesys 侧统一走外部 SIP Trunk（BYOC）路径，转接人工亦经该路径。界面字段随版本变化，以当期控制台为准；对接前按第 7 章清单收集参数。
+</callout>
+
+## 对接信息收集清单
+
+| 收集对象 | 信息项 |
+|-|-|
+| 客户电话系统 | 有无 PBX / 呼叫中心平台；厂商与型号；是否支持标准 SIP（Trunk 接入与 SIP 分机）；是否支持媒体旁路；PBX 出口公网 IP |
+| 号码资源 | 外显号码归属（我方申请或客户提供）；日本区分 0AB-J 与 050，韩国区分 02 / 070；号码登记材料（入网 / 合同证明）；DID 号码：经运营商落地由运营商分配，PBX 直连由双方协商确定 |
+| 网络条件 | 专线 / VPN / 公网白名单；防火墙与 NAT 策略；可放行的 IP 与端口 |
+| 媒体参数 | 编解码（G.711 等）、是否需要转码、DTMF 方式、媒体加密要求 |
+| 话务模型 | 并发路数、外呼与呼入比例、转人工比例、每日话务量（分钟数） |
+| 坐席侧 | 人工坐席位置（PBX 分机 / 公网号码 / 客户呼叫中心），决定转接路径与转接并发配额 |
+| 运营商侧（申请后） | 接入模式（对等 / 注册，对等为 P0）；SBC 地址与端口；传输 / 编解码 / DTMF；鉴权方式；主叫登记要求与可登记数量；并发与 CPS；SLA；开通周期；测试号码与窗口 |
+| 我方平台侧 | P0 条件核对（第 2.3 节）；号码是否已在 Phone Numbers 登记；外呼并发 / 转接并发配额；呼入白名单；号码格式 E.164 |
+
+<callout emoji="💡">
+判定路径与结论分级（A 标准对接 / B 轻量适配 / C 定制开发 / D 暂不可对接）按「可对接性判断标准」的五步法执行：找切入点 → 验能力 → 通网络 → 过合规 → 算成本与工期。
+</callout>
+
+## 常见问题排查速查
+
+| 现象 | 优先检查 |
+|-|-|
+| 呼入 403 Forbidden | 呼入白名单是否完整覆盖运营商 SBC / 网关 IP 或 CIDR 网段 |
+| 呼出 503 Service Unavailable | 并发配额是否超过运营商通道容量；线路时间窗限制 |
+| 运营商只提供注册模式 | 我方平台不支持注册：经中继 / 合作服务商转换或改选支持对等的供应商 |
+| 单向语音 / 无音频 | NAT 与 RTP 地址配置（external address、STUN、防火墙放行 RTP 端口段）；SRTP 配置是否两端一致 |
+| 外显号码不对或被拒 | 主叫是否已在运营商登记；转接透传开关与运营商 CLI 透传支持 |
+| IVR 菜单无法进入 / 转分机失败 | DTMF 方式是否 RFC 2833 / 4733；转接 DTMF 50 字符上限与序列格式（+ → \* 约定） |
+| 完全呼不通 | 传输协议与端口、防火墙、号码格式（E.164）、运营商开通状态 |
+| Agent 线路下拉不显示号码 | 线路是否 Disabled；呼入号码与 Agent 呼叫模式（Inbound）是否匹配 |
+| 闲置测试号码无法删除 | 是否被任何 Agent 配置为备用转接号码（存在依赖即为 In Use） |
+
+## 维护记录
+
+| 日期 | 对接方 / 内容 | 备注 |
+|-|-|-|
+| 2026-07-27 | Phone Numbers 需求 1.1：白名单支持域名 / IP / CIDR（最多 20 条）；原运营后台线路管理模块下线，由 Agent Lab Phone Numbers 接管 | 配置口径见第 3.1 节；需求文档见关联文档 |
+| 2026-10-17 | 本文档创建，归集客户侧 / 运营商侧 / 外部平台配置方法 | Amazon Connect 手册已作附件挂载（第 6.1 节） |
+| 2026-10-17 | 精简：移除具体运营商商务信息（报价、厂商对比、申请材料明细），仅保留 SIP Trunk 技术要求；Genesys 移除未实现的 Audio Connector 路径 | 韩国运营商评审等资料另行归档，不随本文档分发 |
+
+后续每确定一个新的对接方式，在此表登记并在对应章节展开。

@@ -1,0 +1,133 @@
+---
+title: "Agent建立與基礎設定（Agent Create & Config）"
+---
+
+## 建立和設定 Agent
+
+Agent Builder 用於建立 Agent，並設定其語言、語音、對話策略、電話線路和Agent欄位。
+
+### 建立 Agent
+
+1. 選擇 `Create Agent`。
+2. 輸入 Agent 名稱，選擇 Agent 類型。名稱必填，最多 30 個字符。可選類型包括 `Inbound`、`Outbound`、`Chatbot` 和 `Webvoice`。
+3. 進入 `Basic Configuration`。
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/agent-create-config/img-1.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/agent-builder/agent-create-config/img-2.png)
+</column>
+</grid>
+
+### 基本設定
+
+#### 基礎Agent 資訊
+
+| **設定** | **說明** |
+|-|-|
+| `Agent Name` | 必填，最多 30 個字符。 |
+| `Agent Title` | 選填，最多 30 個字符。 |
+| `Agent Description` | 選填，最多 200 個字符。 |
+| `Agent Avatar` | 選填，上傳圖片或選擇系統頭像；上傳圖片爲 180 × 180 像素，支持 JPG、PNG 等格式，文件小於 2 MB。 |
+
+![](/images/zh-Hant/agent-builder/agent-create-config/img-3.png)
+
+#### 語言設定
+
+`Primary Language` 爲單選項。Agent 建立並保存後，主語言不能更改。
+
+`Secondary Language` 支持添加多種語言；已保存的語言不能移除，只能繼續添加。
+
+每種已選語言都有獨立的 ASR 和 TTS 設定卡片。主語言卡片帶有 `Primary` 標籤。
+
+
+
+#### 訪問資訊和密鑰（Webvoice/Chatbot）
+
+對於 `Webvoice`類型的Agent，`Access Info` 顯示系統生成訪問 URL
+
+![](/images/zh-Hant/agent-builder/agent-create-config/img-4.png)
+
+對於 `Chatbot` 類型的Agent，Access Info 包含 `EID` 和系統生成訪問 URL
+
+![](/images/zh-Hant/agent-builder/agent-create-config/img-5.png)
+
+### 語音設定
+
+#### ASR設定
+
+ASR 設定適用於`Inbound`、`Outbound`電話類型及 `Webvoice`。每種語言分別設定ASR服務、`VAD Delay (ms)` 和 `ASR Hotwords`。VAD 延遲預設值爲 `500`，正整數。
+
+可逐個輸入熱詞，也可按行批量導入。批量導入支持追加到現有列表或替換列表；重複熱詞會去重。
+
+![](/images/zh-Hant/agent-builder/agent-create-config/img-6.png)
+
+#### TTS設定
+
+TTS 設定適用於 `Inbound`、`Outbound` 和 `Webvoice`。每種語言可分別選擇音色並試聽標準錄音，音色帶有 `Female` 或 `Male` 標籤。
+
+| 設定 | 說明 |
+|-|-|
+| `Speed (x)` | 滑塊範圍爲 `0.5x-2x`，步長 `0.1`，預設值 `1.0`。 |
+| `Volume` | 滑塊範圍爲 `1-100`，預設值 `50`。 |
+| `Pronunciation Library` | 選擇發音庫，預設值爲 `Default`。 |
+
+![](/images/zh-Hant/agent-builder/agent-create-config/img-7.png)
+
+### 對話策略設定
+
+電話類型 `Inbound`、`Outbound` 和 `Webvoice` 可設定背景音、最大通話時長和 `Turn detection`。
+
+背景音可試聽；
+
+`Max Call Duration (m)` :當前對話允許持續的最大時長，預設值爲 30 分鐘。達到時長後將強制結束
+
+`Turn detection` ：每一輪對話進行完整性判斷，預設關閉。
+
+![](/images/zh-Hant/agent-builder/agent-create-config/img-8.png)
+
+Chatbot 可設定 `Maximum duration of the conversation`，範圍爲 1 秒至 24 小時，預設值爲 5 分鐘。用戶在設定時長內沒有回覆時，對話將關閉。
+
+![](/images/zh-Hant/agent-builder/agent-create-config/img-9.png)
+
+### 電話線路設定
+
+電話線路設定適用於 `Inbound` 和 `Outbound`。`Webvoice` 不顯示 `Main Calling Phone Number`，`Chatbot` 不進行電話線路設定。
+
+#### 主叫號碼
+
+可添加多個主叫號碼。
+
+`Outbound` Agent 可爲主叫號碼設定轉接併發數。該號碼可用於主叫和 `Transfer Call Tool` 轉接；兩種用途共享總併發數。
+
+#### 專用轉接號碼
+
+可將尚未使用的 `Outbound` 線路設爲專用轉接號碼。專用號碼僅用於轉接，其併發數獨立於主叫號碼的轉接併發數。刪除號碼後，該線路不能再次選擇。
+
+![](/images/zh-Hant/agent-builder/agent-create-config/img-10.png)
+
+### Agent 欄位
+
+`Agent Field` 包含系統欄位和自定義欄位。系統欄位隨 Agent 類型顯示，不能在工作臺中編輯。
+
+#### 自定義欄位
+
+建立 `extra_field` 時，可設定欄位名稱、鍵名、類型和預設值。建立後欄位名稱可編輯；鍵名和欄位類型不可更改。鍵名支持字母和下劃線；欄位類型包括數字、數組、枚舉、布爾、文字和時間。
+
+| 選項 | 說明 |
+|-|-|
+| `Import via "Upload Task"` | 僅用於 `Outbound`，預設關閉。開啓後，可通過外撥任務上傳該欄位。 |
+| `Editable in manual` | 預設關閉。開啓後，可在 `Agent Detail - Record List` 中直接編輯欄位值。 |
+| `Sortable` | 預設關閉。開啓後，可在 `Agent Detail - Record List` 中按該欄位排序。 |
+
+系統欄位 `Start Time` 預設可排序，且該設定不可更改。
+
+![](/images/zh-Hant/agent-builder/agent-create-config/img-11.png)
+
+### Agent Basic Configuration如何生效（重要）
+
+由於目前Agent Basic Configuration與Agent Script Versions的編輯是獨立進行的，當完成Agent Basic Configuration修改編輯並保存後，已修改的設定並沒有運用到任何已有的Script版本中，只有在後續保存的Script Version纔會使用最新修改過的Basic Configuration參數
+
+因此，當你的Agent調整Basic Configuration並保存後，請**在Script Edit中保存一個最新的Script Version（Script Version中的內容可以不做任何調整）**，這個最新的Script Version就能運用最新的Basic Configuration參數了。如果需要將此版本Publish（或進行Release），在Test Center版本列表中進行操作即可

@@ -1,0 +1,219 @@
+---
+title: "스크립트 버전 생성 및 편집 (스크립트 Edit)"
+---
+
+## Agent 스크립트 편집기
+
+Agent 스크립트 편집기는 Agent Builder에서 Agent 스크립트를 생성·관리·편집하는 데 사용합니다. 스크립트 버전을 만들고 Agent의 모델 및 대화 파라미터를 설정하며 메인 프롬프트를 작성하고 도구, 임시 변수, 지식 베이스를 연결할 수 있습니다. 통화 종료 후 데이터 처리(ACW Work)도 설정할 수 있습니다. Outbound 유형 Agent는 스크립트를 여러 개 만들 수 있으며, 그 외 유형의 Agent는 하나만 만들 수 있습니다.
+
+### 스크립트 생성 및 버전 관리
+
+<grid>
+<column width-ratio="0.500000">
+#### 스크립트 생성
+1. Agent Builder에서 스크립트를 생성합니다.
+2. 스크립트 이름을 입력하고 확인을 클릭하면 첫 번째 버전의 편집 페이지로 이동합니다.
+3. 선택한 버전의 편집을 마친 뒤 **저장**을 클릭합니다. 저장에 성공해야 첫 번째 버전이 생성되어 버전 목록에 표시됩니다.
+</column>
+<column width-ratio="0.500000">
+![](/images/ko/agent-builder/edit/img-1.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+#### 버전 목록 확인
+버전 목록에는 현재 스크립트의 모든 버전이 표시됩니다. 버전을 선택하면 편집 페이지로 이동합니다. 목록에는 다음 항목이 포함됩니다.
+| 필드 | 설명 |
+|-|-|
+| 스크립트 버전 이름, ID, 상태 | 스크립트 버전과 해당 버전의 상태를 나타냅니다. |
+| 생성자 | 해당 버전을 만든 사용자 |
+| 생성 시간 | 버전을 만든 시간 |
+| 작업 | 편집 페이지로 이동 |
+버전 목록의 데이터와 상태는 Test Center의 스크립트 버전 목록과 동기화됩니다.
+</column>
+<column width-ratio="0.500000">
+![](/images/ko/agent-builder/edit/img-2.png)
+</column>
+</grid>
+
+
+
+모델 설정(Model Configuration)
+
+#### 모델 설정
+
+| 설정 | 설정방식 및 기본값 |
+|-|-|
+| LLM Model | 드롭다운 목록에서 사용할 모델을 선택합니다. |
+| Temperature | 범위는 0–1, 단계는 0.1이며 기본값은 0.5입니다. Thinking Mode를 켜면 이 설정이 적용되지 않을 수 있습니다. |
+| Thinking Mode | 드롭다운 목록에서 사고 강도를 선택합니다. `None`이 기본값입니다. |
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/ko/agent-builder/edit/img-3.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/ko/agent-builder/edit/img-4.png)
+</column>
+</grid>
+
+#### 대화 모드 설정
+
+| 설정 | 값 및 기본값 | 화면 설명 |
+|-|-|-|
+| 무음 대기 시간 (초) | 최소 1초, 기본값 10초, 최대 120초 | 사용자가 응답하지 않을 때 Agent가 말을 시작하기 전까지 기다리는 시간입니다. |
+| 오프닝 인사 전 대기 시간 (ms) | 500–60,000밀리초, 기본값 1,000밀리초 | 통화 시작 후 Agent가 첫 응답을 하기까지 기다리는 시간입니다. |
+| 연속 무응답 통화 종료 | 기본적으로 켜져 있으며 1–20회로 설정할 수 있습니다. 기본값은 3회입니다. | 사용자가 여러 턴 연속으로 응답하지 않으면 통화를 종료합니다. |
+
+### 오프닝 인사
+
+First Message는 Agent가 각 대화를 시작할 때 사용할 첫 인사말을 설정합니다.
+
+- 끄면 Agent가 고정된 First Message를 사용하지 않습니다.
+- 텍스트는 최대 240자까지 입력할 수 있습니다.
+- 음성 시나리오에서는 텍스트를 TTS로 변환해 첫 음성 안내로 사용합니다.
+- Chatbot 시나리오에서는 텍스트를 그대로 표시하며 TTS 서비스를 사용하지 않습니다.
+
+![](/images/ko/agent-builder/edit/img-5.png)
+
+### 메인 프롬프트
+
+메인 프롬프트는 Agent의 기본 프롬프트를 편집하는 영역입니다. 편집기에서 다음 기능을 사용할 수 있습니다.
+
+- 전체 화면 편집 모드를 지원합니다.
+- 필드, 변수, 도구를 인식해 각각 해당하는 태그 스타일로 표시합니다.
+- Prompt의 전체 문자 수를 표시합니다.
+- 인용 버튼을 클릭하거나 `{{`를 입력한 다음 범주별로 **Agent 필드** 및 **임시 변수(시스템 변수 포함)**을 선택합니다.
+- 을 클릭하거나 편집 영역에 **Tools** 또는 편집 영역에 `@`를 입력해 인용할 도구를 선택합니다. 도구 인용은 강조된 태그로 표시됩니다.
+
+![](/images/ko/agent-builder/edit/img-6.png)
+
+### Tools
+
+Tools & Functions 모듈에서 Agent가 호출할 수 있는 도구를 추가하고 관리합니다.
+
+도구 유형별 필드와 설정 방법은 <cite doc-id="CibawFjmLivXLQklVH5jXksBpMc" file-type="wiki" title="Agent 도구 호출 (Tools)" type="doc"></cite>을 참조하세요.
+
+### 임시 변수
+
+대화 중 임시 값을 저장하며 여러 Prompt와 Function에서 참조할 수 있습니다.
+
+**임시 변수 추출 프롬프트**
+
+Temp Variable Value Extraction Framework Prompt는 텍스트 입력란에서 설정합니다. 텍스트에는 다음 자리표시자가 반드시 포함되어야 합니다: {history_variables}, {current_time}, {history}
+
+#### 변수 목록
+
+| 필드 | 설명 |
+|-|-|
+| Name | 임시 변수 이름입니다. 참조 중인 변수에는 **In Use** 태그가 표시됩니다. |
+| Key | 임시 변수 키 |
+| LLM Extraction | LLM을 사용해 값을 추출할지 여부 |
+| Mapped to Agent Field | Agent 필드와 연결할지 여부 |
+| Sensitive | 민감 변수인지 여부 |
+| Action | 편집 또는 삭제 |
+
+#### 변수 추가 및 편집
+
+임시 변수를 추가할 때 이름, 키, 설명 및 해당 설정을 입력합니다.
+
+- **민감 정보**기본값은 꺼짐입니다. 켜면 변수 값이 암호화되어 확인할 수 없고 Agent 필드와 연결할 수도 없습니다.
+- Agent 필드 연결: 대화가 끝난 후 임시 변수 값을 생성된 Agent 필드에 바로 연결할 수 있습니다.
+- LLM으로 임시 변수 값을 추출하는 기능을 켜면 도구 호출로 해당 변수 값을 설정할 수 없습니다. 두 기능은 동시에 사용할 수 없습니다.
+- Prompt에서 참조 중인 변수는 삭제할 수 없습니다. 삭제 버튼이 비활성화되고 키도 변경할 수 없습니다.
+
+![](/images/ko/agent-builder/edit/img-7.png)
+
+<grid>
+<column width-ratio="0.496142">
+![](/images/ko/agent-builder/edit/img-8.png)
+</column>
+<column width-ratio="0.503858">
+![](/images/ko/agent-builder/edit/img-9.png)
+</column>
+</grid>
+
+### 지식 베이스
+
+기존 지식을 추가할 때 사용합니다. 설정중 기존 지식 베이스 폴더를 선택합니다.
+
+![](/images/ko/agent-builder/edit/img-10.png)
+
+
+
+### After Call Work
+
+After Call Work (ACW)는 통화 종료 후 수행할 태그 추출, 요약 생성, 사용자 정의 도구 호출, 데이터 푸시를 구성합니다.
+
+![](/images/ko/agent-builder/edit/img-11.png)
+
+#### 대화 태그
+
+통화 종료 후 해당 대화에서 사용자 정의 태그를 생성할 전용 LLM을 설정합니다. 태그 속성과 생성 로직은 직접 정의할 수 있습니다. 생성된 태그는 Agent Lab의 Agent 통화 기록 상세 페이지에 표시됩니다.
+
+- **대화 태그**기본적으로 켜져 있으며 끌 수도 있습니다.
+- 사용할 LLM을 별도로 설정할 수 있습니다.
+- 태그마다 태그 이름, 데이터 유형, `Key_name`, 추출 Prompt, Agent 필드 연결 여부를 설정합니다.
+- 데이터 유형은 숫자, 텍스트, 불리언, 열거형, 시간을 지원합니다.
+- De스크립트ion: LLM이 해당 값을 추출하는 데 사용할 Prompt입니다.
+- Agent 필드 연결: 연결을 켜면 기존 Agent 필드를 선택해야 합니다. 연결한 경우 이름, 데이터 유형, 키를 별도로 정의할 필요가 없습니다. 대화가 끝나면 연결된 Agent 필드에 대화 태그 값이 저장됩니다.
+
+![](/images/ko/agent-builder/edit/img-12.png)
+
+#### 통화 내역
+
+통화 종료 후 해당 대화의 요약을 생성할 전용 LLM을 설정합니다. Agent Builder에는 기본 생성 프롬프트가 제공됩니다. 필요에 따라 수정할 수 있지만 기존 프롬프트의 구조는 유지해야 합니다. 생성된 내역는 Agent Lab의 Agent 통화 기록 상세 페이지에 표시됩니다.
+
+- 통화 
+
+![](/images/ko/agent-builder/edit/img-13.png)
+
+로 켜져 있으며 끌 수도 있습니다.
+
+- 사용할 LLM을 별도로 설정할 수 있습니다.
+- Summary 생성 Prompt가 기본으로 제공되며 편집할 수 있습니다. 기존 프롬프트 구조는 유지해야 합니다.
+
+#### ACW 사용자 정의 Function 추가
+
+Daisybell Agent는 통화 종료 후에도 해당 사용자 정의 도구를 호출해 작업을 계속 수행할 수 있습니다. 입력란에 Function Key를 입력하면 도구를 호출할 수 있습니다.
+
+![](/images/ko/agent-builder/edit/img-14.png)
+
+#### 데이터 푸시
+
+통화가 끝난 후 Daisybell Agent Lab은 Agent 필드 값을 외부 대상에 푸시할 수 있습니다. 생성된 외부 대상을 선택한 뒤 관련 항목을 구성합니다.
+
+- **연동 대상 (푸시 대상)**: Integrations & API에서 추가한 대상 카드 중 선택합니다. 푸시 대상을 여러 개 추가할 수 있습니다.
+- **대상 키 (Object)**: 해당 키를 입력합니다.
+- **필드 매핑**: Agent 필드를 연동 대상의 필드에 매핑합니다. 여러 개를 추가할 수 있습니다.
+
+![](/images/ko/agent-builder/edit/img-15.png)
+
+
+
+![](/images/ko/agent-builder/edit/img-16.png)
+
+### 기타 설정
+
+- **Amazon Connect - DTMF로 발신자 번호 가져오기**: 기본적으로 꺼져 있습니다. Inbound 유형 Agent에만 설정할 수 있습니다.
+- **사전 처리 기능 설정**: 기본적으로 꺼져 있습니다. 켜면 사용자 정의 Function의 식별 ID를 입력합니다. Inbound 유형 Agent에만 설정할 수 있습니다.
+- **전환 전화 우회 설정**: 기본적으로 꺼져 있습니다. 켜면 아웃바운드 회선, 전환을 받을 전화번호, 전환 처리 모드를 설정합니다. 전환 처리 모드는 Call Transfer의 **Transfer Handling Mode**와 동일하게 설정합니다. Inbound 유형 Agent에만 설정할 수 있습니다.
+- **오류 시 고정 응답**: Agent에서 오류가 발생했을 때 반환할 고정 텍스트를 설정합니다. 다국어 Agent의 경우 언어별 입력란이 제공됩니다.
+
+![](/images/ko/agent-builder/edit/img-17.png)
+
+### 가져오기 및 내보내기
+
+모든 스크립트 설정항목은 JSON 파일로 저장됩니다. Agent Builder에서는 JSON 설정 파일을 가져오고 내보낼 수 있습니다.
+
+### 자동 저장
+
+기존 버전을 편집할 때 편집기가 5분마다 자동 저장하고 저장 상태를 표시합니다. 창을 연 지 2시간이 지나고 아무 변경도 없으면 자동 저장이 중지됩니다.
+
+편집을 시작하기 전에 다음 중 하나를 선택할 수 있습니다.
+
+- **Restore Autosaved Content**: 자동 저장된 내용으로 현재 버전의 내용을 교체합니다.
+- **Keep Current Version Content**: 현재 버전의 내용을 유지합니다.
+
+여러 사용자가 같은 버전을 동시에 편집하면 가장 최근 자동 저장 내용만 유지됩니다. **Edit**을 클릭할 때 자동 저장된 내용이 있으면 위 안내가 표시됩니다.

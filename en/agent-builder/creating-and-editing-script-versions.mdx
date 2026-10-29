@@ -1,0 +1,225 @@
+---
+title: "Creating and Editing Script Versions"
+---
+
+## Agent Script Editor
+
+The Agent Script editor is where you create, manage, and edit Agent Scripts in Agent Builder. You can create Script versions, configure the Agent's model and conversation settings, write the Main Prompt, link tools, temporary variables, and a knowledge base, and configure after-call data processing (After Call Work, or ACW). Outbound Agents can have multiple Scripts; other Agent types can have only one.
+
+### Creating Scripts and Managing Versions
+
+<grid>
+<column width-ratio="0.500000">
+#### Create a Script
+1. Create a Script in Agent Builder.
+2. Enter a Script name, then click Confirm to open the editing page for the first version.
+3. After editing the selected version, click **Save**. The first version is created and added to the version list only after it is saved successfully.
+</column>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/creating-and-editing-script-versions/img-1.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+#### View the Version List
+The version list displays all versions of the current Script. Select a version to open its editing page. The list includes the following fields:
+| Field | Description |
+|-|-|
+| Script version archive name, ID, and status | Identifies the Script version and its status |
+| Created by | User who created the version |
+| Created at | Version creation time |
+| Action | Open the editing page |
+Data and statuses in this list stay synchronized with the Script version list in Test Center.
+</column>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/creating-and-editing-script-versions/img-2.png)
+</column>
+</grid>
+
+
+
+Model Configuration
+
+#### Model Settings
+
+| Setting | Configuration and default value |
+|-|-|
+| LLM Model | Select an available model from the drop-down list. |
+| Temperature | Range: 0–1, in increments of 0.1. Default: 0.5. This setting may not take effect when Thinking Mode is enabled. |
+| Thinking Mode | Select a reasoning level from the drop-down list. `None` is the default. |
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/creating-and-editing-script-versions/img-3.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/creating-and-editing-script-versions/img-4.png)
+</column>
+</grid>
+
+#### Conversation Mode Settings
+
+| Setting | Values and default | Description |
+|-|-|-|
+| Silence Wait Time (s) | Minimum: 1 second; default: 10 seconds; maximum: 120 seconds | How long the Agent waits before speaking when the user is silent. |
+| Time to First Response (ms) | 500–60,000 ms; default: 1,000 ms | Time the Agent waits for its first response after the call starts. |
+| Consecutive Silence Turns Before Hangup | Enabled by default; configurable from 1 to 20 turns; default: 3 turns | Ends the call after consecutive silent turns. |
+
+### First Message
+
+First Message sets the opening line for each Agent conversation.
+
+- When disabled, the Agent does not use a fixed First Message.
+- Input is limited to 240 characters.
+- In voice scenarios, the text is converted into an opening voice message using TTS.
+- In Chatbot scenarios, the text is displayed directly without TTS.
+
+![](/images/en/agent-builder/creating-and-editing-script-versions/img-5.png)
+
+### Main Prompt
+
+Main Prompt is the primary prompt editing area for the Agent. The editor supports:
+
+- Full-screen editing.
+- Recognizing fields, variables, and tools and displaying them as corresponding tags.
+- A character count for the prompt.
+- Click the reference button or type `{{`, then choose **Agent fields** and **temporary variables (including system variables)**.
+- Click **Tools**, or type `@` in the editor and select a tool. Tool references appear as highlighted tags.
+
+![](/images/en/agent-builder/creating-and-editing-script-versions/img-6.png)
+
+### Tools
+
+Use the Tools & Functions module to add and manage tools that the Agent can call.
+
+For the fields and configuration options for each tool type, see <cite doc-id="JhFUwRrN6iMyK4k0LBgjt4mppDd" file-type="wiki" title="Agent 工具调用（Tools）" type="doc"></cite>
+
+
+
+### Temporary Variables
+
+Temporary Variables store temporary values from a session and can be referenced in prompts and functions.
+
+**Temporary Variable Extraction Prompt**
+
+Configure the Temp Variable Value Extraction Framework Prompt in the text box. The text must include these placeholders: {history_variables}, {current_time}, and {history}.
+
+#### Variable List
+
+| Field | Description |
+|-|-|
+| Name | Temporary variable name; referenced variables are marked with the **In Use** tag. |
+| Key | Temporary variable key |
+| LLM Extraction | Whether LLM extraction is enabled |
+| Mapped to Agent Field | Whether the variable is mapped to an Agent field |
+| Sensitive | Whether the variable is sensitive |
+| Action | Edit or delete |
+
+#### Add and Edit Variables
+
+When adding a temporary variable, configure its name, key, description, and the corresponding options.
+
+- **Sensitive** is disabled by default. When enabled, the variable value is encrypted and cannot be viewed or mapped to an Agent field.
+- Map to an Agent field: After the conversation ends, the temporary variable's value can be mapped directly to an existing Agent field.
+- LLM extraction: When enabled, the temporary variable cannot be assigned a value through a tool call because the two methods conflict.
+- A variable referenced in a prompt cannot be deleted (the Delete button is disabled), and its key cannot be changed.
+
+![](/images/en/agent-builder/creating-and-editing-script-versions/img-7.png)
+
+![](/images/en/agent-builder/creating-and-editing-script-versions/img-8.png)
+
+
+
+### Knowledge Base
+
+To add existing knowledge, select an existing knowledge base folder.
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/creating-and-editing-script-versions/img-9.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/creating-and-editing-script-versions/img-10.png)
+</column>
+</grid>
+
+
+
+### After Call Work
+
+After Call Work (ACW) lets you configure tag extraction, summary generation, custom tool calls, and data pushes after a call ends.
+
+![](/images/en/agent-builder/creating-and-editing-script-versions/img-11.png)
+
+#### Conversation Tags
+
+Configure a separate LLM to generate custom tags from the conversation after it ends. You can define the tag attributes and generation logic. Generated tags appear on the call details page in Agent Lab.
+
+- **Conversation Tags**This feature is enabled by default and can be disabled.
+- Configure a separate LLM.
+- Each tag includes a name, data type, `Key_name`, extraction prompt, and an option to map it to an Agent field.
+- Supported data types: number, text, Boolean, enum, and time.
+- Description: The prompt used by the LLM to extract the corresponding value.
+- Map to an Agent field: When enabled, select an existing Agent field. You do not need to define the name, data type, or key. After the conversation ends, the mapped Agent field receives the tag value.
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/creating-and-editing-script-versions/img-12.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/en/agent-builder/creating-and-editing-script-versions/img-13.png)
+</column>
+</grid>
+
+#### Call Summary
+
+Configure a separate LLM to generate a summary of the conversation after it ends. Agent Builder provides a default prompt, which you can modify as needed while retaining the original prompt framework. The generated summary appears on the call details page in Agent Lab.
+
+- Call summaries are enabled by default and can be disabled.
+- Configure a separate LLM.
+- A default prompt for generating the summary is provided and can be edited. Retain the original prompt framework.
+
+![](/images/en/agent-builder/creating-and-editing-script-versions/img-14.png)
+
+#### Add an ACW Custom Function
+
+Daisybell Agent can call a custom tool after a call ends to complete the corresponding task. Enter the Function Key in the relevant input field to call the tool.
+
+![](/images/en/agent-builder/creating-and-editing-script-versions/img-15.png)
+
+#### Data Push
+
+After a call ends, Daisybell Agent Lab can push Agent field values to external objects. Select an existing external object and configure the mapping.
+
+- **Integration Target (Push Destination)**: Select from the objects already added under Integrations & API. You can add multiple push targets.
+- **Object Key**: Enter the corresponding key.
+- **Field Mapping**: Map Agent fields to fields in the connected object. You can add multiple mappings.
+
+![](/images/en/agent-builder/creating-and-editing-script-versions/img-16.png)
+
+![](/images/en/agent-builder/creating-and-editing-script-versions/img-17.png)
+
+### Other Settings
+
+- **Amazon Connect — Retrieve the caller's phone number via DTMF**: Disabled by default. Available only for Inbound Agents.
+- **Preprocessing Configuration**: Disabled by default. When enabled, enter the custom Function identifier. Available only for Inbound Agents.
+- **Bypass Call Transfer Configuration**: Disabled by default. When enabled, configure the outbound route, the phone number to receive the transfer, and the transfer handling mode. The transfer handling mode must match the **Transfer Handling Mode** in Call Transfer. Available only for Inbound Agents.
+- **Fixed Error Response**: Configure the fixed text returned when an Agent encounters an error. Multilingual Agents have a separate input field for each language.
+
+![](/images/en/agent-builder/creating-and-editing-script-versions/img-18.png)
+
+### Import and Export
+
+All Script settings are saved as a JSON file. Agent Builder supports importing and exporting JSON configuration files.
+
+### Autosave
+
+When you edit an existing version, the editor automatically saves every 5 minutes and displays an autosave notice. Autosaving stops if the editor remains open for more than 2 hours without any changes.
+
+Before editing, you can choose:
+
+- **Restore Autosaved Content**: Replace the current version's content with the autosaved content.
+- **Keep Current Version Content**: Keep the current version's content.
+
+When multiple users edit the same version at the same time, only the latest autosaved copy is retained. When you click **Edit** and autosaved content exists, the prompt above appears.

@@ -1,0 +1,1191 @@
+{
+  "space_id": "7484965309019848738",
+  "root_node_token": "TJdQwAKGaivICCku7fXjEK9mpnf",
+  "languages": [
+    {
+      "lang": "zh-Hans",
+      "node_token": "Al5WwPkd3iYoCXkFuvSjih6NpDc",
+      "dir_title": "Agent Lab产品使用手册 - 简体中文",
+      "group_name": "Agent Lab产品使用手册",
+      "pages": [
+        {
+          "node_token": "HKsBwtMOjioUcxkeOujjCOxWpad",
+          "obj_token": "ADtTdlgOjoccPxxs6jZjAeQPpvc",
+          "title": "Daisybell Agent Lab简介",
+          "slug": "overview",
+          "file": "zh-Hans/overview.mdx"
+        },
+        {
+          "node_token": "JkiowhUVuib6GgkqZjLjvOa1pWf",
+          "obj_token": "SANSdr7iroBqRfxWnCzjbtLEpah",
+          "title": "Agent生成器（Agent Builder）",
+          "slug": "agent-builder",
+          "file": "zh-Hans/agent-builder/index.mdx",
+          "children": [
+            {
+              "node_token": "Jj2nw66fJirJ6tk2XPSjCeFkp6f",
+              "obj_token": "FCiUdvf6KoOvvpxqtQAjtCktpqe",
+              "title": "Agent创建与基础配置（Agent Create & Config）",
+              "slug": "agent-create-config",
+              "file": "zh-Hans/agent-builder/agent-create-config.mdx"
+            },
+            {
+              "node_token": "FWDawJp2Nidh8mkK2VmjdZHyp2b",
+              "obj_token": "Jv6Ed4CwPohEELxTv8mjkjWGpgh",
+              "title": "Script版本创建及编辑（Script Edit）",
+              "slug": "script-edit",
+              "file": "zh-Hans/agent-builder/script-edit.mdx"
+            },
+            {
+              "node_token": "JhFUwRrN6iMyK4k0LBgjt4mppDd",
+              "obj_token": "JUuAdLF92o0DwFxGEW2jfAWCpSh",
+              "title": "Agent 工具调用（Tools）",
+              "slug": "tools",
+              "file": "zh-Hans/agent-builder/tools.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "A6jSw72DKiAqFZk7lt3jmWYypjd",
+          "obj_token": "PCP9djO6LoeN1xx0axZjNqxtpRc",
+          "title": "Agent运营工具（Agent Operator）",
+          "slug": "agent-operator",
+          "file": "zh-Hans/agent-operator/index.mdx",
+          "children": [
+            {
+              "node_token": "WvY9wsQc3iOPlMkGvbLj7gwpp3X",
+              "obj_token": "PPwWdH5onoVJZbxWtBkjZvVapDc",
+              "title": "Agent 详情页 & 通话记录（Profile & Record）",
+              "slug": "profile-record",
+              "file": "zh-Hans/agent-operator/profile-record.mdx"
+            },
+            {
+              "node_token": "NcLGwHz6vi36fYkLk8ujBj15p4f",
+              "obj_token": "Dnx0dG3JwokoVLxjAF9jxg6xpdd",
+              "title": "外呼Agent — 创建外呼任务（Create Outbound Task）",
+              "slug": "create-outbound-task",
+              "file": "zh-Hans/agent-operator/create-outbound-task.mdx"
+            },
+            {
+              "node_token": "Cp8owURDmikUEWkQY1jjCpjyp6e",
+              "obj_token": "LwO3dVgsQo0a8NxTFZNjRrr2pwb",
+              "title": "单轮对话分析链路（Analysis Trace）（Alpha功能）",
+              "slug": "alpha",
+              "file": "zh-Hans/agent-operator/alpha.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "FzF7wjIZeihaXqkOeINjr2B5psb",
+          "obj_token": "PIiJdLQX5ogzVTxt3l6jyFaDpMe",
+          "title": "测试中心（Test Center）",
+          "slug": "test-center",
+          "file": "zh-Hans/test-center/index.mdx",
+          "children": [
+            {
+              "node_token": "QnQbwGVbkiSnXmkETTbjDtuwpAf",
+              "obj_token": "TR0wdJQm0o5zadxaPwuji43apmf",
+              "title": "Script版本状态编辑与上线（Script Version Status Edit & Release)",
+              "slug": "script-version-status-edit-release",
+              "file": "zh-Hans/test-center/script-version-status-edit-release.mdx"
+            },
+            {
+              "node_token": "Wax1w5wT4i8AaokeCvij7SECpo0",
+              "obj_token": "KMBid7vleofrFAxB0CljsDYKp8f",
+              "title": "脚本版本详情（Script Version Detail）",
+              "slug": "script-version-detail",
+              "file": "zh-Hans/test-center/script-version-detail.mdx"
+            },
+            {
+              "node_token": "RDyNwgtMkicFSJku7CajAfzzpsd",
+              "obj_token": "DNsIdd2SdoFKaMxHcRojb4bppnb",
+              "title": "文本测试&文本测试组件（Text Test & Text Tset Widget）",
+              "slug": "text-test-text-tset-widget",
+              "file": "zh-Hans/test-center/text-test-text-tset-widget.mdx"
+            },
+            {
+              "node_token": "RGyEwpTFeigBvukymeSj5tRQpfJ",
+              "obj_token": "S4wMdxoPAoNcm9xcNTMjLoMWpaf",
+              "title": "语音测试（Voice Test）",
+              "slug": "voice-test",
+              "file": "zh-Hans/test-center/voice-test.mdx"
+            },
+            {
+              "node_token": "WU0cwJ6nGi5zevkOSNxj5Do4pgc",
+              "obj_token": "PRqtdaT7PoDOZyxA6S1jOVFsp6b",
+              "title": "上文测试集&回测（Context Test Set & Backtest）",
+              "slug": "context-test-set-backtest",
+              "file": "zh-Hans/test-center/context-test-set-backtest.mdx"
+            },
+            {
+              "node_token": "QJ1Iw2Cl8iW12akm9jWjDI19pch",
+              "obj_token": "Bh1QdMBy5orR7uxZwxLj6fRApMb",
+              "title": "测试记录详情（Test Record Detail）",
+              "slug": "test-record-detail",
+              "file": "zh-Hans/test-center/test-record-detail.mdx"
+            },
+            {
+              "node_token": "APq6wXUduic0X4kaaYpjCd0BpXe",
+              "obj_token": "Cfxcd1HYSoxZ4hxMBZijyiM5pSN",
+              "title": "临时调试（Temporary Debug）",
+              "slug": "temporary-debug",
+              "file": "zh-Hans/test-center/temporary-debug.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "JYpnwuAH9iC6azkxrzPj9ZRopnb",
+          "obj_token": "EQdid90wrovmCtxNMnKj8dKrp5g",
+          "title": "平台工具（General Tools）",
+          "slug": "general-tools",
+          "file": "zh-Hans/general-tools/index.mdx",
+          "children": [
+            {
+              "node_token": "Eg3Twfa61i5KRAkWqIHjfVvvpvg",
+              "obj_token": "Ucb2dZY4joDFNgxtV0SjXzq8pKc",
+              "title": "电话号码管理（Phone Numbers）",
+              "slug": "phone-numbers",
+              "file": "zh-Hans/general-tools/phone-numbers.mdx"
+            },
+            {
+              "node_token": "Rvm1wigcOikEU8k1tY8jPKclp3b",
+              "obj_token": "BeYgdSferoy3iZxeNpEjW1tUp72",
+              "title": "知识库 Beta（Knowledge base）",
+              "slug": "knowledge-base",
+              "file": "zh-Hans/general-tools/knowledge-base.mdx"
+            },
+            {
+              "node_token": "PrTlw5qaRiMlZBknh3Pj9T3jpRg",
+              "obj_token": "IxxedIZPYoCvz6xUqQwjW1xRpgd",
+              "title": "导出中心（Export Center）",
+              "slug": "export-center",
+              "file": "zh-Hans/general-tools/export-center.mdx"
+            },
+            {
+              "node_token": "ME0EwtWmci1NvvknolbjyS9ophb",
+              "obj_token": "HFPid6O6JobEgwxcZTAjyVrEpqf",
+              "title": "消息推送（Message Push）",
+              "slug": "message-push",
+              "file": "zh-Hans/general-tools/message-push.mdx"
+            },
+            {
+              "node_token": "OuSxwV7Dbif3mGkaG2cjKFVTpTg",
+              "obj_token": "Tc4idaBlhorhaHxu7xFjTro2pFy",
+              "title": "子账户管理（Sub-user Management)",
+              "slug": "sub-user-management",
+              "file": "zh-Hans/general-tools/sub-user-management.mdx"
+            },
+            {
+              "node_token": "CvBBwBFRHiz7PMknZPejP4MApXd",
+              "obj_token": "R4u7dA11yoOBJXxMHeojtogjphb",
+              "title": "系统集成与AI对接（Integrations & API）（未完成）",
+              "slug": "integrations-api",
+              "file": "zh-Hans/general-tools/integrations-api.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "R6d5wIS6FiIshgkDdwmjjhVypfc",
+          "obj_token": "MyOEdVwg0o8nvOx7Py0jnBNFpbg",
+          "title": "账户设置（Account Settings）",
+          "slug": "account-settings",
+          "file": "zh-Hans/account-settings/index.mdx",
+          "children": [
+            {
+              "node_token": "Ds1swR0iWic5fRk6fP0jgxr6pnf",
+              "obj_token": "Ukdzd51FLoUjsKxJOOnjphdRp7J",
+              "title": "登录IP安全设置 & 登录日志",
+              "slug": "ip",
+              "file": "zh-Hans/account-settings/ip.mdx"
+            },
+            {
+              "node_token": "H894wQVaviqxTck0B1cjUUQXpU3",
+              "obj_token": "HHU0deaaYocGBkxyS2xjgc1Rpxe",
+              "title": "通知（Notification）（未开发完成）",
+              "slug": "notification",
+              "file": "zh-Hans/account-settings/notification.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "BF8SwK95CiI3g8kFhZijwiChp7g",
+          "obj_token": "TsojdzkvXoMQvXx6BJ5j4ZB0pLd",
+          "title": "[内部文档]技术手册（Techs-manual）",
+          "slug": "techs-manual",
+          "file": "zh-Hans/techs-manual/index.mdx",
+          "children": [
+            {
+              "node_token": "FHTvwTTl9iM3ejkhJusj9joTpgg",
+              "obj_token": "E3DjdVVtTo7GqlxdoBljmZWBp7e",
+              "title": "[内部文档]常见电话客户侧和运营商侧配置方法（日本、韩国） ",
+              "slug": "[内部文档]常见电话客户侧和运营商侧配置方法（日本、韩国）",
+              "file": "zh-Hans/techs-manual/[内部文档]常见电话客户侧和运营商侧配置方法（日本、韩国）.mdx"
+            },
+            {
+              "node_token": "YlZjwR0PBiI6fIkyiMdj6HNApXe",
+              "obj_token": "VC4Jdsm7uohLZFxdrm6jRxkzpFc",
+              "title": "[内部文档]端到端延迟计算",
+              "slug": "[内部文档]端到端延迟计算",
+              "file": "zh-Hans/techs-manual/[内部文档]端到端延迟计算.mdx"
+            },
+            {
+              "node_token": "PeWowm9CjiM6MlkUqM0jK07PpOh",
+              "obj_token": "GUpadB0nboAltfx2hkmjgsZOpPg",
+              "title": "[内部文档]SI对接方案",
+              "slug": "si",
+              "file": "zh-Hans/techs-manual/si.mdx"
+            },
+            {
+              "node_token": "X9ZiwGFdxi7hgQkFhFujkZ17pic",
+              "obj_token": "Z7rgdXlORorE8jxM1RBjFwEnpXd",
+              "title": "[内部文档]可对接性判断标准",
+              "slug": "[内部文档]可对接性判断标准",
+              "file": "zh-Hans/techs-manual/[内部文档]可对接性判断标准.mdx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lang": "ja",
+      "node_token": "XPxDweWWJiAoqHkcR7MjJGHqpFg",
+      "dir_title": "Agent Lab產品使用手冊 - 日本語",
+      "group_name": "Agent Lab產品使用手冊",
+      "pages": [
+        {
+          "node_token": "JmwXw03PSiQq6NkKGQJjmEdZpKh",
+          "obj_token": "VXcvdVAktoeiCHxLXs8jopdipMb",
+          "title": "Daisybell Agent Lab 概要",
+          "slug": "overview",
+          "file": "ja/overview.mdx"
+        },
+        {
+          "node_token": "EgaBwuL5piVvk6k6UNEjtTSUpog",
+          "obj_token": "BdICd9eCRo39TexvsfKjMYy9pUY",
+          "title": "Agent ビルダー（Agent Builder）",
+          "slug": "agent-builder",
+          "file": "ja/agent-builder/index.mdx",
+          "children": [
+            {
+              "node_token": "RvypwxsI1i2WktkTBdsj43IbpMh",
+              "obj_token": "Nf9qd9ln9ojB4uxbHF6jgFSlpKb",
+              "title": "Agentの作成と基本設定（Agent Create & Config）",
+              "slug": "agent-create-config",
+              "file": "ja/agent-builder/agent-create-config.mdx"
+            },
+            {
+              "node_token": "Az0gwWEJ5iDXfuks2sdjM9Y3pgg",
+              "obj_token": "Xi0YdX9n1o859FxotWFjoLUUpUh",
+              "title": "Script バージョンの作成と編集（Script Edit）",
+              "slug": "script-edit",
+              "file": "ja/agent-builder/script-edit.mdx"
+            },
+            {
+              "node_token": "G8gVwSpdoiTtHJkdvjijmoi4pxz",
+              "obj_token": "JaYMduhDyohh0dxA9gVjVDh2p6b",
+              "title": "Agent ツール呼び出し（Tools）",
+              "slug": "tools",
+              "file": "ja/agent-builder/tools.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "JxYYwFpqWiBtorkuY1Kjw2Uxpyb",
+          "obj_token": "VbhxdT4H3odm3Mx6vqIjtJ4Ep7b",
+          "title": "Agent運用（Agent Operation）",
+          "slug": "agent-operation",
+          "file": "ja/agent-operation/index.mdx",
+          "children": [
+            {
+              "node_token": "WBRswDR1MiOfD5kvXyejtGk5pgb",
+              "obj_token": "AQNBd96cgoHw9hxENMgja6Z2pCd",
+              "title": "Agent詳細ページと通話記録（Profile & Record）",
+              "slug": "profile-record",
+              "file": "ja/agent-operation/profile-record.mdx"
+            },
+            {
+              "node_token": "RRTMwjZ15izNQRk6ozSjqJA0pkg",
+              "obj_token": "MvjZdKHxFoIYM3xidf0jwQFRpkX",
+              "title": "Outbound Agent：発信タスクの作成（Create Outbound Task）",
+              "slug": "create-outbound-task",
+              "file": "ja/agent-operation/create-outbound-task.mdx"
+            },
+            {
+              "node_token": "IlmVw0Mlti1mhVkckm8jTzhCptc",
+              "obj_token": "TYdzd1dpLo7DhlxeGrFjaAKQp9b",
+              "title": "1ターン対話分析フロー（Analysis Trace）（アルファ機能）",
+              "slug": "analysis-trace",
+              "file": "ja/agent-operation/analysis-trace.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "FcFKwMrrKi3jf2kwfjAjP0NHpbg",
+          "obj_token": "GW4md2qBjon7pDx0fsxjttMZplg",
+          "title": "テストセンター（Test Center）",
+          "slug": "test-center",
+          "file": "ja/test-center/index.mdx",
+          "children": [
+            {
+              "node_token": "L1LxwWL27i5k4sk8wXrjFRfQpDd",
+              "obj_token": "EdipdRn21ojVUkxnB3ajgnDDpTf",
+              "title": "スクリプトバージョンの状態編集と公開",
+              "slug": "スクリプトバージョンの状態編集と公開",
+              "file": "ja/test-center/スクリプトバージョンの状態編集と公開.mdx"
+            },
+            {
+              "node_token": "HsQUwRVJeiWRvWkAbe7jFVX1pzb",
+              "obj_token": "LMaPdwblDopmgmxw3Ccj8pRIp6g",
+              "title": "スクリプトバージョン詳細",
+              "slug": "スクリプトバージョン詳細",
+              "file": "ja/test-center/スクリプトバージョン詳細.mdx"
+            },
+            {
+              "node_token": "FliNwaYIAiQUeCkdrptjyMkApXg",
+              "obj_token": "I8EmdFhWTo9mPbxlUSgjVjUYpNc",
+              "title": "テキストテストとテストウィジェット",
+              "slug": "テキストテストとテストウィジェット",
+              "file": "ja/test-center/テキストテストとテストウィジェット.mdx"
+            },
+            {
+              "node_token": "QnsewEvHhiprkFkS6u9jk6wUpfc",
+              "obj_token": "UQhQdi5jAon4ikxiZaNjmbsQp1f",
+              "title": "音声テスト",
+              "slug": "音声テスト",
+              "file": "ja/test-center/音声テスト.mdx"
+            },
+            {
+              "node_token": "NQePwvvTZigMmLkGBuvjiKompCf",
+              "obj_token": "UZPtdnVBTofRkTxRewejRzBopYe",
+              "title": "コンテキストテストセットとバックテスト",
+              "slug": "コンテキストテストセットとバックテスト",
+              "file": "ja/test-center/コンテキストテストセットとバックテスト.mdx"
+            },
+            {
+              "node_token": "P9T8wfejoiNq2OkTaewj26wGpHf",
+              "obj_token": "GfEtdYyLMoUpq6xTs3Lj4FPCptd",
+              "title": "テスト記録詳細",
+              "slug": "テスト記録詳細",
+              "file": "ja/test-center/テスト記録詳細.mdx"
+            },
+            {
+              "node_token": "WRGcwFlmHidDXxkOxE3jdzTcprh",
+              "obj_token": "Ws6gdKJY8oQ4xSxqcZHjLsyPpQh",
+              "title": "一時デバッグ",
+              "slug": "一時デバッグ",
+              "file": "ja/test-center/一時デバッグ.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "X8eowbpP9isaeSktG9pjtJf6ped",
+          "obj_token": "YZ9Rd0Tf4ov7pvx2jKyjajk8p5b",
+          "title": "プラットフォームツール（General Tools） ",
+          "slug": "general-tools",
+          "file": "ja/general-tools/index.mdx",
+          "children": [
+            {
+              "node_token": "HWADwVg08iXlLIkIzigjJNQLpBh",
+              "obj_token": "XLmSdnS3oov7U8xelgdj3wEBpjb",
+              "title": "Phone Numbers ",
+              "slug": "phone-numbers",
+              "file": "ja/general-tools/phone-numbers.mdx"
+            },
+            {
+              "node_token": "A8uGwhztWiewkMkj9QQjxLaCpQt",
+              "obj_token": "PMG0dL5TZopF16x9dQajvPzKpNb",
+              "title": "ナレッジベース Beta（Knowledge Base）",
+              "slug": "knowledge-base",
+              "file": "ja/general-tools/knowledge-base.mdx"
+            },
+            {
+              "node_token": "QngOwDiSaieUvHkTiNojgT7NpXr",
+              "obj_token": "T6gPdsBmIoP8TFx6IbGjaFxHpLg",
+              "title": "エクスポートセンター",
+              "slug": "エクスポートセンター",
+              "file": "ja/general-tools/エクスポートセンター.mdx"
+            },
+            {
+              "node_token": "PDaUwOxKBitlDQkGXyHjIYCWpIf",
+              "obj_token": "CosfdjVjzoIuFFxUjDvjPvMrpFg",
+              "title": "メッセージプッシュ",
+              "slug": "メッセージプッシュ",
+              "file": "ja/general-tools/メッセージプッシュ.mdx"
+            },
+            {
+              "node_token": "KqABwm0sHiO18hkezADj1JNYpMd",
+              "obj_token": "Q34bd0fFtoyEybxp3r5jTNtFpsh",
+              "title": "サブアカウント管理",
+              "slug": "サブアカウント管理",
+              "file": "ja/general-tools/サブアカウント管理.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "Jtvhw8FfXieo0Ukl3CGjMbQypGf",
+          "obj_token": "FAxQdqg4BoMDbYxqOz7jItETple",
+          "title": "Account Settings ",
+          "slug": "account-settings",
+          "file": "ja/account-settings/index.mdx",
+          "children": [
+            {
+              "node_token": "ViEjwrxbIiF13VkqgAkjKcMgphc",
+              "obj_token": "VK7Jd8r1GoydDjxIWZdjSUwjpld",
+              "title": "ログイン IP セキュリティ設定・ログイン履歴",
+              "slug": "ip",
+              "file": "ja/account-settings/ip.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "SFg1wxKJOiniI5kcY9MjF7q0pJf",
+          "obj_token": "DbuMdXcs9onrXpx6h0hjvu9Mprh",
+          "title": "Techs-manual",
+          "slug": "techs-manual",
+          "file": "ja/techs-manual/index.mdx",
+          "children": [
+            {
+              "node_token": "ATONwe0vOiVS2TkylVPjtWOBpXd",
+              "obj_token": "VoXwdvRg8o56Hqx5fV0jzgHjpgf",
+              "title": "日本・韓国における顧客側／通信事業者側の電話設定方法",
+              "slug": "日本・韓国における顧客側／通信事業者側の電話設定方法",
+              "file": "ja/techs-manual/日本・韓国における顧客側／通信事業者側の電話設定方法.mdx"
+            },
+            {
+              "node_token": "A4KUwtroIi4f6lkROrtjktGPptb",
+              "obj_token": "SgWhdhLLYoySC1x1wsWjupV0pze",
+              "title": "[社内文書] 日本・韓国における顧客側／通信事業者側の電話設定方法",
+              "slug": "[社内文書] 日本・韓国における顧客側／通信事業者側の電話設定方法",
+              "file": "ja/techs-manual/[社内文書] 日本・韓国における顧客側／通信事業者側の電話設定方法.mdx"
+            },
+            {
+              "node_token": "XSoZwGyGbimyfKkGuzxjtVTupLe",
+              "obj_token": "JwXBdIB3doeJCBxM65xjkCCLp4Z",
+              "title": "[社内文書] エンドツーエンド遅延の計算",
+              "slug": "[社内文書] エンドツーエンド遅延の計算",
+              "file": "ja/techs-manual/[社内文書] エンドツーエンド遅延の計算.mdx"
+            },
+            {
+              "node_token": "RzgYwiNuoiRabfkug9EjakWop2d",
+              "obj_token": "ObKsdeTwAoWyIExPeo0jXXbHpHh",
+              "title": "[社内文書] SI連携方式",
+              "slug": "si",
+              "file": "ja/techs-manual/si.mdx"
+            },
+            {
+              "node_token": "UcwawTqe0iia9IkdLXEjhLcNp5g",
+              "obj_token": "FfNfdOoBEobPkMxUV3tjd0Mnpvh",
+              "title": "[社内文書] 連携可否の判定基準",
+              "slug": "[社内文書] 連携可否の判定基準",
+              "file": "ja/techs-manual/[社内文書] 連携可否の判定基準.mdx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lang": "ko",
+      "node_token": "S6j2w4oQxiIPTIkfea4jeoNXpIf",
+      "dir_title": "Agent Lab 사용 메뉴얼 - 한국어",
+      "group_name": "Agent Lab 사용 메뉴얼",
+      "pages": [
+        {
+          "node_token": "XDOiwnJVFiux5uk5e8zjFNKTp7w",
+          "obj_token": "KyNSdG4UKop2ytxtG3mjHT1Mp4d",
+          "title": "Daisybell Agent Lab 소개",
+          "slug": "overview",
+          "file": "ko/overview.mdx"
+        },
+        {
+          "node_token": "ZezewSS6Ei3Lkqk7Q9wj8WEbpJd",
+          "obj_token": "Pc46dgS3Roj7fFxcSPej7LtPp5f",
+          "title": "Agent 운영 도구 (Agent Operator)",
+          "slug": "agent-operator",
+          "file": "ko/agent-operator/index.mdx",
+          "children": [
+            {
+              "node_token": "OVVxwsGraiznPxkyd5hj0a5ApRg",
+              "obj_token": "AXQUd8frboBOfWx2h6Ajp5RGp5g",
+              "title": "Agent 상세 페이지 및 통화 기록 (Profile & Record)",
+              "slug": "profile-record",
+              "file": "ko/agent-operator/profile-record.mdx"
+            },
+            {
+              "node_token": "J4YLw8ZPZiTUFMkNVn7jRsqMpLM",
+              "obj_token": "D8MVdG6yroCyDaxp2nijVLisped",
+              "title": "아웃바운드 Agent — 호출 태스크 생 (Create Outbound Task)",
+              "slug": "create-outbound-task",
+              "file": "ko/agent-operator/create-outbound-task.mdx"
+            },
+            {
+              "node_token": "Ki8MwqKgMidJfqkgpYwjdS9FpOn",
+              "obj_token": "XBtld3SKco85NIxZmnXjV1mIpFb",
+              "title": "단일 턴 대화 분석 기능 (Analysis Trace) (Alpha 기능)",
+              "slug": "alpha",
+              "file": "ko/agent-operator/alpha.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "ZBphwRXQDisQodkGne4jfI8HpXe",
+          "obj_token": "HtHNd7hySoCaAoxPJrUjOjJopbh",
+          "title": "테스트 센터 (Test Center)",
+          "slug": "test-center",
+          "file": "ko/test-center/index.mdx",
+          "children": [
+            {
+              "node_token": "KDLlwCeidiXoVXkDlGjjigOepUg",
+              "obj_token": "AUY8d7k5XoLAkxxVgmvjen6qpjd",
+              "title": "디버깅 기능 (Temporary Debug)",
+              "slug": "temporary-debug",
+              "file": "ko/test-center/temporary-debug.mdx"
+            },
+            {
+              "node_token": "ZfpWwhDXBi4Uw6kdWvHj33Rzp3c",
+              "obj_token": "Yz1AdI1pnoE6KmxpYjSjdjVNpUe",
+              "title": "테스트 기록 상세 (Test Record Detail)",
+              "slug": "test-record-detail",
+              "file": "ko/test-center/test-record-detail.mdx"
+            },
+            {
+              "node_token": "M3pwwTYkci9WAykU1U1jiiN2p0b",
+              "obj_token": "QSaKdmoSqoOL8Ox9Gnoj06CHpxd",
+              "title": "스크립트 버전 상태 편집 및 배포 (스크립트 Version Status Edit & Release)",
+              "slug": "version-status-edit-release",
+              "file": "ko/test-center/version-status-edit-release.mdx"
+            },
+            {
+              "node_token": "N49Ww3LxKi8QlGkG89NjiFpopmc",
+              "obj_token": "WTtZd9VOjoSf59xnNGDjpsFhpFb",
+              "title": "문서 테스트 및 문서 테스트 위젯 (Text Test & Text Test Widget)",
+              "slug": "text-test-text-test-widget",
+              "file": "ko/test-center/text-test-text-test-widget.mdx"
+            },
+            {
+              "node_token": "ObL6wEC1Zi7H0skbcAvjmAPjpLb",
+              "obj_token": "Gcmydjr3PoEiWmxlSlKjqNVIpFc",
+              "title": "음성 테스트 (Voice Test)",
+              "slug": "voice-test",
+              "file": "ko/test-center/voice-test.mdx"
+            },
+            {
+              "node_token": "DhCPw58KeiAg5SkSQOPjlnLXptc",
+              "obj_token": "IZUDdBtpkoifppxORb1joh8JpOH",
+              "title": "스크립트 버전 상세 (Script Version Detail)",
+              "slug": "script-version-detail",
+              "file": "ko/test-center/script-version-detail.mdx"
+            },
+            {
+              "node_token": "Wh1ZwNVWMidvSJkPAP5jfGx3pze",
+              "obj_token": "CQyRdP2DDoHo51x7vz2jp92jpCc",
+              "title": "컨텍스트 테스트 세트 및 백테스트 (Context Test Set & Backtest)",
+              "slug": "context-test-set-backtest",
+              "file": "ko/test-center/context-test-set-backtest.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "GkttwCx7oirHsfkoOYzjnknMp1f",
+          "obj_token": "XRRDdBPZoocUyexsTxNjqF0fpPe",
+          "title": "Agent 생성기 (Agent Builder)",
+          "slug": "agent-builder",
+          "file": "ko/agent-builder/index.mdx",
+          "children": [
+            {
+              "node_token": "D5VdwPSqdiXrO9kMOMXjA3xap8e",
+              "obj_token": "CT92d7u9uoul4VxsxjFj4uYnpwy",
+              "title": "스크립트 버전 생성 및 편집 (스크립트 Edit)",
+              "slug": "edit",
+              "file": "ko/agent-builder/edit.mdx"
+            },
+            {
+              "node_token": "CibawFjmLivXLQklVH5jXksBpMc",
+              "obj_token": "NXlGdnU7ToOPwGxVTn4jkmM1pYc",
+              "title": "Agent 도구 호출 (Tools)",
+              "slug": "tools",
+              "file": "ko/agent-builder/tools.mdx"
+            },
+            {
+              "node_token": "SE9lwKXcwiOX7rk3gNujaqCmpxc",
+              "obj_token": "B7N2dVn16ojSouxMb9Cj86UMpPb",
+              "title": "Agent 생성 및 기본 설정（Agent Create & Config）",
+              "slug": "agent-create-config",
+              "file": "ko/agent-builder/agent-create-config.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "J7KJwpTl1iYxqGkjMNKjrMrCpZb",
+          "obj_token": "Tl4ediRmFoqBrYxj1ZvjBn8HpTd",
+          "title": "플랫폼 도구 (General Tools)",
+          "slug": "general-tools",
+          "file": "ko/general-tools/index.mdx",
+          "children": [
+            {
+              "node_token": "YBGJwhiqkikueXkxIK8jfjhjpUg",
+              "obj_token": "KFvzdEpOoozz4bxxJPujoYDzpeh",
+              "title": "전화번호 관리 (Phone Numbers)",
+              "slug": "phone-numbers",
+              "file": "ko/general-tools/phone-numbers.mdx"
+            },
+            {
+              "node_token": "OLHvw2jkyitMn5kawPgjGpnwpvd",
+              "obj_token": "MxnAdfTOYocdKyxeEfljdik1pme",
+              "title": "메시지 푸시(Message Push)",
+              "slug": "message-push",
+              "file": "ko/general-tools/message-push.mdx"
+            },
+            {
+              "node_token": "OoPywTqOIiKx1Ckk8A2jLRL7pNh",
+              "obj_token": "GhcHdLcJooBRAbxCaFsjV5vSpKg",
+              "title": "서브 계정 관리 (Sub-user Management)",
+              "slug": "sub-user-management",
+              "file": "ko/general-tools/sub-user-management.mdx"
+            },
+            {
+              "node_token": "OasnwOaCLiEbLkk3WT9jSwT2p6g",
+              "obj_token": "IDrCdda5bosn08xLrOjjkiXkpCd",
+              "title": "내보내기 센터 (Export Center)",
+              "slug": "export-center",
+              "file": "ko/general-tools/export-center.mdx"
+            },
+            {
+              "node_token": "WQkCwIWzZirshSkLX7Vju8NzpLb",
+              "obj_token": "Blczd5xwPoFAcpx2zomjUPCkpae",
+              "title": "지식 베이스(Knowledge Base)",
+              "slug": "knowledge-base",
+              "file": "ko/general-tools/knowledge-base.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "DUEiw0hhKi7TmjkoyK0jdX6DpOf",
+          "obj_token": "DCVcdTosQoKgjKxoaDqjLbNxpOd",
+          "title": "계정 설정 (Account Settings)",
+          "slug": "account-settings",
+          "file": "ko/account-settings/index.mdx",
+          "children": [
+            {
+              "node_token": "DNojwta20im6gak9NBOjphJFpSd",
+              "obj_token": "AbANd1U9aoho8lxFDOHjBpSEp2b",
+              "title": "로그인 IP 보안 설정 및 로그인 로그",
+              "slug": "ip",
+              "file": "ko/account-settings/ip.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "PrZowfQoliM4TBkZ7j8j3CAkpzc",
+          "obj_token": "XVVodZVpioGRG3x83g7jhUQjp7g",
+          "title": "기술 매뉴얼 (Tech Manual)",
+          "slug": "tech-manual",
+          "file": "ko/tech-manual/index.mdx",
+          "children": [
+            {
+              "node_token": "GvyKwV5X2ixQzzkMHYGjKJQnpjd",
+              "obj_token": "NSRddU8ecoiqCCxl8PhjrOK2prd",
+              "title": "고객 측·통신사 측 전화 설정 방법 (일본·한국)",
+              "slug": "고객 측·통신사 측 전화 설정 방법 (일본·한국)",
+              "file": "ko/tech-manual/고객 측·통신사 측 전화 설정 방법 (일본·한국).mdx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lang": "zh-Hant",
+      "node_token": "Mbf0wa7YDiSwBYk9dU1jazv0pxi",
+      "dir_title": "Agent Lab產品使用手冊 - 繁體中文",
+      "group_name": "Agent Lab產品使用手冊",
+      "pages": [
+        {
+          "node_token": "CE3ewOXBriSJnoki98FjQkKzpJ0",
+          "obj_token": "FGOMdNcnMoIRNxxrpU7jmm5QpVd",
+          "title": "Daisybell Agent Lab簡介",
+          "slug": "overview",
+          "file": "zh-Hant/overview.mdx"
+        },
+        {
+          "node_token": "WzSWwQQGEiGwVYkRPOLjc6nOpBe",
+          "obj_token": "X3TcdjTUSowHQYx4BlKjxZsupdd",
+          "title": "Agent生成器（Agent Builder）",
+          "slug": "agent-builder",
+          "file": "zh-Hant/agent-builder/index.mdx",
+          "children": [
+            {
+              "node_token": "AUgUwXTf8iYG2zkASUVjYsZ5pTd",
+              "obj_token": "Gk35dOfXXocm0cxqrCljKyOApFH",
+              "title": "Agent建立與基礎設定（Agent Create & Config）",
+              "slug": "agent-create-config",
+              "file": "zh-Hant/agent-builder/agent-create-config.mdx"
+            },
+            {
+              "node_token": "DcfAwoGWdijjSokAheojfM6Apum",
+              "obj_token": "G76Idb2xXoaWq6xQxswjkYLNpyd",
+              "title": "Script版本建立及編輯（Script Edit）",
+              "slug": "script-edit",
+              "file": "zh-Hant/agent-builder/script-edit.mdx"
+            },
+            {
+              "node_token": "BMYYw1MxgiVJZjkRMFZjThx8puf",
+              "obj_token": "Cq2WdIPeao2foHxAGvOj8TxNpzf",
+              "title": "Agent 工具調用（Tools）",
+              "slug": "tools",
+              "file": "zh-Hant/agent-builder/tools.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "LlMmws2VdizhNJkYxmgjqKeupxf",
+          "obj_token": "KqPPdeXgooVlWdxlurWjm2TLpeH",
+          "title": "Agent營運工具（Agent Operator）",
+          "slug": "agent-operator",
+          "file": "zh-Hant/agent-operator/index.mdx",
+          "children": [
+            {
+              "node_token": "R5Ozw3MUDiTdAZk3BYvjOmdmpgf",
+              "obj_token": "GU2rdenREo9PWDxaF7mjakwtp6b",
+              "title": "Agent 詳情頁 & 通話記錄（Profile & Record）",
+              "slug": "profile-record",
+              "file": "zh-Hant/agent-operator/profile-record.mdx"
+            },
+            {
+              "node_token": "G3Ojw5SNSiWAukkX580jiGptpMf",
+              "obj_token": "H20MdR6cUoxlgex9gPMjtDQXpD3",
+              "title": "外撥Agent — 建立外撥任務（Create Outbound Task）",
+              "slug": "create-outbound-task",
+              "file": "zh-Hant/agent-operator/create-outbound-task.mdx"
+            },
+            {
+              "node_token": "Wc1awr9xAits2WkZ4mHjwH5dpDg",
+              "obj_token": "S8XQdD1lgoDEVSx2Q58jWpmCpBg",
+              "title": "單輪對話分析流程（Analysis Trace）（Alpha功能）",
+              "slug": "alpha",
+              "file": "zh-Hant/agent-operator/alpha.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "U1lIwZn3UiMK52kHKu0jCRospls",
+          "obj_token": "HT01dmP4goyNNJx0Aw5jVQsWpzd",
+          "title": "測試中心（Test Center）",
+          "slug": "test-center",
+          "file": "zh-Hant/test-center/index.mdx",
+          "children": [
+            {
+              "node_token": "AbzswKXPXitmXPkTLyLjNAACpxb",
+              "obj_token": "CblwdgJP4oe58lxeUu8jFWC1pve",
+              "title": "Script版本狀態編輯與上線（Script Version Status Edit & Release)",
+              "slug": "script-version-status-edit-release",
+              "file": "zh-Hant/test-center/script-version-status-edit-release.mdx"
+            },
+            {
+              "node_token": "WP5cw4M0viNWWlkYcSGjpL1upSg",
+              "obj_token": "GuSedBHwoou899x5k66jgPhGpxk",
+              "title": "Script 版本詳情（Script Version Detail）",
+              "slug": "script-version-detail",
+              "file": "zh-Hant/test-center/script-version-detail.mdx"
+            },
+            {
+              "node_token": "XjzRwUAHbiKOY3k6GPsjFFGSplf",
+              "obj_token": "PgjFdoF2IoMg1hxZtxXjrokcpSb",
+              "title": "文字測試&文字測試組件（Text Test & Text Tset Widget）",
+              "slug": "text-test-text-tset-widget",
+              "file": "zh-Hant/test-center/text-test-text-tset-widget.mdx"
+            },
+            {
+              "node_token": "PYlFwn3saiEkhqkwDRbjddOgpPh",
+              "obj_token": "KZe0dkD9RoV5r6xVnCQj9kTKpxh",
+              "title": "語音測試（Voice Test）",
+              "slug": "voice-test",
+              "file": "zh-Hant/test-center/voice-test.mdx"
+            },
+            {
+              "node_token": "GK3IwMcASi8G7bkkqw0jg5R1pFd",
+              "obj_token": "G5aydS11qo7UBGxsMsGjBZhopLb",
+              "title": "上文測試集&回測（Context Test Set & Backtest）",
+              "slug": "context-test-set-backtest",
+              "file": "zh-Hant/test-center/context-test-set-backtest.mdx"
+            },
+            {
+              "node_token": "HlXnwMEKoiHladkb8CFjXKZrp8c",
+              "obj_token": "ZKjudnVSBo6BKZxa4KMjITeJpEf",
+              "title": "測試記錄詳情（Test Record Detail）",
+              "slug": "test-record-detail",
+              "file": "zh-Hant/test-center/test-record-detail.mdx"
+            },
+            {
+              "node_token": "ZqD6wLr3DiSkhSkCAlpjkhgbpjg",
+              "obj_token": "TmHxd9OoCo7HX2xLUANjJrh1pBc",
+              "title": "臨時除錯（Temporary Debug）",
+              "slug": "temporary-debug",
+              "file": "zh-Hant/test-center/temporary-debug.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "Db3dw6LAwiagD2klbcIjfdTIp8f",
+          "obj_token": "ABOZdOj9So8jRbxpjbpjNwOxpwV",
+          "title": "平台工具（General Tools）",
+          "slug": "general-tools",
+          "file": "zh-Hant/general-tools/index.mdx",
+          "children": [
+            {
+              "node_token": "G4epwNugniaQbxk59qTjMEj2p6w",
+              "obj_token": "Jq7zdVUEWoU0AYxFaTPjyPUtpyb",
+              "title": "電話號碼管理（Phone Numbers）",
+              "slug": "phone-numbers",
+              "file": "zh-Hant/general-tools/phone-numbers.mdx"
+            },
+            {
+              "node_token": "VGcowCOnBiON4MkB84ejl2PEpPc",
+              "obj_token": "J4NwdfAN2oar5HxVSzNjtLx3pWg",
+              "title": "知識庫 Beta（Knowledge base）",
+              "slug": "knowledge-base",
+              "file": "zh-Hant/general-tools/knowledge-base.mdx"
+            },
+            {
+              "node_token": "OhSKwC1IPiUwtjkGc7mjnPJnpFd",
+              "obj_token": "HbOCd8R5PoWiiCxzkGUjWbjBpmh",
+              "title": "匯出中心（Export Center）",
+              "slug": "export-center",
+              "file": "zh-Hant/general-tools/export-center.mdx"
+            },
+            {
+              "node_token": "G4Qjw69NZioKE6kfWH3jYtFnpSd",
+              "obj_token": "GsPsdGaQpoEHptxCV6xjbxhPpEe",
+              "title": "訊息推送（Message Push）",
+              "slug": "message-push",
+              "file": "zh-Hant/general-tools/message-push.mdx"
+            },
+            {
+              "node_token": "My7YwVsNJiBI2gkhJ9iji7zSpFb",
+              "obj_token": "Zu5Hd2rvaoRx23xy8V5jBYC5pNQ",
+              "title": "子帳戶管理（Sub-user Management)",
+              "slug": "sub-user-management",
+              "file": "zh-Hant/general-tools/sub-user-management.mdx"
+            },
+            {
+              "node_token": "J65Cwmc5uiY0tGkeiCgjbLT2pj8",
+              "obj_token": "ERVtd6QuHof9wgxYpCBjCZIZpRb",
+              "title": "系統整合與AI對接（Integrations & API）（尚未完成）",
+              "slug": "integrations-api",
+              "file": "zh-Hant/general-tools/integrations-api.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "EqvXwcco5ifBDWkWhgzjIsaYpLc",
+          "obj_token": "Qax1d34aKohR8hxoDMGjlC1hpkd",
+          "title": "帳戶設定（Account Settings）",
+          "slug": "account-settings",
+          "file": "zh-Hant/account-settings/index.mdx",
+          "children": [
+            {
+              "node_token": "N6C3wOBH0ibFQ5kmaywjrDCcpLc",
+              "obj_token": "BSD4de7sho3XMyxQYGIjplPFpze",
+              "title": "登入IP安全設定 & 登入日誌",
+              "slug": "ip",
+              "file": "zh-Hant/account-settings/ip.mdx"
+            },
+            {
+              "node_token": "OoE9wgUJii1KxQkRTjxjcC7Bp0g",
+              "obj_token": "RAnZdCv8uoB8ZDx7NWrjX0gYpHi",
+              "title": "通知（Notification）（尚未開發完成）",
+              "slug": "notification",
+              "file": "zh-Hant/account-settings/notification.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "LfO0wmQzBiED9Ak0PVlj6m2ep0f",
+          "obj_token": "RoPSdh0mboKqqZxR6GdjGlvtp0d",
+          "title": "技術手冊（Techs-manual）",
+          "slug": "techs-manual",
+          "file": "zh-Hant/techs-manual/index.mdx",
+          "children": [
+            {
+              "node_token": "PHOrwHLKzihZ0pkUKl4jmLTNpKd",
+              "obj_token": "J4c9dGRNeosKTYxbAvGjn09Ppvb",
+              "title": "常見電話客戶側和電訊商側設定方法（日本、韓國）",
+              "slug": "常見電話客戶側和電訊商側設定方法（日本、韓國）",
+              "file": "zh-Hant/techs-manual/常見電話客戶側和電訊商側設定方法（日本、韓國）.mdx"
+            },
+            {
+              "node_token": "FMFtwcyXli7YuvkXhvsjt8P6pFg",
+              "obj_token": "LuQ0dnO1woy5J8x2uABjkh8MpUf",
+              "title": "[內部文件]端到端延遲計算",
+              "slug": "[內部文件]端到端延遲計算",
+              "file": "zh-Hant/techs-manual/[內部文件]端到端延遲計算.mdx"
+            },
+            {
+              "node_token": "MIk6w7Jy2iY8uukHeOaj94O0pOf",
+              "obj_token": "AMQIdOKG6oFMFsxcoKJjcgx4pqw",
+              "title": "[內部文件]SI 對接方案",
+              "slug": "si",
+              "file": "zh-Hant/techs-manual/si.mdx"
+            },
+            {
+              "node_token": "G8BawenvxinfsukqKdojtp4Ypdc",
+              "obj_token": "L6YodPijAomKLvxwIEajsO4dpou",
+              "title": "[內部文件]可對接性判斷標準",
+              "slug": "[內部文件]可對接性判斷標準",
+              "file": "zh-Hant/techs-manual/[內部文件]可對接性判斷標準.mdx"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "node_token": "QIEhwOa7RijlTLkESF6jCAR6pyc",
+      "dir_title": "Agent Lab Product Manual - English",
+      "group_name": "Agent Lab Product Manual",
+      "pages": [
+        {
+          "node_token": "LG1zwEodIiZxU9klfORjGG6Rpff",
+          "obj_token": "N48ldmXGso1RiMxJHZtjvPCSpFf",
+          "title": "Daisybell Agent Lab Overview",
+          "slug": "overview",
+          "file": "en/overview.mdx"
+        },
+        {
+          "node_token": "OgE4w6v5JiJB61ku5dWjJXgYpVh",
+          "obj_token": "OLlMdVwvVoReuXxgD0XjWPbSpEe",
+          "title": "Agent Builder",
+          "slug": "agent-builder",
+          "file": "en/agent-builder/index.mdx",
+          "children": [
+            {
+              "node_token": "FsiZw36fdiH8F4kmGMqj9US1pPg",
+              "obj_token": "S1VcdHpC2ouVZyx1YZsjAObgpmc",
+              "title": "Creating and Configuring an Agent",
+              "slug": "creating-and-configuring-an-agent",
+              "file": "en/agent-builder/creating-and-configuring-an-agent.mdx"
+            },
+            {
+              "node_token": "CzAOwyybFin79kkmbKRjj8t8plf",
+              "obj_token": "E0rTdb3KRoezDkxmieGjwQGopSb",
+              "title": "Creating and Editing Script Versions",
+              "slug": "creating-and-editing-script-versions",
+              "file": "en/agent-builder/creating-and-editing-script-versions.mdx"
+            },
+            {
+              "node_token": "Pj8lwy8oWiqqiGkiceUj0M1fp6c",
+              "obj_token": "MBKIdDgpbooTeRx92ECjlWg4pSb",
+              "title": "Agent Tool Calls",
+              "slug": "agent-tool-calls",
+              "file": "en/agent-builder/agent-tool-calls.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "MHB0wB7a8idumNkY0tdjsKEhpbc",
+          "obj_token": "ASK8dX25xor8Lsx6CNljMu5epwg",
+          "title": "Agent Operator",
+          "slug": "agent-operator",
+          "file": "en/agent-operator/index.mdx",
+          "children": [
+            {
+              "node_token": "ThzTw13HZiVLJekECRBjvQZRp1e",
+              "obj_token": "YgmZdmDFeofy7exO4ypjt0iYpRf",
+              "title": "Agent Details and Call Records",
+              "slug": "agent-details-and-call-records",
+              "file": "en/agent-operator/agent-details-and-call-records.mdx"
+            },
+            {
+              "node_token": "LTS3wGr2DikMLWkEJzcjSGtBpLb",
+              "obj_token": "N0KpdA1ukotTL5xGDS6jrl5lpGh",
+              "title": "Outbound Agent — Creating an Outbound Task",
+              "slug": "outbound-agent-creating-an-outbound-task",
+              "file": "en/agent-operator/outbound-agent-creating-an-outbound-task.mdx"
+            },
+            {
+              "node_token": "E0EpwOFgFihVaTkrOMjjK9gKpZS",
+              "obj_token": "NEued1hlRoRjZsx9lSPjr3PKpyd",
+              "title": "Turn-by-Turn Analysis Trace (Alpha)",
+              "slug": "alpha",
+              "file": "en/agent-operator/alpha.mdx"
+            },
+            {
+              "node_token": "HyvdwA7Gci0rlqkFJAdjqFnCp6c",
+              "obj_token": "VlAZd71xloe5LMxKrBsjhw5Pprr",
+              "title": "Agent Alerts (Not Currently in Use; Requires Iteration)",
+              "slug": "not-currently-in-use-requires-iteration",
+              "file": "en/agent-operator/not-currently-in-use-requires-iteration.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "Xfd6wILKIinF7LkmHCZjzvuUpjb",
+          "obj_token": "KgWud0tZfo9QrExWoF2jspIBppg",
+          "title": "Test Center",
+          "slug": "test-center",
+          "file": "en/test-center/index.mdx",
+          "children": [
+            {
+              "node_token": "MGC4wlqlqi37mnkZ58PjCUnUp6b",
+              "obj_token": "IjjHdOS19o3buix9HBQjJveNpIf",
+              "title": "Editing and Releasing Script Versions",
+              "slug": "editing-and-releasing-script-versions",
+              "file": "en/test-center/editing-and-releasing-script-versions.mdx"
+            },
+            {
+              "node_token": "Ha3XwmMBxikJFJka5D5jCvqCpN9",
+              "obj_token": "MA2qd8sHioKpJzxadsCjVeRCpSh",
+              "title": "Script Version Details",
+              "slug": "script-version-details",
+              "file": "en/test-center/script-version-details.mdx"
+            },
+            {
+              "node_token": "KkcJwkvb8iLAt1klcXCj16zJpWh",
+              "obj_token": "FCPRdLripoV4bOxYgtSj2xelpFe",
+              "title": "Text Testing and Test Widgets",
+              "slug": "text-testing-and-test-widgets",
+              "file": "en/test-center/text-testing-and-test-widgets.mdx"
+            },
+            {
+              "node_token": "IcGZwnSJ4io5ctkI8Ugj3FSipHg",
+              "obj_token": "TG5WdDYmiogBGQxQZl8jWJ1op1f",
+              "title": "Voice Testing",
+              "slug": "voice-testing",
+              "file": "en/test-center/voice-testing.mdx"
+            },
+            {
+              "node_token": "YHKXwWRESiFcf3kXWWtjkT32pkb",
+              "obj_token": "BtPgdiaivot4TSxyqIPjWVlaphf",
+              "title": "Context Test Set and Backtesting",
+              "slug": "context-test-set-and-backtesting",
+              "file": "en/test-center/context-test-set-and-backtesting.mdx"
+            },
+            {
+              "node_token": "GvSUwDBIKi6q1YkO45SjeD4op1d",
+              "obj_token": "ZU0ad20uLo0rEJxaWI1j74XMpBf",
+              "title": "Test Record Details",
+              "slug": "test-record-details",
+              "file": "en/test-center/test-record-details.mdx"
+            },
+            {
+              "node_token": "NuvjwdiEliyyAOkdjDsjkymfp3d",
+              "obj_token": "TjRIdBMCaodH2bxIDqxjDcQ4p5A",
+              "title": "Temporary Debugging",
+              "slug": "temporary-debugging",
+              "file": "en/test-center/temporary-debugging.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "FVcjwswreiEdYDkm9jDj1bDEpJb",
+          "obj_token": "UCPCdj5dxokVaixRSI1juasYpth",
+          "title": "General Tools",
+          "slug": "general-tools",
+          "file": "en/general-tools/index.mdx",
+          "children": [
+            {
+              "node_token": "OPuPwXVWaiKINJk8cNPjcqLypcg",
+              "obj_token": "Cb3ddsgDTowHsixBEdmjsYDaprd",
+              "title": "Phone Number Management",
+              "slug": "phone-number-management",
+              "file": "en/general-tools/phone-number-management.mdx"
+            },
+            {
+              "node_token": "N0NnwASddiLEZCkFtXcjEXR9pgh",
+              "obj_token": "BMnadQ6zYowZ2ixxHFrjBfPlpfb",
+              "title": "Knowledge Base (Beta)",
+              "slug": "beta",
+              "file": "en/general-tools/beta.mdx"
+            },
+            {
+              "node_token": "OcNIwbuIdiS9n8kDoxBjbRBMp1d",
+              "obj_token": "FZ3YdoH1fo9DzKxJm0jjdPELpGg",
+              "title": "Export Center",
+              "slug": "export-center",
+              "file": "en/general-tools/export-center.mdx"
+            },
+            {
+              "node_token": "XWH2wObN4iCt00kTKiRjOutfpZc",
+              "obj_token": "LJXOd7Bl4oPsgExcua7j3vOopbT",
+              "title": "Message Push",
+              "slug": "message-push",
+              "file": "en/general-tools/message-push.mdx"
+            },
+            {
+              "node_token": "Rpm5wfMHOiV0CbkwAW0jvKVFpKb",
+              "obj_token": "UePHdRUtVoiS9HxLRdCj9nk9pAe",
+              "title": "Sub-account Management",
+              "slug": "sub-account-management",
+              "file": "en/general-tools/sub-account-management.mdx"
+            },
+            {
+              "node_token": "AM2Cwlizxir6JLkQQYAjdZQ6p3d",
+              "obj_token": "Wdj3dQ7b1owEPkx98EBjVtRMpPg",
+              "title": "System Integrations and AI Connections (Integrations & API) (Incomplete)",
+              "slug": "incomplete",
+              "file": "en/general-tools/incomplete.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "Brapwfo7eiDvKpki1lNjCs3EpJg",
+          "obj_token": "Bsy8dn4QIoSB0Ex0mlOj9TwipWh",
+          "title": "Account Settings",
+          "slug": "account-settings",
+          "file": "en/account-settings/index.mdx",
+          "children": [
+            {
+              "node_token": "P6ufw60jGiZdwRkAr9QjWh5EpUf",
+              "obj_token": "Yh9vd38wDoa2eIxLFuajMiEgp9d",
+              "title": "Login IP Security Settings and Login Logs",
+              "slug": "login-ip-security-settings-and-login-logs",
+              "file": "en/account-settings/login-ip-security-settings-and-login-logs.mdx"
+            },
+            {
+              "node_token": "XE6Rwcm59ic8SlktK2ljbIxXpBe",
+              "obj_token": "H3MZdj9wsozYZ0xnAMQjZZkIpS0",
+              "title": "Notifications (Incomplete)",
+              "slug": "incomplete",
+              "file": "en/account-settings/incomplete.mdx"
+            }
+          ]
+        },
+        {
+          "node_token": "JhcSwsEuii01Ugkt5ibjJbqepgN",
+          "obj_token": "V7fgddpB5otqhIxBOkTjAopUplb",
+          "title": "Technical Manual",
+          "slug": "technical-manual",
+          "file": "en/technical-manual/index.mdx",
+          "children": [
+            {
+              "node_token": "UvWQwNFGTila3YkCm1BjBwZ4pOb",
+              "obj_token": "JqQbdsQVqoQJwYxOMfxjaO3hpkh",
+              "title": "Common Customer-Side and Carrier-Side Telephone Configuration Methods (Japan and Korea)",
+              "slug": "japan-and-korea",
+              "file": "en/technical-manual/japan-and-korea.mdx"
+            },
+            {
+              "node_token": "VdElwtTabi0kbzkEHXqjyafMpye",
+              "obj_token": "GjJbdyrifoi5XXxoLM9jJ6F2pLf",
+              "title": "[Internal Documentation] End-to-end latency calculation",
+              "slug": "internal-documentation-end-to-end-latency-calculation",
+              "file": "en/technical-manual/internal-documentation-end-to-end-latency-calculation.mdx"
+            },
+            {
+              "node_token": "YysmwRa2qiCaf6k76pNj97Z2plY",
+              "obj_token": "EMGrdYAFio6HouxSNkAjFkuvpSd",
+              "title": "[Internal] SI Integration Plan",
+              "slug": "internal-si-integration-plan",
+              "file": "en/technical-manual/internal-si-integration-plan.mdx"
+            },
+            {
+              "node_token": "SoRqwKRU2iu3gKkYGmXjrOBkpCg",
+              "obj_token": "TygGdT13WoAuVTxRXjpj2wkXpff",
+              "title": "[Internal Document] Interoperability Judgment Criteria",
+              "slug": "internal-document-interoperability-judgment-criteria",
+              "file": "en/technical-manual/internal-document-interoperability-judgment-criteria.mdx"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

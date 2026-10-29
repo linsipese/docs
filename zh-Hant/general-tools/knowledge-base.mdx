@@ -1,0 +1,153 @@
+---
+title: "知識庫 Beta（Knowledge base）"
+---
+
+Knowledge Base（知識庫）是 Agent Lab 的知識輸入與管理功能。你可以按項目組織本地文件，上傳文件後由系統異步解析並提取知識，再查看、校對、編輯提取結果，或手動添加知識條目。
+
+
+
+提取結果爲**Q&A（問答對）**類型
+
+<grid>
+<column width-ratio="0.500000">
+### 認識知識庫頁面
+進入 **Knowledge Base** 後，頁面左側顯示項目列表，右側顯示當前所選項目中的文件。
+- **項目列表**：顯示項目名稱及該項目中的文件數量，按建立時間從新到舊排列。
+- **項目列表**：顯示項目名、狀態、上傳日期、知識文件包含的知識條目數量和操作入口。
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/general-tools/knowledge-base/img-1.png)
+</column>
+</grid>
+
+
+
+### 建立和管理項目
+
+項目用於組織文件。上傳文件前，先建立或選擇一個項目。
+
+#### 建立項目
+
+1. 點擊 **New Project（新建項目）**，打開建立彈窗。如果尚未建立任何項目，進入知識庫頁面時會自動打開該彈窗。
+2. 在 **Project Name（項目名稱）** 中輸入名稱。名稱最多 50 個字符，不能與已有項目重名；系統會去除名稱前後的空格。
+3. 在**Language**中選擇知識提取輸出語言
+4. 選擇 **Match Strategy（命中策略）**。預設使用 **Prioritized Match（優先命中）**。
+5. 點擊 **Create Project**，完成項目建立。
+
+![](/images/zh-Hant/general-tools/knowledge-base/img-2.png)
+
+#### 選擇命中策略
+
+命中策略決定系統檢索時，如何處理項目中標記爲“必命中知識”的條目。
+
+| 策略 | 必命中知識的處理方式 | 普通知識的處理方式 |
+|-|-|-|
+| **Prioritized Match（優先命中）**，預設策略 | 只有一條必命中知識時，直接返回該條；有多條時，通過 BM25算法 和向量相似度匹配，返回最相關的一條。 | 按正常檢索流程處理。 |
+| **Match All（全部命中）** | 直接返回項目中的所有必命中知識，不再通過 BM25算法、向量檢索或大模型篩選。 | 按正常檢索流程處理。 |
+
+#### 刪除項目
+
+1. 將鼠標懸停在項目名稱上，顯示刪除圖標。
+2. 點擊刪除圖標。
+3. 在確認彈窗中確認刪除。
+
+
+
+### 查看知識文件狀態
+
+選擇項目後，文件列表按上傳時間從新到舊排列，預設每頁顯示 20 個文件。Beta 版本暫不支持文件列表搜索。
+
+文件狀態決定可執行的操作。
+
+![](/images/zh-Hant/general-tools/knowledge-base/img-3.png)
+
+| 狀態 | 含義 | 可執行的操作 |
+|-|-|-|
+| **Processing（處理中）** | 文件已上傳成功，正在解析。 | 暫無可用操作。“…”按鈕不可點擊，也不能進入詳情頁。 |
+| **Extract Failed（處理失敗）** | 解析異常或錯誤導致知識提取中斷。 | 重新處理、刪除。 |
+| **Extracted（完成處理）** | 文件已完成解析。 | 查看詳情、刪除。 |
+
+對於 **Extract Failed** 狀態的文件，點擊“重新處理”會重新啓動異步解析，文件狀態變爲 **Processing**。
+
+對於 **Extracted** 狀態的文件，點擊文件行或 **View Details（查看詳情）**，可進入知識解析詳情頁。
+
+### 上傳文件並提取知識
+
+![](/images/zh-Hant/general-tools/knowledge-base/img-4.png)
+
+#### 文件要求
+
+| 項目 | 要求 |
+|-|-|
+| 支持格式 | .pdf, .docx, .txt, .xlsx, .md |
+| 單個文件大小上限 | 10.00 MB |
+| File Description（Prompt） | 最多 400 個字符，預設留空 |
+
+文件描述（File Description）用於引導模型的知識提取方向。你可以填寫文件主題、內容概要，或具體的提取要求。
+
+#### 上傳步驟
+
+1. 選擇文件所屬的項目。
+2. 點擊 **Add Knowledge**，打開 **Add Knowledge file** 彈窗。
+3. 根據需要填寫 **File Description（文件描述）**。
+4. 在 **Upload file（上傳文件）** 區域選擇本地文件，也可以將文件拖入上傳區域。
+5. 覈對顯示的文件名和文件大小。
+6. 點擊 **Upload & Process**，上傳文件並啓動解析。
+
+
+
+上傳成功後，文件進入 **Processing** 狀態。等待狀態變爲 **Extracted**，即可查看並校對提取結果。上傳失敗時，頁面會顯示錯誤提示。
+
+如果需要更換已選擇的文件，點擊文件旁的刪除圖標，在確認彈窗中確認後重新上傳。
+
+### 查看和維護知識條目
+
+文件完成處理後，打開 **View Details（查看詳情）**，查看提取出的結構化知識。知識條目以卡片形式展示，支持分頁。
+
+![](/images/zh-Hant/general-tools/knowledge-base/img-5.png)
+
+<grid>
+<column width-ratio="0.500000">
+#### 添加條目
+1. 點擊“添加條目”。列表頂部會出現一張空白、可編輯的卡片。
+2. 輸入內容並保存。
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/general-tools/knowledge-base/img-6.png)
+</column>
+</grid>
+
+#### 編輯條目
+
+1. 點擊卡片上的“編輯”。
+2. 修改對應的文字內容。
+3. 在當前卡片中保存修改。
+
+#### 刪除條目
+
+1. 點擊卡片上的“刪除”。
+2. 在確認氣泡中確認刪除。
+
+### 呼叫知識
+
+知識支持以下呼叫方式：
+
+<grid>
+<column width-ratio="0.500000">
+- 在 Agent Builder **→ Script Edit** 中通過**Rag Query Tool** 使用。
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/general-tools/knowledge-base/img-7.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+- 在 Agent Builder **→ Script Edit** 設定Knowledge後，通過通用算法系統呼叫進行使用
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hant/general-tools/knowledge-base/img-8.png)
+</column>
+</grid>

@@ -1,0 +1,126 @@
+---
+title: "Agent 詳情頁 & 通話記錄（Profile & Record）"
+---
+
+![](/images/zh-Hant/agent-operator/profile-record/img-1.png)
+
+
+
+- 歡迎使用 Daisybell Agent Lab。我們致力於爲您提供一體化的 Agent 管理、觀察與分析工作臺，幫助您全方位追蹤和提升 AI Agent 的業務表現。
+- 本文件將向您介紹如何查看不同類型 Agent（呼入、外撥、文字對話、網頁語音）的詳細資訊、分析核心數據看板、通話詳情記錄以及如何高效管理業務日誌與自定義欄位。
+
+---
+
+### 1. Agent 基礎資訊 (Profile)
+
+在 Agent 詳情頁的頂部，您可以直觀地查看並管理該 Agent 的核心身份資訊：
+
+- **基礎設定**：包含 Agent 的名稱（最高 40 字符）、可自定義上傳Agent頭像、專屬 Title 以及 Agent 的業務類型、自定義描述。
+- **Agent類型**：展示當前 Agent 關聯的電話號碼（Inbound 呼入與 Outbound 外撥類型將通過不同圖標進行區分顯示）。
+
+
+
+![](/images/zh-Hant/agent-operator/profile-record/img-2.png)
+
+
+
+---
+
+### 2. 核心數據看板 (Data Summary)
+
+針對不同類型的 Agent，系統爲您提供了貼合業務場景的多維度數據看板。您可以通過右上角的時間篩選器（預設展示當天數據）自由查看所需時間段的分析結果。
+
+#### 呼入型 (Inbound) & 網頁語音型 (Webvoice)
+
+- **總通話數**：統計該週期內成功完成（Finished）的通話數量。
+- **平均通話時長**：計算平均每次有效溝通的時間成本。
+- **通話時長分佈**：通過柱狀圖直觀呈現所有通話在不同時間區間（如短時或長時）的分佈情況。
+
+![](/images/zh-Hant/agent-operator/profile-record/img-3.png)
+
+#### 外撥型 (Outbound)
+
+- **任務統計**：包含當前週期內的總任務數與已完成任務數。
+- **通話概況**：展示總撥打電話通數、接通數以及未接通數（無應答）。
+- **核心轉化指標**：系統會自動計算“電話接通率”（接通數 / 撥打電話通數），並提供平均通話時長與時長分佈柱狀圖。
+
+![](/images/zh-Hant/agent-operator/profile-record/img-4.png)
+
+#### 文字對話型 (Chatbot)
+
+- **會話數據**：展示總對話場景數（Total Sessions）及平均對話時長。
+- **交互深度**：提供總對話輪次（Total turns）以及對話輪次分佈的柱狀圖，幫您準確評估 AI 與用戶的交互粘性。
+
+![](/images/zh-Hant/agent-operator/profile-record/img-5.png)
+
+---
+
+### 3. Outbound類型Agent任務與記錄管理 (Records & Tasks)
+
+#### 3.1 外撥任務管理 (Task Records)
+
+對於 Outbound Agent，您可以在任務列表精細化管理所有外撥任務進程：
+
+- **任務狀態追蹤**：實時監控任務進度，支持識別以下狀態：**未開始 (Not Started)**、**執行中 (Executing)**、**暫停執行 (Paused)**、**終止 (Terminated)** 以及**完成 (Completed)**。
+- **動態進度條**：可視化進度條，直觀查看當前已撥打數量與任務總數的佔比。
+- **任務控制**：支持一鍵暫停或重啓執行中的任務。對於無法繼續的任務，可使用“終止”功能（請注意，終止爲主動結束動作，觸發後無法再繼續執行）。
+
+![](/images/zh-Hant/agent-operator/profile-record/img-6.png)
+
+![](/images/zh-Hant/agent-operator/profile-record/img-7.png)
+
+#### 3.2 通話/對話記錄明細 (Call & Chat Logs)
+
+所有維度的交互歷史均在明細列表中沉澱
+
+- **基礎欄位呈現**：預設包含開始時間、電話號碼（如適用）、對話時長、對話輪數（僅 Chatbot）、以及智能生成的對話概要 (Summary)。
+- **精準狀態追蹤**：針對外撥記錄，系統會精確標記當前的客觀執行狀態。例如：呼叫完成 (Completed)、空號 (Notfound)、無應答 (Noanswer)、無法接通 (Unavailable)，以及 忙線 Busy等，明確指代對方線路正在通話的電路狀態。
+- **自定義欄位顯示**：您可以靈活添加或隱藏已經建立的Agent欄位，並拖拽調整欄位的左右展示順序。
+
+![](/images/zh-Hant/agent-operator/profile-record/img-8.png)
+
+- **篩選與匯出**：
+
+  - 支持對時間、數字、文字、枚舉及布爾類型進行精準篩選，並允許多個條件疊加使用。
+
+  ![](/images/zh-Hant/agent-operator/profile-record/img-9.png)
+
+  - 列表數據支持基於當前的篩選條件和欄位排序，一鍵匯出爲 Excel 文件進行離線分析。
+
+#### 3.3. 欄位設定與工作臺前端編輯(Field Settings)
+
+爲了適配複雜的業務需求，系統提供了強大的動態欄位設定能力：
+
+- **系統內置欄位 (Is System)**：系統自動捕獲並不可移除的核心指標（如來電號碼、開始時間、結束時間、時長、概要、狀態等）。
+- **自定義業務欄位**：可以通過工作臺建立特定的自定義欄位（支持文字、枚舉、布爾等格式），並設定是否允許前端進行修改或設定預設值。
+- **前端快捷編輯**：被授權“可在工作臺修改”的自定義欄位，允許營運人員直接在記錄列表中進行高效的數據訂正與修改
+
+![](/images/zh-Hant/agent-operator/profile-record/img-10.png)
+
+---
+
+### 4 對話記錄詳情頁 (Record Detail)
+
+點擊明細列表中的“View Detail”，即可進入單次交互的深度沉澱頁面：
+
+- **高清晰度還原**：爲您呈現無縫的對話記錄還原與準確的交互時長統計（秒級向上取整）。
+- **語音回放與支持**：針對語音交互，提供完整的音頻播放軸以供覆盤試聽。
+- **人工轉接可視**：當通話觸發人工接管時，界面內會生成清晰的轉接分隔線，無縫銜接展示轉接後的人工坐席（Transfer Speaker）與最終用戶的完整對話流。
+- **工具呼叫及節點切換：**在實際對話過程中，Agent會根據制定業務邏輯呼叫對應的工具，多節點類型的Script結構會根據判斷邏輯觸發節點換，這些過程都將通過對話記錄右側的卡片形式可視化的展示出來
+
+  - 目前包含的可視化卡片包含：
+  
+    - Node switch
+    - Phone tree switch
+    - Tool Calling
+    
+      - Call Transfer
+      - Instruction mode
+      - Knowledge query
+      - Hang up
+      - language switching
+      - Customize
+    - Temporary Variable Value Change
+    - Todo Items Update
+
+![](/images/zh-Hant/agent-operator/profile-record/img-11.png)

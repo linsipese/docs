@@ -1,0 +1,170 @@
+---
+title: "テキストテストとテストウィジェット"
+---
+
+**テキスト入力で対話ロジックをすばやく検証できます。Agentとは通常のテキスト対話を行い、ロジックは実際の音声対話と同じです。チャットパネルで応答を1件ずつ確認でき、テスト用ウィジェットを使って特定箇所を詳しくテスト・デバッグできます。**
+
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-1.png)
+
+
+
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-2.png)
+
+
+
+<grid>
+<column width-ratio="0.500000">
+#### Configuration Set
+- 「テキストテスト」を開始する前に、現在のテストで使用するAgentの設定スナップショットを確認できます。
+- テストを開始する前に、このテストで使用するAgentフィールド（「Is system」フィールドと「Custom」フィールドを含む）および一時変数の値を設定します。
+- 「Customized Tools」で使用するAPI（テスト環境または本番API）も設定できます。この機能はまだ正式リリースされていません。
+</column>
+<column width-ratio="0.500000">
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-3.png)
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-4.png)
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-5.png)
+</column>
+</grid>
+
+
+
+#### Text Test Tool Widgets
+
+> テキストテストでは、テスト用ウィジェットを使ってさまざまな観点から機能を検証し、デバッグできます。
+
+<grid>
+<column width-ratio="0.500000">
+##### Import Context
+- この機能は、テスト開始ボタンをクリックする前にのみ使用できます。
+- 既存のコンテキストテストセットから項目を選び、「Import」をクリックして現在のテストに取り込みます。
+- 取り込む前に、「Action」のボタンをクリックして項目の詳細を確認できます。
+</column>
+<column width-ratio="0.500000">
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-6.png)
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-7.png)
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-8.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+##### Copy Conversation
+- これまでの対話テキストをすべてクリップボードにコピーします。
+</column>
+<column width-ratio="0.500000">
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-9.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### Reset Test
+- 設定を変えずに現在のテストを最初からやり直し、テスト開始前の状態に戻します。
+</column>
+<column width-ratio="0.500000">
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-10.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### Batch Reply
+- 同じテキスト入力に対するAgentの応答を複数生成します。
+- 一括テストの結果は、対応する会話バブルの下に表示されます。クリックすると詳細を確認できます。
+</column>
+<column width-ratio="0.500000">
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-11.png)
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-12.png)
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-13.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### Upload Test Set
+- この機能では、あらかじめ用意した多数のテストケースをテストランナーに一括で取り込めるため、1件ずつ手入力する手間を省けます。
+- 応答項目と、それに対応するAgentの期待応答をまとめて追加できます。「|」で区切り、入力欄では1行を1件として扱います。
+- Excel／CSVからのインポートに対応しています。
+- 1回につき最大50件のデータを取り込めます。
+- すべてのテスト結果が生成された後、いずれか1件を現在のテストの実際の応答として選び、テストを続けられます。
+- テスト記録は保持されます。
+</column>
+<column width-ratio="0.500000">
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-14.png)
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-15.png)
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-16.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### Clean this Turn
+- 現在のターンにおけるAIとテスト担当者の会話を削除します。
+</column>
+<column width-ratio="0.500000">
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-17.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### Save Context
+- 現在のターンまでの会話をコンテキストテストセットの項目として保存できます。保存した項目はContext Test Setで確認できます。
+- 追加時に項目の詳細をプレビューし、項目名を付けます。 
+- 追加した項目はContext Test Setで確認できます。
+</column>
+<column width-ratio="0.500000">
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-18.png)
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-19.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+##### Debug
+> 個々のテストケースを詳細に分析できます。LLMへの入力をリアルタイムで確認し、実行時の問題をすばやく特定できます。
+- あるターンでのAI Agentの応答に問題がある場合は、「Debug」をクリックします。前の会話内容を変えずに現在のターンのLLM INPUTを調整し、調整後の新しいAgent応答を生成できます。
+- Scriptで設定したTool Trigger Promptは個別に表示され、専用のダイアログで直接調整できます。
+- テキストを編集した後、「Generate」をクリックすると「Batch Reply」の結果を生成できます。
+- 「Upload test set」をクリックすると、テストセットによるテストを実行できます。
+- Debug機能で生成した結果は保存できません。
+</column>
+<column width-ratio="0.500000">
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-20.png)
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-21.png)
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-22.png)
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-23.png)
+</column>
+</grid>
+
+
+
+<grid>
+<column width-ratio="0.500000">
+##### Regenerate
+現在のAI Agentの応答を再生成します。
+</column>
+<column width-ratio="0.500000">
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-24.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+#### Evaluate & Save Test
+テスト内容をプレビューした後、現在のテストを評価して保存します。保存したテストは、Script Version Detailの一覧から確認できます。
+</column>
+<column width-ratio="0.500000">
+![](/images/ja/test-center/テキストテストとテストウィジェット/img-25.png)
+</column>
+</grid>

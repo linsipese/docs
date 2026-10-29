@@ -1,0 +1,125 @@
+---
+title: "Message Push"
+---
+
+Message Push is an automated notification platform based on call tags. Configure flexible monitoring rules to detect emerging trends across large volumes of calls—such as a surge in payment issues or complaints, or critical risk events—and automatically send notifications through multiple channels.
+
+---
+
+### Step 1: Configure Notification Channels
+
+Before creating a monitoring rule, configure the channel that will receive alerts:**notification channel**. The system supports several integrations, including email, Microsoft Teams, and generic webhooks.
+
+Go to **Message Push**
+
+![](/images/en/general-tools/message-push/img-1.png)
+
+
+
+#### 1. Channel List and Empty State
+
+- **Manage the list**: After adding a channel, you can view its name, type, destination address, and latest test-send status. Existing channels can be **edited**, **deleted**, or **tested by sending a test message**.
+
+#### 2. Add a Destination
+
+Click **Destination tab** or **Edit** an existing destination:
+
+
+
+1. **Destination Name**: Enter a recognizable name (for example, `Payment Alert Email`).
+2. **Channel Type**: Select an option from the drop-down menu. Currently, only `Email`
+3. **Destination**: Enter a destination email address.
+4. **Test Send**: Before saving, we recommend clicking **Test Send**. The system sends a test email to the destination address.
+
+---
+
+
+
+### Step 2: Configure Monitoring Rules
+
+
+
+After configuring a notification destination, create automated monitoring rules based on call tags.
+
+Click **Rules tab** in the upper-right corner of the **Add Rule** button. The system guides you through four main configuration areas.
+
+![](/images/en/general-tools/message-push/img-2.png)
+
+---
+
+#### 1. Basic Information
+
+Define the rule and its trigger source.
+
+- **Rule Type**: Select a category from the drop-down menu, such as `Information Push` or `Notification Push`. Message Push adds call details to the content available in the Notification Push category.
+- **Rule Name**: Required. Enter a name that describes the rule's purpose (for example, `Frequent Payment Failures`).
+- **Source Agent**: Select the Agent that provides the data from the drop-down menu.
+- **Trigger Key**: Select the system call tag or dynamic field to monitor (for example, `Payment Result`).
+- **Tag Type**: The system detects and displays the underlying data type of the selected trigger key, including:
+
+  - `text` (text)
+  - `time` (time)
+  - `number` (number)
+  - `enum` (enum)
+  - `boolean` (boolean)
+
+---
+
+#### 2. Define Conditions
+
+The available **operators** and **match-value** input controls are adjusted automatically based on the data type of the trigger key.
+
+![](/images/en/general-tools/message-push/img-3.png)
+
+Use the following table to configure conditions:
+
+| Trigger Key Type | Supported Operators | Match-Value Control and Interaction |
+|-|-|-|
+| **Text** | `Contains` `Does not contain` | Standard text field. Enter a single keyword to match or a regular expression. |
+| **Number** | `>` (greater than)`>=` (greater than or equal to)`<` (less than)`<=` (less than or equal to)`=` (equal to)`Range (BETWEEN)` | Number input field. When you select `Range (BETWEEN)`, the system provides two fields (Min and Max), joined by `~`. |
+| **Enum** | `Is one of (IN)`  `Is not one of (NOT_IN)` | Multi-select drop-down. Select one or more values from the system's predefined list of enum values. |
+| **Boolean** | `Is`  `Is not` | Radio group. No complex equality operator is needed; select the applicable state directly. |
+| **Time** | `Within range (BETWEEN)`  `After (>)`  `Before (<)` | 24-hour time picker (format: `HH:mm`). When you select `Within range (BETWEEN)`, a time-range picker appears (start time–end time) and supports ranges that cross midnight (for example, 23:00–02:00 the next day). |
+
+---
+
+#### 3. Set Trigger Strategy and Frequency
+
+To avoid repeated notifications caused by isolated events, the system lets you control notification frequency using a time window.
+
+![](/images/en/general-tools/message-push/img-4.png)
+
+
+
+- **Time Window (Minutes)**: Defines the time span, in minutes, over which data is analyzed. For example, setting it to `30` minutes means the system continuously analyzes rolling data from the previous 30 minutes.
+- **Threshold**: The cumulative number of events that meet the conditions within the time window. An alert is triggered only when this value is reached.
+
+---
+
+#### 4. Bind Notification Channels and Preview
+
+When a rule is triggered, specify which configured channels should receive the alert.
+
+- **Add or Remove Channels**: Click **+ Add Channel** to associate multiple destinations with a rule.
+- **Preview**: Click **Preview** next to a channel to see how the alert will appear to recipients.
+
+
+
+![](/images/en/general-tools/message-push/img-5.png)
+
+---
+
+#### 5. Edit Rules
+
+A global action bar appears at the bottom of the create/edit form:
+
+- **Reset / Cancel**：
+
+  - *Create state* shows Reset. Click it to clear all current form inputs and restore the default empty state.
+  - *Edit state* shows Cancel. Click it to discard the current changes and return to the list.
+- **Create Rule / Save Changes**：
+
+  -  The system automatically validates all required fields, such as the name, trigger key, and conditions.
+  - After validation succeeds, click to save the configuration. When the rule is created, a toast notification appears: `“Rule created successfully”`. The new rule is added to the rules list.
+- **Enable or Disable with One Click**: Use the **Switch** on the right side of the card to change the rule's active status in real time.
+- Click the **Trash**  icon on the right side of a card to delete the rule.

@@ -1,0 +1,126 @@
+---
+title: "Agent Details and Call Records"
+---
+
+![](/images/en/agent-operator/agent-details-and-call-records/img-1.png)
+
+
+
+- Welcome to Daisybell Agent Lab. This integrated workspace helps you manage, monitor, and analyze Agents so you can track and improve their business performance.
+- This guide explains how to view details for different Agent types (Inbound, Outbound, text chat, and Webvoice), analyze key dashboard metrics and call details, and efficiently manage activity logs and custom fields.
+
+---
+
+### 1. Agent Profile
+
+At the top of the Agent details page, you can view and manage the Agent's key identity information:
+
+- **Basic Settings**: Includes the Agent name (up to 40 characters), a custom Agent avatar, title, business type, and description.
+- **Agent Type**: Displays the phone number associated with the Agent. Inbound and Outbound Agents are distinguished by different icons.
+
+
+
+![](/images/en/agent-operator/agent-details-and-call-records/img-2.png)
+
+
+
+---
+
+### 2. Data Summary
+
+The system provides multidimensional dashboards tailored to each Agent type and business scenario. Use the time filter in the upper-right corner (which defaults to the current day) to view results for the period you need.
+
+#### Inbound and Webvoice
+
+- **Total Calls**: Number of calls successfully completed (Finished) during the selected period.
+- **Average Call Duration**: Average time spent on each valid conversation.
+- **Call Duration Distribution**: A bar chart showing how calls are distributed across duration ranges, such as short and long calls.
+
+![](/images/en/agent-operator/agent-details-and-call-records/img-3.png)
+
+#### Outbound
+
+- **Task Statistics**: Total and completed tasks during the selected period.
+- **Call Overview**: Total calls placed, answered calls, and unanswered calls.
+- **Key Conversion Metrics**: The system calculates the answer rate (answered calls divided by calls placed) and provides the average call duration and a call duration distribution chart.
+
+![](/images/en/agent-operator/agent-details-and-call-records/img-4.png)
+
+#### Chatbot
+
+- **Session Data**: Total Sessions and average conversation duration.
+- **Interaction Depth**: Total turns and a distribution chart to help you assess the level of interaction between the AI and users.
+
+![](/images/en/agent-operator/agent-details-and-call-records/img-5.png)
+
+---
+
+### 3. Outbound Agent Tasks and Records
+
+#### 3.1 Task Records
+
+For Outbound Agents, you can manage the progress of all outbound tasks from the task list:
+
+- **Track Task Status**: Monitor task progress in real time. The following statuses are supported:**Not Started**、**Executing**、**Paused**、**Terminated** and **Completed**。
+- **Dynamic Progress Bar**: View the number of calls placed so far as a proportion of the total task size.
+- **Task Controls**: Pause or restart an executing task with one click. If a task cannot continue, you can terminate it. Termination is an intentional stop and cannot be reversed.
+
+![](/images/en/agent-operator/agent-details-and-call-records/img-6.png)
+
+![](/images/en/agent-operator/agent-details-and-call-records/img-7.png)
+
+#### 3.2 Call and Chat Logs
+
+Interaction history across all dimensions is recorded in the details list.
+
+- **Default Fields**: Start time, phone number (if applicable), conversation duration, number of turns (Chatbot only), and an automatically generated conversation summary.
+- **Precise Status Tracking**: Outbound records show the actual execution status, such as Completed, Notfound, Noanswer, Unavailable, or Busy. Busy indicates that the other party's line is engaged.
+- **Custom Field Display**: Add or hide existing Agent fields and drag them to change their left-to-right display order.
+
+![](/images/en/agent-operator/agent-details-and-call-records/img-8.png)
+
+- **Filtering and Export**：
+
+  - Filter by time, number, text, enum, or Boolean fields, and combine multiple conditions.
+
+  ![](/images/en/agent-operator/agent-details-and-call-records/img-9.png)
+
+  - Export the list to Excel for offline analysis, using the current filters and field sort order.
+
+#### 3.3 Field Settings and Inline Editing in the Workspace
+
+To support complex business needs, the system provides flexible dynamic field configuration:
+
+- **System Fields**: Core metrics captured automatically by the system and not removable, such as caller number, start time, end time, duration, summary, and status.
+- **Custom Business Fields**: Create custom fields in the workspace (such as text, enum, or Boolean fields) and configure whether they can be edited in the interface or have a default value.
+- **Quick Inline Editing**: Operators can correct and update custom fields directly in the records list when they have permission to edit those fields in the workspace.
+
+![](/images/en/agent-operator/agent-details-and-call-records/img-10.png)
+
+---
+
+### 4. Conversation Record Details
+
+Click View Detail in the details list to open the in-depth view for an individual interaction:
+
+- **High-Fidelity Playback**: Review a complete conversation record with accurate interaction duration, rounded up to the nearest second.
+- **Voice Playback**: Voice interactions include a full audio playback timeline for review.
+- **Visible Human Handoff**: When a call is handed off to a human, the interface shows a clear transfer separator and seamlessly presents the full conversation between the human agent (Transfer Speaker) and the end user after the handoff.
+- **Tool Calls and Node Transitions**During a conversation, the Agent calls tools according to the configured business logic. For multi-node Scripts, transitions between nodes are triggered by the applicable conditions. These events are visualized as cards on the right side of the conversation record.
+
+  - The visual cards currently include:
+  
+    - Node switch
+    - Phone tree switch
+    - Tool Calling
+    
+      - Call Transfer
+      - Instruction mode
+      - Knowledge query
+      - Hang up
+      - Language switching
+      - Customize
+    - Temporary Variable Value Change
+    - Todo Items Update
+
+![](/images/en/agent-operator/agent-details-and-call-records/img-11.png)

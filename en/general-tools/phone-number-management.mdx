@@ -1,0 +1,217 @@
+---
+title: "Phone Number Management"
+---
+
+## Phone Number and SIP Line Configuration
+
+> This document explains how to manage and configure phone numbers for AI Voice Agents in Daisybell Agent Lab. By configuring inbound and outbound SIP trunk routes, you can connect your own carrier lines to voice agents for reliable, low-latency, two-way voice interactions.
+
+---
+
+### Overview
+
+The Phone Numbers module provides enterprise-grade SIP line connectivity and centralized lifecycle management. Whether you need a dedicated outbound route for an Outbound Agent or a public line for an Inbound Agent, you can configure it here and manage concurrency quotas.
+
+<callout emoji="💡">
+**Supports peer SIP trunks (without registration), DTMF using RFC 4733 (RFC 2833), and G.711 and G.722 audio codecs.**
+</callout>
+
+![](/images/en/general-tools/phone-number-management/img-1.png)
+
+#### Key Settings
+
+- **Two-way line support:** Manage inbound and outbound lines separately.
+- **Line concurrency controls:** Configure dedicated outbound and call transfer concurrency for each line.
+- **Secure transport and authentication:** Native SIP authentication (Digest Auth), signaling encryption (TLS), and media encryption (SRTP / DTLS-SRTP) are supported.
+- **Security safeguards:** Inbound lines support source IP allowlist validation using CIDR/IPv4. Lines in use are protected against accidental deletion or disablement.
+
+---
+
+#### Line Concurrency and Carrier Capacity
+
+- **Platform Concurrency Limit:** The `Call Concurrency` (including dedicated outbound and transfer concurrency) is a **platform-side traffic control and quota limit**. It determines the maximum number of concurrent call sessions the Daisybell platform allows for this number.
+- **Carrier Physical Capacity:** The actual concurrency of a line is determined by the gateway bandwidth and channel capacity provided by your telecom/SIP trunk provider. If the platform concurrency setting exceeds the carrier's channel capacity, excess calls may be rejected by the carrier gateway (for example, with `SIP 503 Service Unavailable`）。
+
+### Number Status
+
+Each phone line in the system has a clearly defined status.
+
+| Line Status (`Status`) | Definition | Restrictions and Behavior |
+|-|-|-|
+| `Unused` (Unused) | The number is registered and configured but is not assigned to an AI Agent. | Can be edited, disabled, or deleted at any time. |
+| `In Use` (In Use) | The number is assigned to an outbound task, inbound call handling, or a call transfer strategy. | Cannot be deleted or disabled. |
+| `Disabled` (Disabled) | The line has been manually disabled and does not route calls. | Hidden from the list of available lines for all Agents and cannot be selected as a call number. |
+
+---
+
+### Configure Outbound Numbers
+
+<grid>
+<column width-ratio="0.500000">
+Outbound numbers are used for calls initiated by an AI Agent and for transfers to human agents during outbound calls.
+#### Procedure
+1. **Open the management page:** Go to `Tools` > `Phone Numbers`, then select the `Outbound Numbers` tab.
+2. **Open the configuration form:** Click `+ Add New` in the upper-right corner.
+3. **Enter the number:** Enter the target phone number (digits only or in E.164 format).
+4. **Specify the termination gateway (Termination URI):** Configure the provider's SIP server domain or IP address and port.
+5. **Configure the transport protocol and media encryption:**
+
+   - **Transport (`Transport`)：** Select the signaling transport protocol supported by the carrier gateway (`UDP` / `TCP` / `TLS`）。
+   - **Encryption (`Encryption`)：** Select the media encryption protocol according to the line's security requirements (`None` / `SRTP` / `DTLS-SRTP`）。
+6. **Concurrency strategy:** Set the concurrency quotas for dedicated outbound calls and call transfers.
+7. **Confirm and save:** When you have verified the configuration, click `Add Number` to provision the line.
+</column>
+<column width-ratio="0.500000">
+![](/images/en/general-tools/phone-number-management/img-2.png)
+</column>
+</grid>
+
+
+
+#### Parameter Reference
+
+| Parameter | Required | Format | Description |
+|-|-|-|-|
+| `Phone Number` | Yes | String (digits only or E.164 format) | The actual outbound caller ID in E.164 format. Spaces and special characters are not allowed. |
+| `Termination URI / Address` | Yes | `Domain:port` or `IP:port` | The SIP outbound gateway address provided by your carrier (for example, `sip.example.com:5060`）。 |
+| `Encryption` | Yes | Single-select: `None` / `SRTP` / `DTLS-SRTP` | Media stream encryption protocol. The default is `None`。 |
+| `Transport` | Yes | Single-select: `UDP` / `TCP` / `TLS` | SIP signaling transport protocol. The default is `UDP`。 |
+| `SIP Authentication` | No | Object (`Username`, `Password`) | SIP registration/call authentication credentials required by the carrier. The password is hidden after saving. |
+| `Dedicated Outbound Concurrency` | Yes | Integer (`0 - 1000`) | Maximum number of concurrent calls initiated from this number for regular outbound calling. The default is `10`。 |
+| `Dedicated Transfer Concurrency` | Yes | Integer (`0 - 1000`) | Maximum number of concurrent calls from this number dedicated to call transfers. The default is `0`。 |
+| `Show Main Caller ID For Transferred Calls` | No | Boolean (toggle; off by default) | When enabled, the original caller ID is passed through when a call is transferred to a third party or agent. |
+
+> **⚠️ Note:** Enable `Show Main Caller ID For Transferred Calls` only after confirming that your carrier supports CLI pass-through. Otherwise, the gateway may reject transferred calls.
+
+
+
+---
+
+### Configure Inbound Numbers
+
+<grid>
+<column width-ratio="0.500000">
+Inbound numbers receive calls from external telephone networks and automatically route them to the assigned Daisybell Voice Agent.
+#### Procedure
+1. **Open the inbound list:** Go to `Tools` > `Phone Numbers`, then click the `Inbound Numbers` tab.
+2. **Add an inbound configuration:** Click `+ Add New` in the upper-right corner to open the configuration form.
+3. **Enter the number:** Enter the target phone number (digits only or in E.164 format).
+4. **Configure the security allowlist:** Add the carrier gateway IP address or CIDR range allowed to send inbound SIP traffic to the platform.
+5. **Configure the transport protocol and media encryption:**
+
+   - **Transport (`Transport`)：** Select the signaling transport protocol supported by the carrier gateway (`UDP` / `TCP` / `TLS`）。
+   - **Encryption (`Encryption`)：** Select the media encryption protocol according to the line's security requirements (`None` / `SRTP` / `DTLS-SRTP`）。
+6. **Concurrency quota:** Specify the maximum inbound concurrency allowed for this number.
+7. **Validate and complete:** After the allowlist format passes validation, click `Add Number`。
+</column>
+<column width-ratio="0.500000">
+![](/images/en/general-tools/phone-number-management/img-3.png)
+</column>
+</grid>
+
+#### Parameter Reference
+
+| Parameter | Required | Format | Description |
+|-|-|-|-|
+| `Phone Number` | Yes | String (digits only or E.164 format) | The inbound number in E.164 format. Spaces and special characters are not allowed. |
+| `White List Address` | Yes | IPv4 address or CIDR block | Allowlist of carrier gateways permitted to send SIP INVITE requests. Multiple entries are supported. |
+| `Encryption` | Yes | Single-select: `None` / `SRTP` / `DTLS-SRTP` | Media encryption policy. |
+| `Transport` | Yes | Single-select: `UDP` / `TCP` / `TLS` | Protocol for receiving inbound SIP signaling. |
+| `Total Call Concurrency` | Yes | Integer (`1 - 1000`) | Maximum number of simultaneous calls supported by this inbound number. The default is `10`。 |
+
+#### IP Allowlist Validation Rules
+
+The system performs real-time format and security validation on `White List Address`:
+
+- **Valid (`Validated`)：** An IPv4 address or CIDR range is valid (for example, `123.24.56.78` or `123.24.56.78/20`); the validation status is shown in green.
+- **Invalid format (`Invalid IP Format`)：** Invalid characters or an out-of-range IP address (such as `0.0.0.0` in a production allowlist) block submission and display an error in red.
+- **Duplicate entries (`Duplicate IP`)：**Duplicate IP addresses or ranges are not allowed for the same number.
+
+---
+
+### Line Management and Actions
+
+In the `Actions` menu on the right side of the phone number list, you can perform the following maintenance actions:
+
+#### 1. View Details
+
+Click to open a details dialog with read-only system metadata and network parameters for the number, including its `SIP Line ID` (unique system identifier), creation time (`Date Added`), current configuration, and assigned Agent name.
+
+
+
+<grid>
+<column width-ratio="0.500000">
+![](/images/en/general-tools/phone-number-management/img-4.png)
+</column>
+<column width-ratio="0.500000">
+![](/images/en/general-tools/phone-number-management/img-5.png)
+</column>
+</grid>
+
+#### 2. Edit Line
+
+- **Immutable field:** The system-assigned `SIP Line ID` is globally unique and cannot be changed after creation.
+- **Line in-use lock:** If the line is `In Use` when you edit network settings and click Save, the system displays a confirmation prompt.
+
+
+
+#### 3. Enable or Disable
+
+- **Disable restriction:** A line in `In Use` status **cannot be disabled directly**. First unassign or replace the number in the associated Agent.
+- **Effect of disabling:** A disabled line cannot be used and is hidden from the line selection menus in Agent settings.
+- **Enable a line:** A line in `Disabled` status can be restored by selecting `Enable` from the Actions menu. It becomes available again in the pool of unused lines.
+
+#### 4. Delete
+
+- **Deletion restriction:** A line in `In Use` status has the `Delete` action disabled in the UI, and the backend API also blocks the request.
+- **Irreversible action:** Only lines in `Unused` or `Disabled` status can be deleted. A confirmation dialog is displayed.
+
+---
+
+### Account Permissions (Role-Based Access Control)
+
+| Platform role (`Role`) | View page (`View`) | Create / edit / enable / disable / delete (`Manage`) |
+|-|-|-|
+| **Admin** (enterprise administrator) | Allowed | Allowed |
+| **Sub-user** (sub-account / team member) | No access (not visible) | No access |
+
+---
+
+### Troubleshooting
+
+
+
+**Q1: Why can't I select a phone number I just added on the Agent orchestration page?**
+
+> Check the number's status in the `Phone Numbers` list. If its status is `Disabled` the number is hidden from the Agent line dropdown. For an inbound number, also make sure its type matches the Agent's call mode (Inbound).
+
+
+
+**Q2: Why was an inbound call rejected by the carrier or returned a 403 Forbidden error?**
+
+> Check the `White List Address` configuration. Confirm that the carrier SBC/gateway IP sending the SIP INVITE is included in the configured allowlist or CIDR range.
+
+
+
+**Q3: Why can't I delete an idle test number?**
+
+> Check whether the number is configured as a backup transfer line for an Agent. If any active platform rule depends on the number, the system marks it as `In Use` and blocks the deletion request.
+
+
+
+**Q4: Why can't I find a newly added number in the Select Line dropdown on the Agent configuration page?**
+
+> - Check whether the number's status is `Disabled`. Disabled lines are automatically filtered out by the system.
+> - Also confirm that the number type matches the Agent type. For example, an inbound Agent can only be assigned `Inbound Numbers`）。
+
+
+
+**Q5: Why is the Delete button disabled when I try to delete a number?**
+
+> - The number is currently in `In Use` status. Check whether it is assigned as the caller ID for an outbound task, an inbound hotline, or the destination of a call transfer. Remove all assignments before deleting it.
+
+
+
+**Q6: What happens when the call concurrency limit is reached?**
+
+> - When the call volume reaches the configured `Call Concurrency`, the platform automatically applies rate limiting. To increase concurrency, also assess the actual capacity of the carrier gateway and raise the limit on this page.

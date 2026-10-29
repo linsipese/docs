@@ -1,0 +1,220 @@
+---
+title: "Script版本创建及编辑（Script Edit）"
+---
+
+## Agent Script 编辑器
+
+Agent Script 编辑器用于在 Agent Builder 中创建、管理和编辑 Agent Script。你可以创建 Script 版本，配置 Agent 的模型和对话参数，编写 Main Prompt，关联工具、临时变量与知识库，并设置通话结束后的数据处理（ACW Work）。 Outbound 类型的 Agent 可以创建多个 Script；其他类型的 Agent 只能创建一个 Script。
+
+### 创建 Script 与管理版本
+
+<grid>
+<column width-ratio="0.500000">
+#### 创建 Script
+1. 在 Agent Builder 中创建 Script。
+2. 输入 Script 名称，点击确定后进入第一个版本的编辑页面
+3. 选中的版本编辑完成后点击 **Save**。只有保存成功，首个版本才会创建并出现在版本列表中。
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hans/agent-builder/script-edit/img-1.png)
+</column>
+</grid>
+
+<grid>
+<column width-ratio="0.500000">
+#### 查看版本列表
+版本列表展示当前 Script 的全部版本。选择一个版本即可进入编辑页。列表包含以下字段：
+| 字段 | 说明 |
+|-|-|
+| Script 版本存档名、ID、状态 | 标识 Script 版本即版本状态 |
+| 创建者 | 创建该版本的用户 |
+| 创建时间 | 版本创建时间 |
+| Action | 进入编辑页 |
+版本列表中的数据和状态与 Test Center 中的 Script 版本列表保持同步。
+</column>
+<column width-ratio="0.500000">
+![](/images/zh-Hans/agent-builder/script-edit/img-2.png)
+</column>
+</grid>
+
+ 
+
+模型配置（Model Configuration）
+
+#### Model Settings
+
+| 设置 | 配置方式与默认值 |
+|-|-|
+| LLM Model | 从下拉列表选择可用的模型。 |
+| Temperature | 取值范围 0–1，步长 0.1，默认值 0.5。启用 Thinking Mode 后，该设置可能不生效。 |
+| Thinking Mode | 下拉选择多种思考强度， `None` 为默认值。 |
+
+<grid>
+<column width-ratio="0.504052">
+![](/images/zh-Hans/agent-builder/script-edit/img-3.png)
+</column>
+<column width-ratio="0.495948">
+![](/images/zh-Hans/agent-builder/script-edit/img-4.png)
+</column>
+</grid>
+
+#### Conversation Mode Settings
+
+| 设置 | 取值与默认值 | 界面说明 |
+|-|-|-|
+| Silence Wait Time (s) | 最小 1 秒，默认 10 秒，最大 120 秒 | 用户保持沉默时，Agent在开始讲话前等待的时长。 |
+| Time to First Response (ms) | 500–60,000 毫秒，默认 1,000 毫秒 | 呼叫开始后Agent首次响应的等待时间 |
+| Consecutive Silence Turns Before Hangup | 默认开启，可设置 1–20 轮，默认 3 轮 | 连续多轮静默后挂断通话 |
+
+### First Message
+
+First Message 用于设置每次 Agent 对话的开场白。
+
+- 关闭后Agent不使用固定的 First Message。
+- 文本输入上限为 240 个字符。
+- 在语音场景中，文本会通过 TTS 转换为开场语音。
+- 在 Chatbot 场景中直接显示文本，不使用 TTS服务。
+
+![](/images/zh-Hans/agent-builder/script-edit/img-5.png)
+
+### Main Prompt
+
+Main Prompt 是 Agent 的主要提示词编辑区。编辑器提供以下能力：
+
+- 支持使用全屏编辑模式。
+- 识别字段、变量和工具，并以对应标签样式显示。
+- 统计 Prompt 的字符总数。
+- 点击引用按钮或输入 `{{`，按分类选择 **Agent 字段**和**临时变量（包含系统变量）**。
+- 点击 **Tools**，或在编辑区输入 `@`，选择要引用的工具。工具引用会显示为高亮标签。
+
+![](/images/zh-Hans/agent-builder/script-edit/img-6.png)
+
+### Tools
+
+Tools & Functions 模块用于添加和管理 Agent 可调用的工具。
+
+各工具类型的字段和配置方式请参阅<cite doc-id="JhFUwRrN6iMyK4k0LBgjt4mppDd" file-type="wiki" title="Agent 工具调用（Tools）" type="doc"></cite>
+
+ 
+
+### Temporary Variables
+
+Temporary Variables 用于保存会话中的临时值，并支持在各种Prompt 和 Function 中引用。
+
+**Temporary Variables提取提示词**
+
+Temp Variable Value Extraction Framework Prompt 使用文本输入框配置。文本必须包含以下占位符：{history_variables}、{current_time}、{history}
+
+#### 变量列表
+
+| 表土字段 | 说明 |
+|-|-|
+| Name | 临时变量名称；引用中的变量会显示 **In Use** 标签 |
+| Key | 临时变量 key |
+| LLM Extraction | 是否使用 LLM 提取 |
+| Mapped to Agent Field | 是否关联 Agent 字段 |
+| Sensitive | 是否为敏感变量 |
+| Action | 编辑或删除 |
+
+#### 添加和编辑变量
+
+添加临时变量时配置名称、key、Description 以及对应配置项
+
+- **Sensitive** 默认关闭。开启后，变量值会加密且无法查看，无法关联Agent字段
+- 关联至Agent字段：对话结束后，临时变量值能够直接关联到已创建的Agent字段中
+- 使用大模型提取临时变量值：当打开时，临时变量将不能通过工具调用进行赋值（两者有冲突）
+- 引用中的变量不能删除，删除按钮置灰，不能修改 key。
+
+![](/images/zh-Hans/agent-builder/script-edit/img-7.png)
+
+![](/images/zh-Hans/agent-builder/script-edit/img-8.png)
+
+ 
+
+### Knowledge Base
+
+用于添加已存在的知识。配置时选择已有的知识库文件夹。
+
+![](/images/zh-Hans/agent-builder/script-edit/img-9.png)
+
+
+
+
+
+### After Call Work
+
+After Call Work（ACW）用于配置通话结束后的标签提取、摘要生成、自定义工具调用和数据推送。
+
+![](/images/zh-Hans/agent-builder/script-edit/img-10.png)
+
+#### 对话标签
+
+配置独立的LLM，用于对话结束后生成该通对话内容中的自定义内容标签，标签属性与生成逻辑可自行定义。最终生成的标签将在Agent Lab - Agent通话记录详情页中展示。
+
+- **对话标签**功能默认开启，也可以关闭。
+- 可单独配置使用的LLM
+- 每个标签包含标签名、数据类型、`Key_name`、提取 Prompt，以及是否关联 Agent 字段。
+- 数据类型支持数字、文本、布尔、枚举和时间。
+- 描述：用于LLM提取对应值的Prompt
+- 关联Agent字段：打开关联后，需选择已有的Agent字段关联，关联后无需再定义name、数据类型与key。对话结束后，关联的Agent字段将接收对话标签的值
+
+<grid>
+<column width-ratio="0.529071">
+![](/images/zh-Hans/agent-builder/script-edit/img-11.png)
+</column>
+<column width-ratio="0.470929">
+![](/images/zh-Hans/agent-builder/script-edit/img-12.png)
+</column>
+</grid>
+
+#### 通话 Summary
+
+配置独立的LLM，用于对话结束后生成该通对话的概要，Agent Builder中提供了默认的生成提示词，如有个性化需要可以进行修改，但是需要保留原有的提示词框架。最终生成的Summary将在Agent Lab - Agent通话记录详情页中展示。
+
+- 通话 Summary 默认使用开启，也可以关闭。
+- 可单独配置使用的LLM
+- 生成Summary的 Prompt 默认提供且可编辑，需要保留原有的提示词框架。
+
+![](/images/zh-Hans/agent-builder/script-edit/img-13.png)
+
+#### 添加ACW自定义Function
+
+Daisybell Agent支持在Agent通话结束后继续调用对应的自定义工具完成相应的任务，在对应的输入框中填写Function Key即可实现工具的调用
+
+![](/images/zh-Hans/agent-builder/script-edit/img-14.png)
+
+#### 数据推送
+
+在通话结束后，Daisybell Agent Lab支持将Agent字段值推送给外部对象，在选中已创建的外部对象后进行对应配置。
+
+- **对接主体（推送对象）**：从 Integrations & API 中已添加的对象卡片中选择。支持添加多个推送对象
+- **对象Key（Object）**：填写对应的Key
+- **字段映射**：将 Agent 字段映射到对接对象字段。（可添加多个）
+
+![](/images/zh-Hans/agent-builder/script-edit/img-15.png)
+
+![](/images/zh-Hans/agent-builder/script-edit/img-16.png)
+
+### Other Settings
+
+- **Amazon Connect - 通过 DTMF 获取来电号码**：开关默认关闭。仅Inbound类型Agent可配置
+- **前处理功能配置**：开关默认关闭。开启后填写自定义 Function 标识 ID。仅Inbound类型Agent可配置
+- **Bypass 转接电话配置**：开关默认关闭。开启后配置外呼线路、接收转接电话号码和转接处理模式。转接处理模式与 Call Transfer 中的 **Transfer Handling Mode** 保持一致。仅Inbound类型Agent可配置
+- **错误固定回复**：配置 Agent 发生错误时返回的固定文本。多语言 Agent 为每种语言提供对应输入框。
+
+![](/images/zh-Hans/agent-builder/script-edit/img-17.png)
+
+### 导入和导出
+
+所有的Script配置项将以JSON格式的文件进行保存，Agent Builder支持配置JSON文件的 导入和导出功能。
+
+### 自动保存
+
+编辑已有版本时，编辑器每 5 分钟自动保存一次，并显示自动保存提示。窗口打开超过 2 小时且没有任何修改后，自动保存停止。
+
+在进入编辑前你可以选择：
+
+- **Restore Autosaved Content**：使用自动保存内容替换当前版本内容。
+- **Keep Current Version Content**：保留当前版本内容。
+
+当多个用户同时编辑同一版本时，仅保留最新的一份自动保存内容。点击 **Edit** 时，如果存在自动保存内容，也会打开上述提示。
