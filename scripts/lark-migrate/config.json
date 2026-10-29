@@ -1,0 +1,14 @@
+{
+  "wiki_root": "https://aionlabglobal.jp.larksuite.com/wiki/TJdQwAKGaivICCku7fXjEK9mpnf",
+  "language_rules": [
+    { "pattern": "简体中文", "dir": "zh-Hans" },
+    { "pattern": "日本語", "dir": "ja" },
+    { "pattern": "한국어", "dir": "ko" },
+    { "pattern": "繁體中文", "dir": "zh-Hant" },
+    { "pattern": "English", "dir": "en" }
+  ],
+  "skip_title_patterns": ["归档", "不使用"],
+  "slug_overrides": [
+    { "pattern": "^Daisybell Agent Lab\\s*(简介|簡介|概要|소개|Overview)\\s*$", "slug": "overview" }
+  ]
+}
