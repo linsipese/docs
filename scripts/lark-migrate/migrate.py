@@ -72,7 +72,8 @@ def run_lark(args):
 
 def load_config():
     cfg = json.loads(CONFIG.read_text())
-    for key in ("wiki_root", "language_rules", "skip_title_patterns", "slug_overrides"):
+    for key in ("wiki_root", "language_rules", "skip_title_patterns",
+                "skip_page_title_patterns", "slug_overrides"):
         if key not in cfg:
             sys.exit(f"config.json missing key: {key}")
     return cfg
@@ -180,8 +181,21 @@ def resolve_root(cfg):
     return out["data"]["space_id"], out["data"]["node_token"]
 
 
-def build_page(space_id, node, parent_dir, cfg):
-    slug = dedupe(make_slug(node["title"], cfg["slug_overrides"]), parent_dir["used"])
+def excluded(title, cfg):
+    """True when a PAGE title carries an internal-only marker; such pages and
+    their whole subtree never enter the manifest."""
+    return any(re.search(p, title) for p in cfg["skip_page_title_patterns"])
+
+
+def build_page(space_id, node, parent_dir, cfg, state):
+    prev = state.get(node["node_token"])
+    if prev and prev.get("slug"):
+        # A migrated node keeps its first slug no matter how its title is
+        # edited later, so published URLs never drift or collide.
+        slug = prev["slug"]
+        parent_dir["used"][slug] = parent_dir["used"].get(slug, 0) + 1
+    else:
+        slug = dedupe(make_slug(node["title"], cfg["slug_overrides"]), parent_dir["used"])
     page = {
         "node_token": node["node_token"],
         "obj_token": node["obj_token"],
@@ -192,8 +206,9 @@ def build_page(space_id, node, parent_dir, cfg):
         dir_rel = f"{parent_dir['path']}/{slug}"
         page["file"] = f"{dir_rel}/index.mdx"
         page["children"] = [
-            build_page(space_id, child, {"path": dir_rel, "used": {}}, cfg)
+            build_page(space_id, child, {"path": dir_rel, "used": {}}, cfg, state)
             for child in list_children(space_id, node["node_token"])
+            if not excluded(child["title"], cfg)
         ]
     else:
         page["file"] = f"{parent_dir['path']}/{slug}.mdx"
@@ -208,6 +223,7 @@ def iter_pages(pages):
 
 def cmd_plan(args):
     cfg = load_config()
+    state = load_json(STATE, "") if STATE.exists() else {}
     space_id, root = resolve_root(cfg)
     languages, skipped = [], []
     for node in list_children(space_id, root):
@@ -221,13 +237,20 @@ def cmd_plan(args):
             continue
         if args.lang and lang not in args.lang:
             continue
+        kept, dropped = [], []
+        for child in list_children(space_id, node["node_token"]):
+            (dropped if excluded(child["title"], cfg) else kept).append(child)
+        for child in dropped:
+            print(f"skipped page: {child['title']!r}")
+        top_used = {}
         languages.append({
             "lang": lang,
             "node_token": node["node_token"],
             "dir_title": title,
             "group_name": title.rsplit(" - ", 1)[0] if " - " in title else title,
-            "pages": [build_page(space_id, child, {"path": lang, "used": {}}, cfg)
-                      for child in list_children(space_id, node["node_token"])],
+            "pages": [build_page(space_id, child, {"path": lang, "used": top_used},
+                                 cfg, state)
+                      for child in kept],
         })
     manifest = {"space_id": space_id, "root_node_token": root, "languages": languages}
     if args.dry_run:
@@ -260,6 +283,7 @@ def sync_page(page, state, args):
     info = run_lark(["wiki", "+node-get", "--node-token", page["node_token"]])["data"]
     edit_time = info.get("obj_edit_time", "")
     if (prev and not args.force and prev.get("editTime") == edit_time
+            and prev.get("title") == page["title"]
             and (REPO_ROOT / prev["file"]).exists()
             and all((REPO_ROOT / rec["path"]).exists() for rec in prev.get("images", []))):
         print(f"skip    {page['file']} (unchanged)")
@@ -412,6 +436,30 @@ def cmd_prune(args):
             if not args.dry_run:
                 mdx.unlink()
             removed += 1
+    # drop state entries (and their images) for pages the manifest no longer
+    # contains, e.g. ones newly matched by skip_page_title_patterns
+    in_manifest = {p["node_token"] for lang in manifest["languages"]
+                   for p in iter_pages(lang["pages"])}
+    state = load_json(STATE, "") if STATE.exists() else {}
+    dropped = [tok for tok in state if tok not in in_manifest]
+    for tok in dropped:
+        for img in state[tok].get("images", []):
+            print(f"{'would delete' if args.dry_run else 'delete'}  {img['path']}")
+            if not args.dry_run:
+                (REPO_ROOT / img["path"]).unlink(missing_ok=True)
+            removed += 1
+        if not args.dry_run:
+            del state[tok]
+    if dropped and not args.dry_run:
+        save_json(STATE, state)
+    if not args.dry_run:
+        for base in [REPO_ROOT / lang for lang in managed] + [REPO_ROOT / "images"]:
+            for d in sorted((p for p in base.rglob("*") if p.is_dir()),
+                            reverse=True):
+                try:
+                    d.rmdir()
+                except OSError:
+                    pass
     print(f"{removed} orphan file(s){' (dry-run)' if args.dry_run else ''}")
 
 

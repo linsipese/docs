@@ -15,7 +15,7 @@ All commands run from anywhere; they operate on the repo root two levels up.
 python3 scripts/lark-migrate/migrate.py plan                     # walk wiki, write .manifest.json
 python3 scripts/lark-migrate/migrate.py sync                     # fetch pages, write MDX + images
 python3 scripts/lark-migrate/migrate.py nav                      # regenerate docs.json navigation
-python3 scripts/lark-migrate/migrate.py prune                    # delete mdx files the navigation no longer references
+python3 scripts/lark-migrate/migrate.py prune                    # delete mdx/images/state the manifest+navigation no longer reference
 python3 scripts/lark-migrate/migrate.py all                      # plan + sync + nav
 ```
 
@@ -31,6 +31,7 @@ Global flags (accepted by every subcommand):
 ## How files land
 
 - Language wiki dirs map to the repo's language dirs via `language_rules` in `config.json`; the language dir itself is a cover page and never becomes a file.
+- Pages (and their whole subtree) whose title matches `skip_page_title_patterns` in `config.json` are never migrated. This currently filters the internal-only Technical Manual category in every language plus any `[内部文档]` / `[社内文書]` / `[Internal]` marked page. After changing these patterns, run `plan`, `nav`, then `prune` to remove the previously synced files and their images.
 - A leaf page becomes `<lang>/<slug>.mdx`. A page with children becomes `<lang>/<slug>/index.mdx` and its children live beside it.
 - Slugs: first matching `slug_overrides` entry wins; otherwise the ASCII text of the last ASCII-containing parenthetical, e.g. `Agent生成器（Agent Builder）` → `agent-builder`; otherwise all ASCII words of the title; if the title has no ASCII at all, the raw title is the filename. Collisions inside one directory get `-2`, `-3` suffixes.
 - Page order in `docs.json` follows the wiki order per language. Each language gets a single group named after the wiki dir title minus its language suffix (e.g. `Agent Lab产品使用手册`).

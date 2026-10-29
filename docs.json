@@ -82,16 +82,6 @@
                   "en/account-settings/login-ip-security-settings-and-login-logs",
                   "en/account-settings/incomplete"
                 ]
-              },
-              {
-                "group": "Technical Manual",
-                "pages": [
-                  "en/technical-manual/index",
-                  "en/technical-manual/japan-and-korea",
-                  "en/technical-manual/internal-documentation-end-to-end-latency-calculation",
-                  "en/technical-manual/internal-si-integration-plan",
-                  "en/technical-manual/internal-document-interoperability-judgment-criteria"
-                ]
               }
             ]
           }
@@ -106,7 +96,7 @@
             "pages": [
               "ja/overview",
               {
-                "group": "Agent ビルダー（Agent Builder）",
+                "group": "Agent ビルダー",
                 "pages": [
                   "ja/agent-builder/index",
                   "ja/agent-builder/agent-create-config",
@@ -115,7 +105,7 @@
                 ]
               },
               {
-                "group": "Agent運用（Agent Operation）",
+                "group": "Agent運用",
                 "pages": [
                   "ja/agent-operation/index",
                   "ja/agent-operation/profile-record",
@@ -124,7 +114,7 @@
                 ]
               },
               {
-                "group": "テストセンター（Test Center）",
+                "group": "テストセンター",
                 "pages": [
                   "ja/test-center/index",
                   "ja/test-center/スクリプトバージョンの状態編集と公開",
@@ -137,7 +127,7 @@
                 ]
               },
               {
-                "group": "プラットフォームツール（General Tools） ",
+                "group": "プラットフォームツール",
                 "pages": [
                   "ja/general-tools/index",
                   "ja/general-tools/phone-numbers",
@@ -148,21 +138,10 @@
                 ]
               },
               {
-                "group": "Account Settings ",
+                "group": "アカウント設定",
                 "pages": [
                   "ja/account-settings/index",
                   "ja/account-settings/ip"
-                ]
-              },
-              {
-                "group": "Techs-manual",
-                "pages": [
-                  "ja/techs-manual/index",
-                  "ja/techs-manual/日本・韓国における顧客側／通信事業者側の電話設定方法",
-                  "ja/techs-manual/[社内文書] 日本・韓国における顧客側／通信事業者側の電話設定方法",
-                  "ja/techs-manual/[社内文書] エンドツーエンド遅延の計算",
-                  "ja/techs-manual/si",
-                  "ja/techs-manual/[社内文書] 連携可否の判定基準"
                 ]
               }
             ]
@@ -177,7 +156,7 @@
             "pages": [
               "ko/overview",
               {
-                "group": "Agent 운영 도구 (Agent Operator)",
+                "group": "Agent 운영 도구",
                 "pages": [
                   "ko/agent-operator/index",
                   "ko/agent-operator/profile-record",
@@ -186,7 +165,7 @@
                 ]
               },
               {
-                "group": "테스트 센터 (Test Center)",
+                "group": "테스트 센터",
                 "pages": [
                   "ko/test-center/index",
                   "ko/test-center/temporary-debug",
@@ -199,7 +178,7 @@
                 ]
               },
               {
-                "group": "Agent 생성기 (Agent Builder)",
+                "group": "Agent 생성기 ",
                 "pages": [
                   "ko/agent-builder/index",
                   "ko/agent-builder/edit",
@@ -208,7 +187,7 @@
                 ]
               },
               {
-                "group": "플랫폼 도구 (General Tools)",
+                "group": "플랫폼 도구",
                 "pages": [
                   "ko/general-tools/index",
                   "ko/general-tools/phone-numbers",
@@ -219,17 +198,10 @@
                 ]
               },
               {
-                "group": "계정 설정 (Account Settings)",
+                "group": "계정 설정",
                 "pages": [
                   "ko/account-settings/index",
                   "ko/account-settings/ip"
-                ]
-              },
-              {
-                "group": "기술 매뉴얼 (Tech Manual)",
-                "pages": [
-                  "ko/tech-manual/index",
-                  "ko/tech-manual/고객 측·통신사 측 전화 설정 방법 (일본·한국)"
                 ]
               }
             ]
@@ -244,7 +216,7 @@
             "pages": [
               "zh-Hant/overview",
               {
-                "group": "Agent生成器（Agent Builder）",
+                "group": "Agent生成器",
                 "pages": [
                   "zh-Hant/agent-builder/index",
                   "zh-Hant/agent-builder/agent-create-config",
@@ -253,7 +225,7 @@
                 ]
               },
               {
-                "group": "Agent營運工具（Agent Operator）",
+                "group": "Agent營運工具",
                 "pages": [
                   "zh-Hant/agent-operator/index",
                   "zh-Hant/agent-operator/profile-record",
@@ -262,7 +234,7 @@
                 ]
               },
               {
-                "group": "測試中心（Test Center）",
+                "group": "測試中心",
                 "pages": [
                   "zh-Hant/test-center/index",
                   "zh-Hant/test-center/script-version-status-edit-release",
@@ -275,33 +247,21 @@
                 ]
               },
               {
-                "group": "平台工具（General Tools）",
+                "group": "平台工具",
                 "pages": [
                   "zh-Hant/general-tools/index",
                   "zh-Hant/general-tools/phone-numbers",
                   "zh-Hant/general-tools/knowledge-base",
                   "zh-Hant/general-tools/export-center",
                   "zh-Hant/general-tools/message-push",
-                  "zh-Hant/general-tools/sub-user-management",
-                  "zh-Hant/general-tools/integrations-api"
+                  "zh-Hant/general-tools/sub-user-management"
                 ]
               },
               {
-                "group": "帳戶設定（Account Settings）",
+                "group": "帳戶設定",
                 "pages": [
                   "zh-Hant/account-settings/index",
-                  "zh-Hant/account-settings/ip",
-                  "zh-Hant/account-settings/notification"
-                ]
-              },
-              {
-                "group": "技術手冊（Techs-manual）",
-                "pages": [
-                  "zh-Hant/techs-manual/index",
-                  "zh-Hant/techs-manual/常見電話客戶側和電訊商側設定方法（日本、韓國）",
-                  "zh-Hant/techs-manual/[內部文件]端到端延遲計算",
-                  "zh-Hant/techs-manual/si",
-                  "zh-Hant/techs-manual/[內部文件]可對接性判斷標準"
+                  "zh-Hant/account-settings/ip"
                 ]
               }
             ]
@@ -316,7 +276,7 @@
             "pages": [
               "zh-Hans/overview",
               {
-                "group": "Agent生成器（Agent Builder）",
+                "group": "Agent生成器",
                 "pages": [
                   "zh-Hans/agent-builder/index",
                   "zh-Hans/agent-builder/agent-create-config",
@@ -325,7 +285,7 @@
                 ]
               },
               {
-                "group": "Agent运营工具（Agent Operator）",
+                "group": "Agent运营工具",
                 "pages": [
                   "zh-Hans/agent-operator/index",
                   "zh-Hans/agent-operator/profile-record",
@@ -334,7 +294,7 @@
                 ]
               },
               {
-                "group": "测试中心（Test Center）",
+                "group": "测试中心",
                 "pages": [
                   "zh-Hans/test-center/index",
                   "zh-Hans/test-center/script-version-status-edit-release",
@@ -347,33 +307,21 @@
                 ]
               },
               {
-                "group": "平台工具（General Tools）",
+                "group": "平台工具",
                 "pages": [
                   "zh-Hans/general-tools/index",
                   "zh-Hans/general-tools/phone-numbers",
                   "zh-Hans/general-tools/knowledge-base",
                   "zh-Hans/general-tools/export-center",
                   "zh-Hans/general-tools/message-push",
-                  "zh-Hans/general-tools/sub-user-management",
-                  "zh-Hans/general-tools/integrations-api"
+                  "zh-Hans/general-tools/sub-user-management"
                 ]
               },
               {
-                "group": "账户设置（Account Settings）",
+                "group": "账户设置",
                 "pages": [
                   "zh-Hans/account-settings/index",
-                  "zh-Hans/account-settings/ip",
-                  "zh-Hans/account-settings/notification"
-                ]
-              },
-              {
-                "group": "[内部文档]技术手册（Techs-manual）",
-                "pages": [
-                  "zh-Hans/techs-manual/index",
-                  "zh-Hans/techs-manual/[内部文档]常见电话客户侧和运营商侧配置方法（日本、韩国）",
-                  "zh-Hans/techs-manual/[内部文档]端到端延迟计算",
-                  "zh-Hans/techs-manual/si",
-                  "zh-Hans/techs-manual/[内部文档]可对接性判断标准"
+                  "zh-Hans/account-settings/ip"
                 ]
               }
             ]

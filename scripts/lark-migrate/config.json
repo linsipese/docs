@@ -8,6 +8,13 @@
     { "pattern": "English", "dir": "en" }
   ],
   "skip_title_patterns": ["归档", "不使用"],
+  "skip_page_title_patterns": [
+    "(?i)(techs-manual|tech manual|technical manual|技术手册|技術手冊|기술 매뉴얼)",
+    "^\\[内部文档\\]",
+    "^\\[內部文件\\]",
+    "^\\[社内文書\\]",
+    "(?i)^\\[internal"
+  ],
   "slug_overrides": [
     { "pattern": "^Daisybell Agent Lab\\s*(简介|簡介|概要|소개|Overview)\\s*$", "slug": "overview" }
   ]
