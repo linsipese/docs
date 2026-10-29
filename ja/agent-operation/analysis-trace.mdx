@@ -13,7 +13,7 @@ AI音声やテキストの対話体験を改善するには、各ターンの背
 - **機能の位置づけ**：対話フローにおけるシステムの処理を詳しく分析します。各インタラクションの内部状態を確認することで、業務上のボトルネックや障害箇所の特定を支援します。
 - **アクセス方法**：Agent Detailの対話記録ページで、Conversation Record内の任意のAgentの発話バブルの下にある **Latency（所要時間）**ラベルをクリックすると、画面右側に分析パネルが開きます。
 
-![](/images/ja/agent-operation/analysis-trace/img-1.png)
+![](/images/ja/agent-operation/analysis-trace/img-UfHRbYDZDoxGywxRjL4j6tZ6pNc.png)
 
 ---
 
@@ -21,7 +21,7 @@ AI音声やテキストの対話体験を改善するには、各ターンの背
 
 Analysis Traceを開くと、上部のダッシュボードに対象ターンの主要な全体指標が表示され、パフォーマンスの概要を把握できます。
 
-![](/images/ja/agent-operation/analysis-trace/img-2.png)
+![](/images/ja/agent-operation/analysis-trace/img-EOZab5UGeoffPfxPodwjWMG2pOg.png)
 
 - **開始時刻（Start Time）**：対象ターンが開始した正確な時刻を記録します（形式：`YYYY-MM-DD HH:MM:SS`）。
 - **総レイテンシ（Total Latency）**：**ユーザーが話し終えてからAIが発話を開始するまで**の時間（単位：ミリ秒／ms）です。性能の目安を色で示します（数値を10の位で切り上げて判定）：
@@ -31,7 +31,7 @@ Analysis Traceを開くと、上部のダッシュボードに対象ターンの
 - **Token消費量（Token Consumption）**：対象ターンにおけるすべての大規模言語モデル（LLM）呼び出しの累計Token数を表示します（$\sum\text{LLM}$）。
 - **処理結果（Status）**：対象ターンの最終的な処理結果を、**成功（Success）**または**失敗（Failed）**で示します。
 
-![](/images/ja/agent-operation/analysis-trace/img-3.png)
+![](/images/ja/agent-operation/analysis-trace/img-PVUZbN7J3ogagrxgtUFjNCaopje.png)
 
 ---
 
@@ -44,7 +44,7 @@ Analysis Traceを開くと、上部のダッシュボードに対象ターンの
 - T: 数値は、該当プロセスで消費されたToken数を示します。
 </column>
 <column width-ratio="0.500000">
-![](/images/ja/agent-operation/analysis-trace/img-4.png)
+![](/images/ja/agent-operation/analysis-trace/img-A1X1bnPQxoz4k3xP43zjfrLwpbb.png)
 </column>
 </grid>
 
@@ -62,7 +62,7 @@ Analysis Traceを開くと、上部のダッシュボードに対象ターンの
 - **音声認識（ASR）**：ASRモデルの認識時間（Duration）と、認識結果のテキスト（Output）を表示します。
 - **発話完了判定（Completeness Detection）**：モデルの呼び出し時刻（Model Call Time）、応答時刻（Model Return Time）、判定に用いる遅延の重みを記録し、ユーザーが話し終えたかどうかをシステムが正確に判断できるようにします。
 
-  ![](/images/ja/agent-operation/analysis-trace/img-5.png)
+  ![](/images/ja/agent-operation/analysis-trace/img-XuHpbbsopoMOTAxyNlEjmxUApUf.png)
 
 #### 4.2 大規模言語モデルの処理（LLM Module）
 
@@ -72,7 +72,7 @@ AIの判断処理を可視化し、主要な実行データとコンテキスト
 - Input：
 - Output：「Content」の内容を表示します。
 
-![](/images/ja/agent-operation/analysis-trace/img-6.png)
+![](/images/ja/agent-operation/analysis-trace/img-PRoRbGXZvojezLxHo9sjEVUHpMg.png)
 
 #### 4.3 ツール呼び出し（Tool Calling）
 
@@ -81,7 +81,7 @@ Agentが外部システムを呼び出したり、特定の指示を実行した
 - **各種ツールに対応**：ナレッジ検索（Knowledge query）、電話転送（Call Transfer／新旧バージョンの両方）、指示モード切り替え（Instruction mode）、切断（Hang up）、言語切り替え（Language switching）、業務用カスタムAPI（Customize）など、各種プラグインの呼び出しを記録します。
 - **構造化ログ**：各Tool Callで実行された関数名（Function_name）、処理時間、JSON形式の入出力（入力パラメーターと戻り値）を表示します。
 
-  ![](/images/ja/agent-operation/analysis-trace/img-7.png)
+  ![](/images/ja/agent-operation/analysis-trace/img-VeNBb1ZiXohuVDxrULIj10jNpzg.png)
 
 #### 4.4 音声合成の出力（TTS Module）
 
@@ -90,4 +90,4 @@ Agentが外部システムを呼び出したり、特定の指示を実行した
 - **処理時間の追跡**：TTSモデルへのリクエストから、音声の最初のチャンク（First Wave Chunk）をシステムが受信するまでの合成時間を記録します。
 - **読み上げテキストの確認**：音声合成の元となる入力テキスト（Input Text）を表示し、読み上げ内容が正しいか確認できます。
 
-![](/images/ja/agent-operation/analysis-trace/img-8.png)
+![](/images/ja/agent-operation/analysis-trace/img-NSlAb5kZOoHXP5xRUvdjt2x9pTd.png)

@@ -16,7 +16,7 @@ title: "外撥Agent — 建立外撥任務（Create Outbound Task）"
 - **業務Script選擇 (Script)**：用於指派該外撥任務關聯的 AI 話術Script。若當前工作空間內僅存在一個可用Script，系統將預設處於選中狀態，並優先關聯最新建立的Script版本。
 - **呼叫優先級 (Priority)**：決定任務在呼叫隊列中的流轉權重，系統預設預設爲 **Normal（普通）** 級別。
 
-![](/images/zh-Hant/agent-operator/create-outbound-task/img-1.png)
+![](/images/zh-Hant/agent-operator/create-outbound-task/img-Q26vbasukoaw23xBT1EjAK59pQm.png)
 
 #### 1.2 呼叫時間段管理 (Call Time Setting)
 
@@ -25,7 +25,7 @@ title: "外撥Agent — 建立外撥任務（Create Outbound Task）"
 - **15分鐘粒度控制**：設定頁面提供了一張覆蓋週日至週一、跨度爲 `08:00 - 20:00` 的可視化時間設定網格，最小設定間隔細化至 15 分鐘，交互界面內置滾動條，預設自動定位至 `08:00` 視圖。
 - **快速預設時段 (Select Preset)**：支持一鍵應用系統預設的快捷工作時段。應用預設後，每天的呼叫時間窗口預設設定爲 `08:00` 開始至 `20:00` 結束。
 
-![](/images/zh-Hant/agent-operator/create-outbound-task/img-2.png)
+![](/images/zh-Hant/agent-operator/create-outbound-task/img-FYXtbAgn5olbMOxfZgujJxVCpmb.png)
 
 
 
@@ -33,7 +33,7 @@ title: "外撥Agent — 建立外撥任務（Create Outbound Task）"
 
 ### 2.   外撥線索數據導入與模板規範
 
-![](/images/zh-Hant/agent-operator/create-outbound-task/img-3.png)
+![](/images/zh-Hant/agent-operator/create-outbound-task/img-FMnEb9Nq1oBuapxewdCj3gtQpSb.png)
 
 系統通過標準化的數據模板，實現了大批量外撥線索的導入。
 
@@ -41,7 +41,7 @@ title: "外撥Agent — 建立外撥任務（Create Outbound Task）"
 
 導入文件所支持的欄位（Fields），嚴格對應您提前在 Agent 欄位管理中勾選了“可通過外部導入”選項的自定義欄位：
 
-![](/images/zh-Hant/agent-operator/create-outbound-task/img-4.png)
+![](/images/zh-Hant/agent-operator/create-outbound-task/img-SmpQbOdKqoOnvvxwYY4jDnJFprd.png)
 
 - **唯一必填項**：在所有導入的列中，**只有“電話號碼 (Phone)”爲強制必填列**，其餘自定義欄位列（如姓名、年齡、性別、備註等）均允許留空或爲空值。
 - **物理容量上限**：單次上傳的數據表格最多支持包含 **20 個** 欄位列。如果上傳的文件中超出了 20 列，系統在讀取時將自動忽略超出範圍的列。
@@ -90,7 +90,7 @@ title: "外撥Agent — 建立外撥任務（Create Outbound Task）"
 
 基礎校驗通過後，系統提供數據在線訂正功能
 
-![](/images/zh-Hant/agent-operator/create-outbound-task/img-5.png)
+![](/images/zh-Hant/agent-operator/create-outbound-task/img-SMplb3afcoMwHhxBUY6jaxhUpdg.png)
 
 - **文件數據**：包括文件總行數 (Total)、格式正確的合格行數 (Correct) 以及包含錯誤的行數 (Errors)。錯誤行號（例如：`* Row 1, 3 have errors`）。
 - **數據狀態視覺高亮**：

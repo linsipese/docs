@@ -16,7 +16,7 @@ title: "外呼Agent — 创建外呼任务（Create Outbound Task）"
 - **业务脚本选择 (Script)**：用于指派该外呼任务关联的 AI 话术脚本。若当前工作空间内仅存在一个可用脚本，系统将默认处于选中状态，并优先关联最新创建的脚本版本。
 - **呼叫优先级 (Priority)**：决定任务在呼叫队列中的流转权重，系统默认预设为 **Normal（普通）** 级别。
 
-![](/images/zh-Hans/agent-operator/create-outbound-task/img-1.png)
+![](/images/zh-Hans/agent-operator/create-outbound-task/img-VZWqbYHzfomKwOxHoptjUy6Cp0e.png)
 
 #### 1.2 呼叫时间段管理 (Call Time Setting)
 
@@ -25,7 +25,7 @@ title: "外呼Agent — 创建外呼任务（Create Outbound Task）"
 - **15分钟粒度控制**：配置页面提供了一张覆盖周日至周一、跨度为 `08:00 - 20:00` 的可视化时间配置网格，最小配置间隔细化至 15 分钟，交互界面内置滚动条，默认自动定位至 `08:00` 视图。
 - **快速预设时段 (Select Preset)**：支持一键应用系统预设的快捷工作时段。应用预设后，每天的呼叫时间窗口默认配置为 `08:00` 开始至 `20:00` 结束。
 
-![](/images/zh-Hans/agent-operator/create-outbound-task/img-2.png)
+![](/images/zh-Hans/agent-operator/create-outbound-task/img-PcGwbXWsQoLEPRxs4rwj4ajdpIc.png)
 
 
 
@@ -33,7 +33,7 @@ title: "外呼Agent — 创建外呼任务（Create Outbound Task）"
 
 ### 2.   外呼线索数据导入与模板规范
 
-![](/images/zh-Hans/agent-operator/create-outbound-task/img-3.png)
+![](/images/zh-Hans/agent-operator/create-outbound-task/img-KtHibEvfuoQLGuxbZUAjHphHpFc.png)
 
 系统通过标准化的数据模板，实现了大批量外呼线索的导入。
 
@@ -41,7 +41,7 @@ title: "外呼Agent — 创建外呼任务（Create Outbound Task）"
 
 导入文件所支持的字段（Fields），严格对应您提前在 Agent 字段管理中勾选了“可通过外部导入”选项的自定义字段：
 
-![](/images/zh-Hans/agent-operator/create-outbound-task/img-4.png)
+![](/images/zh-Hans/agent-operator/create-outbound-task/img-GdqdbF0uAoPM0nx74a3jgLI8pPd.png)
 
 - **唯一必填项**：在所有导入的列中，**只有“电话号码 (Phone)”为强制必填列**，其余自定义字段列（如姓名、年龄、性别、备注等）均允许留空或为空值。
 - **物理容量上限**：单次上传的数据表格最多支持包含 **20 个** 字段列。如果上传的文件中超出了 20 列，系统在读取时将自动忽略超出范围的列。
@@ -90,7 +90,7 @@ title: "外呼Agent — 创建外呼任务（Create Outbound Task）"
 
 基础校验通过后，系统提供数据在线订正功能
 
-![](/images/zh-Hans/agent-operator/create-outbound-task/img-5.png)
+![](/images/zh-Hans/agent-operator/create-outbound-task/img-EU5IbbZwooN97dxoGZZjW9QfpPg.png)
 
 - **文件数据**：包括文件总行数 (Total)、格式正确的合格行数 (Correct) 以及包含错误的行数 (Errors)。错误行号（例如：`* Row 1, 3 have errors`）。
 - **数据状态视觉高亮**：

@@ -13,7 +13,7 @@ When improving AI voice or text interactions, it is essential to understand the 
 - **Purpose**: Inspect system execution traces in a conversation flow. By examining the internal state of each interaction, business teams can identify system bottlenecks and failures.
 - **Access**: On the Agent details page, open Conversation Record and click the **Latency** tag beneath any Agent message bubble. A full analysis drawer opens on the right side of the page.
 
-![](/images/en/agent-operator/alpha/img-1.png)
+![](/images/en/agent-operator/alpha/img-XmMDbCNMsoQkQhx2KuqjRv1lphf.png)
 
 
 
@@ -23,7 +23,7 @@ When improving AI voice or text interactions, it is essential to understand the 
 
 When you open Analysis Trace, the dashboard at the top first shows key global metrics for the current turn, giving you an initial performance snapshot:
 
-![](/images/en/agent-operator/alpha/img-2.png)
+![](/images/en/agent-operator/alpha/img-Vfc8bRgv6oNPxLxqQe7jdajSp5c.png)
 
 - **Start Time**: The precise time when the turn was triggered, in the format `YYYY-MM-DD HH:MM:SS`.
 - **Total Latency**: Defined as **the interval from the end of the user's speech to when the AI starts speaking**, measured in milliseconds (ms). A health color indicator provides a visual performance warning. Latency values are rounded up:
@@ -33,7 +33,7 @@ When you open Analysis Trace, the dashboard at the top first shows key global me
 - **Token Consumption**: Total tokens consumed by all large language model (LLM) calls in the current turn ($\sum\text{LLM}$).
 - **Status**: The final processing status of the turn, marked as **Success** or **Failed**.
 
-![](/images/en/agent-operator/alpha/img-3.png)
+![](/images/en/agent-operator/alpha/img-KHOybcB3Hos2AoxbfDXjKwEJpcf.png)
 
 ---
 
@@ -46,7 +46,7 @@ To make the components of latency easy to understand, the left side of the analy
 - T: followed by a number indicates the tokens consumed by the current process.
 </column>
 <column width-ratio="0.500000">
-![](/images/en/agent-operator/alpha/img-4.png)
+![](/images/en/agent-operator/alpha/img-GwvKb9fiHodXSwxAItxjpO6Dpjf.png)
 </column>
 </grid>
 
@@ -64,7 +64,7 @@ This section covers the process from audio capture to text conversion. Total lat
 - **Automatic Speech Recognition (ASR)**: Shows the ASR model's recognition duration and the final transcribed text output.
 - **Utterance Completeness Detection**: Records the model call time, model return time, and latency weight used for the determination, so the system can accurately decide whether the user has finished speaking.
 
-  ![](/images/en/agent-operator/alpha/img-5.png)
+  ![](/images/en/agent-operator/alpha/img-IWuwbhrDcoDffixupswjHAHJpMe.png)
 
 #### 4.2 LLM Processing (LLM Module)
 
@@ -74,7 +74,7 @@ Shows the AI decision-making process, including core execution data and context 
 - Input:
 - Output: Displays the content in “Content”.
 
-![](/images/en/agent-operator/alpha/img-6.png)
+![](/images/en/agent-operator/alpha/img-KVSFbkfe4oXkYsxoTnJjWfK3pde.png)
 
 #### 4.3 Tool Calling
 
@@ -83,7 +83,7 @@ Track actions where the Agent invokes external systems or executes specific inst
 - **All Function Types**: Logs plugin calls, including Knowledge query, Call Transfer (both legacy and current flows), Instruction mode, Hang up, Language switching, and custom business interfaces (Customize).
 - **Structured Logs**: Shows the Function name, service duration, and standard JSON request and response messages (input parameters and returned results) for each Tool Call.
 
-  ![](/images/en/agent-operator/alpha/img-7.png)
+  ![](/images/en/agent-operator/alpha/img-Tc6hbzXqloLQAIxb4AZjwMcPpsb.png)
 
 #### 4.4 Speech Synthesis Output (TTS Module)
 
@@ -92,4 +92,4 @@ The final step in the interaction flow shows the execution status of text-to-spe
 - **Performance Tracking**: Measures the synthesis duration from when the TTS model request is sent to when the system receives the first audio chunk (First Wave Chunk).
 - **Text Verification**: Shows the original input text sent to TTS for conversion to speech, so you can verify the accuracy of the spoken content.
 
-![](/images/en/agent-operator/alpha/img-8.png)
+![](/images/en/agent-operator/alpha/img-VVTEbuXVcoDeyjxTYDrjPkOSpVg.png)

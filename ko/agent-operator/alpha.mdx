@@ -13,7 +13,7 @@ title: "단일 턴 대화 분석 기능 (Analysis Trace) (Alpha 기능)"
 - **제품 개요:** 대화 흐름에서 시스템 실행 기록을 상세히 분석하는 기능입니다. 각 인터랙션의 내부 상태를 확인해 업무 병목이나 장애 지점을 찾도록 돕습니다.
 - **접근 경로**: Agent Detail의 대화 기록 페이지에서 대화  기록에 있는 Agent 발화 내용 아래의 **Latency (소요 시간)** 레이블을 클릭하면 화면 오른쪽에 분석 패널이 열립니다.
 
-![](/images/ko/agent-operator/alpha/img-1.png)
+![](/images/ko/agent-operator/alpha/img-AVfxbuM8poIkm7x4BNhjaMJ6pPe.png)
 
 
 
@@ -23,7 +23,7 @@ title: "단일 턴 대화 분석 기능 (Analysis Trace) (Alpha 기능)"
 
 Analysis Trace를 열면 상단 대시보드에 해당 대화 턴의 핵심 지표가 표시되어 기본 성능 상태를 파악할 수 있습니다.
 
-![](/images/ko/agent-operator/alpha/img-2.png)
+![](/images/ko/agent-operator/alpha/img-IigAbBDQgoaUvixqRhfjGjrLpid.png)
 
 - **시작 시간 (Start Time)**: 해당 대화 턴이 시작된 정확한 시각을 기록합니다. 형식: `YYYY-MM-DD HH:MM:SS`.
 - **전체 지연 시간 (Total Latency)**: **사용자의 발화가 끝난 시점부터 AI가 발화를 시작한 시점**까지의 전체 시간으로 정의합니다(단위: 밀리초/ms). 성능 상태를 직관적으로 확인할 수 있도록 지연 시간에 색상 표시를 적용합니다. 값은 10ms 단위로 올림 처리됩니다.
@@ -44,7 +44,7 @@ Analysis Trace를 열면 상단 대시보드에 해당 대화 턴의 핵심 지�
 - T:숫자는 현재 프로세스에서 사용된 Token 수를 나타냅니다.
 </column>
 <column width-ratio="0.500000">
-![](/images/ko/agent-operator/alpha/img-3.png)
+![](/images/ko/agent-operator/alpha/img-MaW7bTfkfo9CB0x3vmJjswwrpth.png)
 </column>
 </grid>
 
@@ -62,7 +62,7 @@ Analysis Trace를 열면 상단 대시보드에 해당 대화 턴의 핵심 지�
 - **음성 인식 (ASR)**: ASR 모델의 인식 소요 시간(Duration)과 최종 변환 텍스트(Output)를 표시합니다.
 - **발화 종료 판단 (Completeness Detection)**: 모델 호출 시각(Model Call Time), 모델 응답 시각(Model Return Time), 판단에 적용한 지연 시간 가중치를 정확하게 기록해 사용자의 발화가 끝났는지 시스템이 올바르게 판단하도록 합니다.
 
-  ![](/images/ko/agent-operator/alpha/img-4.png)
+  ![](/images/ko/agent-operator/alpha/img-IdTpbD1D6oKYcPx3cQojHXb3pcg.png)
 
 #### 4.2  LLM 모델 처리  (LLM Module)
 
@@ -72,7 +72,7 @@ AI의 추론 과정을 핵심 실행 데이터 및 컨텍스트 흐름과 함께
 - 입력:
 - 출력: “Content”에 포함된 내용을 표시합니다.
 
-![](/images/ko/agent-operator/alpha/img-5.png)
+![](/images/ko/agent-operator/alpha/img-TcXTb7Rgdo122gxXwbKj1jTzp3c.png)
 
 #### 4.3 도구 호출 (Tool Calling)
 
@@ -81,7 +81,7 @@ Agent가 외부 시스템을 호출하거나 특정 지시를 실행한 흐름�
 - **모든 유형 지원**: 지식 검색(Knowledge query), 전화 전환(Call Transfer, 신·구 버전 로직 포함), 지시 모드 전환(Instruction mode), 통화 종료(Hang up), 언어 전환(Language switching), 업무 사용자 정의 인터페이스(Customize) 등 각종 플러그인 호출 기록을 자세히 확인할 수 있습니다.
 - **구조화된 로그**: 각 Tool Call에서 호출된 Function 이름(Function_name), 처리 시간, 표준 JSON 요청·응답 메시지(입력 파라미터 및 반환 결과)를 표시합니다.
 
-  ![](/images/ko/agent-operator/alpha/img-6.png)
+  ![](/images/ko/agent-operator/alpha/img-BY0ZbYGU1o9vkgxEnJKjGoLepbc.png)
 
 #### 4.4 음성 합성 출력 (TTS Module)
 
@@ -90,4 +90,4 @@ Agent가 외부 시스템을 호출하거나 특정 지시를 실행한 흐름�
 - **성능 추적**: TTS 모델에 요청을 보낸 시점부터 시스템이 첫 오디오 패킷(First Wave Chunk)을 수신한 시점까지의 실제 합성 시간을 기록합니다.
 - **텍스트 검증**: 음성으로 변환한 원본 입력 텍스트(Input Text)를 표시해 안내 내용이 정확한지 확인할 수 있습니다.
 
-![](/images/ko/agent-operator/alpha/img-7.png)
+![](/images/ko/agent-operator/alpha/img-Bj0ubQNYTomKM1xPwdZjOBRHpxe.png)

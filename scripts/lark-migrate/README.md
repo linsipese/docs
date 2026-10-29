@@ -34,11 +34,12 @@ Global flags (accepted by every subcommand):
 - A leaf page becomes `<lang>/<slug>.mdx`. A page with children becomes `<lang>/<slug>/index.mdx` and its children live beside it.
 - Slugs: first matching `slug_overrides` entry wins; otherwise the ASCII text of the last ASCII-containing parenthetical, e.g. `Agent生成器（Agent Builder）` → `agent-builder`; otherwise all ASCII words of the title; if the title has no ASCII at all, the raw title is the filename. Collisions inside one directory get `-2`, `-3` suffixes.
 - Page order in `docs.json` follows the wiki order per language. Each language gets a single group named after the wiki dir title minus its language suffix (e.g. `Agent Lab产品使用手册`).
-- Images download to `images/<lang>/<page-path>/img-N.<ext>` (each page gets its own directory, mirroring its MDX path without the extension) and the MDX references them as `/images/...`.
+- Images download to `images/<lang>/<page-path>/img-<lark-token>.<ext>` (each page gets its own directory, mirroring its MDX path without the extension) and the MDX references them as `/images/...`. The token-named path is stable: inserting an image in the middle of a page never renames the others.
+- Sync never replaces a file with identical content. A page whose `obj_edit_time` changed is re-fetched, but the MDX is only rewritten when its bytes differ, and an image whose token already exists on disk is reused or renamed in place, not re-downloaded. Lark media tokens address immutable content, which is what makes token reuse safe. Only images whose tokens disappeared from the page are deleted.
 
 ## Refreshing after wiki edits
 
-Run `plan` again, then `sync`. A page is skipped when its Lark `obj_edit_time` is unchanged, its MDX exists, and all its recorded images exist. A re-synced page re-downloads its images and deletes image files from the previous run. `nav` rewrites a language's groups only when the result differs. `.state.json` is gitignored; delete it to force a full re-sync.
+Run `plan` again, then `sync`. A page is skipped when its Lark `obj_edit_time` is unchanged, its MDX exists, and all its recorded images exist. A re-synced page keeps unchanged images in place and rewrites its MDX only when the content actually differs. `nav` rewrites a language's groups only when the result differs. `.state.json` is gitignored; delete it to force a full re-sync.
 
 ## Adding a language
 

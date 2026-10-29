@@ -256,7 +256,7 @@ def cmd_plan(args):
 
 
 def sync_page(page, state, args):
-    prev = state.get(page["node_token"])
+    prev = state.get(page["node_token"]) or {}
     info = run_lark(["wiki", "+node-get", "--node-token", page["node_token"]])["data"]
     edit_time = info.get("obj_edit_time", "")
     if (prev and not args.force and prev.get("editTime") == edit_time
@@ -270,32 +270,47 @@ def sync_page(page, state, args):
     doc = run_lark(["docs", "+fetch", "--doc", page["obj_token"], "--doc-format", "markdown"])
     body = transform(doc["data"]["document"]["content"], page["title"])
     tokens = ordered_unique(IMAGE_RE.findall(body))
-    # Re-sync re-numbers images from 1, so clear the previous run's files first.
-    for rec in (prev or {}).get("images", []):
-        Path(REPO_ROOT / rec["path"]).unlink(missing_ok=True)
     img_dir = "images/" + page["file"][: -len(".mdx")]
+    prev_by_token = {rec["token"]: rec["path"] for rec in prev.get("images", [])}
     images, mapping = [], {}
-    for i, token in enumerate(tokens, 1):
-        (REPO_ROOT / img_dir).mkdir(parents=True, exist_ok=True)
-        base = f"{img_dir}/img-{i}"
-        # --output takes NO extension: the CLI appends the real one from the
-        # Content-Type, so the actual filename has to be globbed back afterwards.
-        run_lark(["docs", "+media-download", "--token", token, "--output", base])
-        found = glob.glob(str(REPO_ROOT / (base + ".*")))
-        if not found:
-            raise LarkError(f"no file produced for image token {token}")
-        rel = str(Path(found[0]).relative_to(REPO_ROOT))
+    for token in tokens:
+        old = prev_by_token.pop(token, None)
+        if old and (REPO_ROOT / old).exists():
+            # A Lark media token addresses immutable content, so an unchanged
+            # token means unchanged bytes: reuse the file (renaming only when
+            # it still carries the pre-token img-N name), never re-download.
+            target = f"{img_dir}/img-{token}{Path(old).suffix}"
+            if old != target:
+                (REPO_ROOT / img_dir).mkdir(parents=True, exist_ok=True)
+                (REPO_ROOT / old).replace(REPO_ROOT / target)
+            rel = target
+        else:
+            (REPO_ROOT / img_dir).mkdir(parents=True, exist_ok=True)
+            base = f"{img_dir}/img-{token}"
+            # --output takes NO extension: the CLI appends the real one from the
+            # Content-Type, so the actual filename has to be globbed back afterwards.
+            run_lark(["docs", "+media-download", "--token", token, "--output", base])
+            found = glob.glob(str(REPO_ROOT / (base + ".*")))
+            if not found:
+                raise LarkError(f"no file produced for image token {token}")
+            rel = str(Path(found[0]).relative_to(REPO_ROOT))
         mapping[token] = "/" + rel
         images.append({"token": token, "path": rel})
+    for stale in prev_by_token.values():
+        Path(REPO_ROOT / stale).unlink(missing_ok=True)
     body = IMAGE_RE.sub(lambda m: f"![]({mapping[m.group(1)]})", body)
     out_file = REPO_ROOT / page["file"]
-    out_file.parent.mkdir(parents=True, exist_ok=True)
-    out_file.write_text(frontmatter(page["title"]) + body)
+    content = frontmatter(page["title"]) + body
+    if out_file.exists() and out_file.read_text() == content:
+        print(f"kept    {page['file']} (content identical, file untouched)")
+    else:
+        out_file.parent.mkdir(parents=True, exist_ok=True)
+        out_file.write_text(content)
+        print(f"synced  {page['file']}  ({len(images)} images)")
     state[page["node_token"]] = {
         "title": page["title"], "slug": page["slug"], "file": page["file"],
         "editTime": edit_time, "images": images,
     }
-    print(f"synced  {page['file']}  ({len(images)} images)")
 
 
 def cmd_sync(args):

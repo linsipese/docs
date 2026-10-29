@@ -13,7 +13,7 @@ title: "單輪對話分析流程（Analysis Trace）（Alpha功能）"
 - **產品定位**：用於深入剖析對話流中的系統軌跡。通過透視每一次交互的內部狀態，幫助業務定位系統瓶頸或故障環節。
 - **訪問入口**：Agent Detail對話記錄頁面中，點擊對話明細（Conversation Record）中任意Agent對話氣泡下方的 **Latency（耗時）** 標籤，系統將從頁面右側展開一個完整的分析抽屜。
 
-![](/images/zh-Hant/agent-operator/alpha/img-1.png)
+![](/images/zh-Hant/agent-operator/alpha/img-Jy56b2Ia1oePJzxCxeIjyYcgpRg.png)
 
 
 
@@ -23,7 +23,7 @@ title: "單輪對話分析流程（Analysis Trace）（Alpha功能）"
 
 進入 Analysis Trace 後，頂部看板會首先呈現當輪對話的全局核心指標，幫您建立初步的性能快照：
 
-![](/images/zh-Hant/agent-operator/alpha/img-2.png)
+![](/images/zh-Hant/agent-operator/alpha/img-GPRebxSz9o3or4xI1t4jT7hLp7f.png)
 
 - **開始時間 (Start Time)**：記錄該輪對話觸發的精確時間（格式爲 `YYYY-MM-DD HH:MM:SS`）。
 - **總耗時 (Total Latency)**：定義爲**用戶話音結束到 AI 開始發聲**的完整跨度（單位：毫秒/ms）。爲了提供直觀的性能預警，總耗時內置了健康度顏色標識（數值進行 10 位數向上取整）：
@@ -33,7 +33,7 @@ title: "單輪對話分析流程（Analysis Trace）（Alpha功能）"
 - **Token 消耗 (Token Consumption)**：統計當前輪次中，所有大模型（LLM）呼叫的累計 Token 消耗總量（$\sum\text{LLM}$）。
 - **返回狀態 (Status)**：明確呈現本輪對話最終的處理狀態，標記爲 **成功 (Success)** 或 **失敗 (Failed)**。
 
-![](/images/zh-Hant/agent-operator/alpha/img-3.png)
+![](/images/zh-Hant/agent-operator/alpha/img-J5uFboPM8oaisPxC1GHj8UenpVf.png)
 
 ---
 
@@ -46,7 +46,7 @@ title: "單輪對話分析流程（Analysis Trace）（Alpha功能）"
 - T:數字 代表當前進程所消耗的Token數量
 </column>
 <column width-ratio="0.500000">
-![](/images/zh-Hant/agent-operator/alpha/img-4.png)
+![](/images/zh-Hant/agent-operator/alpha/img-WKPjbVFWeodY4TxhT8wjZpLFpGc.png)
 </column>
 </grid>
 
@@ -64,7 +64,7 @@ title: "單輪對話分析流程（Analysis Trace）（Alpha功能）"
 - **語音轉文字 (ASR)**：展示 ASR 模型的識別耗時（Duration）以及最終轉譯出的文字輸出（Output）。
 - **話語完整性判斷 (Completeness Detection)**：精確記錄模型呼叫時刻（Model Call Time）、模型返回時刻（Model Return Time）以及判斷所需的延遲權重，確保系統準確判定用戶是否表達完畢。
 
-  ![](/images/zh-Hant/agent-operator/alpha/img-5.png)
+  ![](/images/zh-Hant/agent-operator/alpha/img-KkkmbtbNXoUogVxOWutjuGzlpYg.png)
 
 #### 4.2 大模型處理邏輯 (LLM Module)
 
@@ -74,7 +74,7 @@ title: "單輪對話分析流程（Analysis Trace）（Alpha功能）"
 - Input：
 - Output：顯示“Content”中的內容
 
-![](/images/zh-Hant/agent-operator/alpha/img-6.png)
+![](/images/zh-Hant/agent-operator/alpha/img-ILmzb6nF3ouVXxxIZwTje9WOp7e.png)
 
 #### 4.3 工具呼叫 (Tool Calling)
 
@@ -83,7 +83,7 @@ title: "單輪對話分析流程（Analysis Trace）（Alpha功能）"
 - **全類型覆蓋**：詳細記錄包括知識庫檢索（Knowledge query）、電話轉接（Call Transfer / 包含新老版本邏輯）、指令模式切換（Instruction mode）、掛斷（Hang up）、語言切換（Language switching）以及業務自定義接口（Customize）在內的各類插件呼叫。
 - **結構化日誌**：展示每次 Tool Call 觸發的特定函數名（Function_name）、服務耗時、以及標準的 JSON 交互報文（輸入參數與返回結果）。
 
-  ![](/images/zh-Hant/agent-operator/alpha/img-7.png)
+  ![](/images/zh-Hant/agent-operator/alpha/img-McobbSssJoUptTxI6G8j0AVTpp8.png)
 
 #### 4.4 語音合成輸出 (TTS Module)
 
@@ -92,4 +92,4 @@ title: "單輪對話分析流程（Analysis Trace）（Alpha功能）"
 - **性能追蹤**：記錄從 TTS 模型發起請求時刻，到系統獲取到音頻首包（First Wave Chunk）時刻的實際合成耗時。
 - **文字覈驗**：展示驅動 TTS 轉化爲語音的原始輸入文字流（Input Text），便於覈對播報內容的準確性。
 
-![](/images/zh-Hant/agent-operator/alpha/img-8.png)
+![](/images/zh-Hant/agent-operator/alpha/img-YctgbY4obo40QwxWDrijEgNnpRc.png)
